@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardioDigest — Weekly Interventional Cardiology Digest</title>
+<style>
+  :root{
+    --bg:#fbfafa; --card:#ffffff; --ink:#1a1a1a; --muted:#6b6b6b;
+    --accent:#8b2635; --line:#e7e3e3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#161313; --card:#1f1b1b; --ink:#f1ecec; --muted:#a59c9c; --accent:#d98a96; --line:#332c2c; }
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:640px;margin:0 auto;padding:40px 20px 64px;}
+  .mast{font-size:30px;font-weight:800;letter-spacing:-0.02em;}
+  .mast span{color:var(--accent);}
+  .tagline{color:var(--muted);margin:6px 0 28px;font-size:15px;}
+  h2{font-size:13px;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);
+     margin:32px 0 12px;font-weight:700;}
+  .issue{display:block;text-decoration:none;color:inherit;background:var(--card);
+    border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:10px;
+    padding:16px 18px;margin-bottom:12px;transition:border-color .15s,transform .05s;}
+  .issue:hover{border-color:var(--accent);}
+  .issue:active{transform:translateY(1px);}
+  .issue .no{font-weight:700;font-size:17px;}
+  .issue .meta{color:var(--muted);font-size:14px;margin-top:3px;}
+  .issue .arrow{float:right;color:var(--accent);font-weight:700;}
+  .foot{color:var(--muted);font-size:12.5px;margin-top:40px;border-top:1px solid var(--line);padding-top:16px;}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="mast">Cardio<span>Digest</span></div>
+    <div class="tagline">A weekly digest of interventional cardiology — practice-changing trials, structured appraisals, and the evidence that moves the cath lab.</div>
+
+    <h2>Latest issue</h2>
+    <a class="issue" href="issue-0-v3.html">
+      <span class="arrow">→</span>
+      <div class="no">Issue 0 v3</div>
+      <div class="meta">Covering 21–27 May 2026 (widened to 14 May where thin) · 529 candidates reviewed, 46 selected</div>
+    </a>
+
+    <div class="foot">
+      CardioDigest is generated from peer-reviewed PubMed abstracts and ClinicalTrials.gov registrations.
+      Every figure is traceable to its source abstract. Educational content for clinicians — not medical advice.
+    </div>
+  </div>
+</body>
+</html>
