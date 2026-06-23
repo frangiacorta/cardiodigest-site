@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>CardioDigest — Issue 2026-w23</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5b6166; --faint:#8a9099; --line:#e6e8eb; --bg:#ffffff; --card:#fbfbfc;
+    --accent:#8b2635;
+    --accent-soft:#f4e7e9;
+    --t1:#8b2635;
+    --t2:#b5763a;
+    --t3:#5b6166;
+    --tag:#3a6b7e;
+    --maxw:640px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e9eaec; --muted:#a8aeb4; --faint:#7d838a; --line:#2a2d30; --bg:#141517; --card:#1b1d20; --accent:#e0879a; --accent-soft:#2a1c20; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 18px 56px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1,h2,h3{line-height:1.25;margin:0;}
+  .small{font-size:13px;color:var(--muted);}
+  .faint{color:var(--faint);}
+  .mast{border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:18px;}
+  .mast .brand{font-size:26px;font-weight:800;letter-spacing:-.4px;}
+  .mast .brand b{color:var(--accent);}
+  .mast .tagline{font-size:13px;color:var(--muted);margin-top:2px;}
+  .mast .meta{margin-top:10px;font-size:13px;color:var(--muted);}
+  .stats{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);}
+  .stat b{color:var(--ink);}
+  section{margin:26px 0 0;scroll-margin-top:12px;}
+  .sec-h{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:12px;}
+  .sec-h h2{font-size:16px;text-transform:uppercase;letter-spacing:.6px;}
+  .sec-h .rule{flex:1;}
+  .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:4px;color:#fff;}
+  .chip.t1{background:var(--t1);} .chip.t2{background:var(--t2);} .chip.t3{background:var(--t3);}
+  .chip.cond{background:var(--tag);}
+  .chip.pre{background:#6a4b8a;}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+  .toc ol{margin:6px 0 0;padding-left:18px;}
+  .toc li{margin:3px 0;font-size:14px;}
+  .toc .n{color:var(--faint);font-variant-numeric:tabular-nums;}
+  .tldr li{margin:7px 0;}
+  .tldr b{color:var(--ink);}
+  .item{padding:12px 0;border-bottom:1px solid var(--line);}
+  .item:last-child{border-bottom:none;}
+  .item .ttl{font-size:15px;font-weight:700;}
+  .acr{display:inline-block;font-weight:800;color:var(--accent);}
+  .item .src{font-size:12px;color:var(--muted);margin-top:2px;}
+  .item .body{margin-top:6px;font-size:14.5px;}
+  .item .body p{margin:6px 0;}
+  .deep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;}
+  .deep .ttl{font-size:16px;}
+  .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-top:10px;}
+  .deep .bottom{margin-top:10px;padding:8px 10px;background:var(--accent-soft);border-radius:6px;font-weight:600;}
+  .deep dl{margin:4px 0 0;}
+  .deep dt{font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .deep dd{margin:1px 0 0;font-size:14px;}
+  .feed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;}
+  .feed .fh{font-size:12px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.4px;}
+  .feed li{margin:6px 0;font-size:13.5px;}
+  .qh li{margin:6px 0;font-size:14px;}
+  .fmt{font-size:11px;font-weight:700;color:var(--tag);border:1px solid var(--tag);border-radius:4px;padding:1px 6px;margin-left:4px;}
+  .landmark{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:14px;}
+  footer{margin-top:34px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted);}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1 · HEADER -->
+  <header class="mast">
+    <div class="brand">Cardio<b>Digest</b></div>
+    <div class="tagline">Weekly Interventional Cardiology Digest</div>
+    <div class="meta">Issue 2026-w23 &middot; 1&ndash;7 June 2026</div>
+    <div class="stats">
+      <span class="stat"><b>519</b> candidates</span>
+      <span class="stat"><b>43</b> selected</span>
+      <span class="stat"><b>6</b> registries</span>
+    </div>
+  </header>
+
+  <!-- 2 · INDEX -->
+  <section id="index">
+    <nav class="toc" aria-label="Contents">
+      <div class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.5px;">In this issue</div>
+      <ol>
+        <li><a href="#tldr">Top Highlights / TL;DR</a></li>
+        <li><a href="#industry">Industry &amp; Regulatory Watch</a></li>
+        <li><a href="#tier1">Tier 1 &mdash; Practice-changing</a></li>
+        <li><a href="#tier2">Tier 2 &mdash; Notable</a></li>
+        <li><a href="#tier3">Tier 3 &mdash; Worth knowing</a></li>
+        <li><a href="#quickhits">Quick hits</a></li>
+        <li><a href="#educational">Educational picks</a></li>
+        <li><a href="#podcasts">Podcast picks</a></li>
+        <li><a href="#landmark">Landmark Revisited</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- 3 · TL;DR -->
+  <section id="tldr">
+    <div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
+    <ul class="tldr">
+      <li><b>Finerenone across the full CKD spectrum (INFINITY IPD meta-analysis):</b> pooling three RCTs in 14,574 patients, finerenone reduced the kidney composite by 24% and the CV composite by 20%, with a favourable all-cause mortality signal (HR 0.88). <a href="#infinity">&#8595;</a></li>
+      <li><b>GLP-1 RA beat SGLT2i after AMI-PCI:</b> in 1,752 propensity-matched pairs, GLP-1 RA initiation post-AMI-PCI was associated with lower HF hospitalisation (HR 0.415), MACE (HR 0.788), and all-cause mortality (HR 0.700) vs SGLT2i at one year. <a href="#glp1ami">&#8595;</a></li>
+      <li><b>Mechanical thrombectomy confers one-year survival benefit in intermediate-risk PE:</b> across two independent cohorts totalling more than 7,700 patients (3,867 per arm), catheter-directed MT was associated with significantly lower one-year mortality versus anticoagulation alone. <a href="#mipe">&#8595;</a></li>
+      <li><b>FINE-HEART &mdash; finerenone reduces sudden cardiac death:</b> pooled analysis of 18,991 patients across FIDELIO-DKD, FIGARO-DKD, and FINEARTS-HF shows HR 0.81 (P=0.034) for the sudden cardiac death / resuscitated arrest composite, positioning the non-steroidal MRA class as an anti-arrhythmic death modifier. <a href="#fineheart">&#8595;</a></li>
+      <li><b>TRACK &mdash; low-dose rivaroxaban fails and harms in advanced CKD:</b> 1,458-patient RCT stopped early; HR 1.09 (P=0.46) for CV composite, major bleeding HR 1.51 (P=0.04). Empiric antithrombotic intensification in CKD stage 4&ndash;5 is definitively closed. <a href="#track">&#8595;</a></li>
+      <li><b>Retatrutide phase 3 in T2DM (TRANSCEND-T2D-1):</b> triple GIP/GLP-1/glucagon agonist achieved HbA1c reduction of 1.94% (12 mg dose) vs 0.81% with placebo and body weight loss of 15.3% vs 2.6% with placebo at 40 weeks in 537 patients with T2DM. <a href="#quickhits">&#8595;</a></li>
+      <li><b>DEFINE-HT &mdash; dd-cfDNA surveillance after heart transplant:</b> above-threshold dd-cfDNA conferred a 4.42-fold higher risk of a composite of treated rejection, graft dysfunction, retransplantation, or death in 110 transplant recipients, validating non-invasive surveillance to reduce protocol biopsies. <a href="#defineht">&#8595;</a></li>
+    </ul>
+  </section>
+
+  <!-- 5 · INDUSTRY & REGULATORY WATCH -->
+  <section id="industry">
+    <div class="sec-h"><span class="chip cond">Watch</span><h2>Industry &amp; Regulatory</h2><span class="rule"></span></div>
+
+    <div class="item">
+      <div class="ttl">Short vs 12-Month Prasugrel+Aspirin After PCI with Everolimus-Eluting Stents</div>
+      <div class="src">Phase 4 &middot; NCT06718179</div>
+      <div class="body">Randomised evaluation of abbreviated DAPT duration in ACS patients receiving contemporary thin-strut everolimus-eluting stents, powered for ischaemic and bleeding co-primary endpoints. <a href="https://clinicaltrials.gov/study/NCT06718179">NCT06718179 &#8599;</a></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl">CYP2C19 Genotype-Guided P2Y12 Selection After Complex PCI</div>
+      <div class="src">Phase 4 &middot; NCT06283888</div>
+      <div class="body">Prospective trial testing whether CYP2C19 genotyping to choose between ticagrelor and clopidogrel after complex PCI (multivessel, bifurcation, left main, chronic total occlusion) reduces net adverse clinical events. <a href="https://clinicaltrials.gov/study/NCT06283888">NCT06283888 &#8599;</a></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl">Low-Dose Ticagrelor vs Clopidogrel in Elective PCI</div>
+      <div class="src">Phase 4 &middot; NCT06228456</div>
+      <div class="body">Head-to-head comparison of ticagrelor 60 mg twice daily versus standard clopidogrel in stable patients undergoing planned PCI, examining whether a de-escalation ticagrelor dose preserves ischaemic efficacy with improved tolerability. <a href="https://clinicaltrials.gov/study/NCT06228456">NCT06228456 &#8599;</a></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl">Perioperative Intensive Statin Therapy for Neuroprotection in TAVR &mdash; PISTNT</div>
+      <div class="src">Phase 4 &middot; NCT07087379</div>
+      <div class="body">Randomised trial of intensified statin loading before and after TAVR versus standard care, with silent cerebral infarction on diffusion-weighted MRI and 30-day clinical neurological outcomes as primary endpoints. <a href="https://clinicaltrials.gov/study/NCT07087379">NCT07087379 &#8599;</a></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl">Antithrombotic Strategies After Mitral TEER Without OAC Indication &mdash; STAR-TEER</div>
+      <div class="src">Phase 4 &middot; NCT07007143</div>
+      <div class="body">Multi-arm platform randomising patients without OAC indication undergoing transcatheter mitral edge-to-edge repair to different antiplatelet and anticoagulant strategies; stroke and bleeding as co-primary endpoints. <a href="https://clinicaltrials.gov/study/NCT07007143">NCT07007143 &#8599;</a></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl">Physiology of Unloading in VA-ECMO &mdash; PURE Trial</div>
+      <div class="src">Phase 2 &middot; NCT06336655</div>
+      <div class="body">Mechanistic RCT examining whether adding active left ventricular unloading (Impella) to VA-ECMO in cardiogenic shock alters myocardial energy consumption, haemodynamic parameters, and recovery rates compared with VA-ECMO alone. Directly motivated by the IABP-SHOCK II legacy (see Landmark). <a href="https://clinicaltrials.gov/study/NCT06336655">NCT06336655 &#8599;</a></div>
+    </div>
+  </section>
+
+  <!-- 6 · TIER 1 -->
+  <section id="tier1">
+    <div class="sec-h"><span class="chip t1">Tier 1</span><h2>Practice-changing</h2><span class="rule"></span></div>
+
+    <!-- Deep dive 1 -->
+    <div class="deep" id="infinity">
+      <div class="ttl"><span class="acr">INFINITY</span> &mdash; Finerenone across the full CKD spectrum: individual patient-data meta-analysis</div>
+      <div class="src">Pitt B et al. &middot; <em>Lancet</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42248158/">primary source &#8599;</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt>
+        <dd>Finerenone, a non-steroidal mineralocorticoid receptor antagonist, reduced kidney and cardiovascular events in diabetic CKD in FIDELIO-DKD and FIGARO-DKD. INFINITY pooled individual patient data from three RCTs&mdash;FIDELIO-DKD, FIGARO-DKD, and FIND-CKD (non-diabetic CKD)&mdash;to determine whether benefit extends across the full CKD spectrum regardless of diabetes status.</dd>
+        <dt>Methods</dt>
+        <dd>Individual patient-data meta-analysis of 14,574 patients randomised to finerenone or placebo across three double-blind RCTs. Main kidney outcome: kidney failure or sustained &ge;57% eGFR decline. Main cardiovascular outcome: HF hospitalisation or cardiovascular death. Subgroup analyses by CKD stage, UACR, and diabetes status.</dd>
+        <dt>Key results</dt>
+        <dd>Finerenone significantly reduced the kidney composite (HR 0.76; 95% CI 0.68&ndash;0.86) and CV composite (HR 0.80; 95% CI 0.70&ndash;0.91). All-cause mortality showed a favourable signal (HR 0.88; 95% CI 0.79&ndash;0.99). Benefits were consistent across CKD stages and between diabetic and non-diabetic patients. Hyperkalaemia occurred more frequently with finerenone than with placebo, but the absolute incidence of hyperkalaemia leading to hospitalisation was low.</dd>
+        <dt>Conclusion</dt>
+        <dd>Finerenone confers consistent kidney and cardiovascular protection across the full CKD spectrum irrespective of diabetes status, supporting a class-wide indication for non-steroidal MRA therapy.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt>
+        <dd>Individual patient-data meta-analysis of three phase 3 RCTs with a pre-specified pooling protocol and harmonised endpoints &mdash; the highest level of meta-analytic evidence.</dd>
+        <dt>Clinical relevance</dt>
+        <dd>Clinicians managing CKD patients regardless of diabetes status now have robust pooled evidence for finerenone. The all-cause mortality signal (HR 0.88) is particularly meaningful given the fragmented single-trial evidence base that preceded INFINITY.</dd>
+        <dt>Context</dt>
+        <dd>FIDELIO-DKD and FIGARO-DKD individually showed renal and CV benefits in diabetic CKD. FIND-CKD extended the evidence to non-diabetic CKD. INFINITY is the first individual-patient pooling across all three, confirming cross-spectrum benefit at the dataset level rather than aggregate trial level.</dd>
+        <dt>Limitations</dt>
+        <dd>FIND-CKD contributed a smaller patient fraction with shorter follow-up. Non-diabetic CKD had fewer events, limiting power for some subgroups. Hyperkalaemia management protocols differed across participating trials. Real-world implementation requires potassium monitoring frameworks.</dd>
+      </dl>
+      <div class="bottom">Bottom line: Finerenone should now be considered in all CKD patients with elevated UACR regardless of diabetes &mdash; the pooled RCT evidence is robust for both kidney and cardiovascular endpoints including a potential all-cause mortality benefit.</div>
+    </div>
+
+    <!-- Deep dive 2 -->
+    <div class="deep" id="glp1ami">
+      <div class="ttl"><span class="acr">GLP-1 RA vs SGLT2i post-AMI</span> &mdash; Comparative outcomes after PCI for acute myocardial infarction</div>
+      <div class="src">Zhou X et al. &middot; <em>Catheter Cardiovasc Interv</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42219874/">primary source &#8599;</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt>
+        <dd>GLP-1 receptor agonists and SGLT2 inhibitors both reduce cardiovascular events in high-risk populations, but head-to-head comparisons specifically in AMI patients undergoing PCI are unavailable. Choosing between these drug classes at AMI discharge is an increasingly common clinical decision.</dd>
+        <dt>Methods</dt>
+        <dd>Retrospective propensity-score matched cohort study using the TriNetX US Collaborative Network. Patients with AMI who underwent PCI initiating GLP-1 RA or SGLT2 inhibitor within 14 days were matched 1:1, yielding 1,752 pairs. Primary outcomes at one year: HF hospitalisation, MACE (death/MI/stroke), and all-cause mortality.</dd>
+        <dt>Key results</dt>
+        <dd>GLP-1 RA use was associated with significantly lower one-year acute HF (HR 0.415; 95% CI 0.343&ndash;0.501), MACE (HR 0.788; 95% CI 0.706&ndash;0.881), and all-cause mortality (HR 0.700; 95% CI 0.507&ndash;0.967). Additional reductions: recurrent MI (HR 0.799), stroke (HR 0.800), atrial fibrillation (HR 0.804), AKI (HR 0.534). At 30 days, absolute risk reduction for acute HF was 7.19 percentage points (95% CI 5.66&ndash;8.72).</dd>
+        <dt>Conclusion</dt>
+        <dd>In AMI patients treated with PCI, early initiation of a GLP-1 RA was associated with superior one-year outcomes across all three primary endpoints compared with SGLT2 inhibitor initiation.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt>
+        <dd>Propensity-matched retrospective cohort. Residual confounding (e.g., physician prescribing preferences, patient tolerance, co-medication) cannot be fully excluded. The large HF hospitalisation HR (0.415) is hypothesis-generating and exceeds effects seen in dedicated HF trials.</dd>
+        <dt>Clinical relevance</dt>
+        <dd>Directly informs the practical choice between drug classes at AMI-PCI discharge when both are appropriate. HF hospitalisation is a high-frequency post-AMI event and a major driver of readmission burden.</dd>
+        <dt>Context</dt>
+        <dd>SGLT2 inhibitors demonstrated HF hospitalisation reduction in DAPA-HF and EMPEROR-Reduced in chronic HFrEF populations. GLP-1 RA trials showed CV death reduction in chronic high-risk CVD. Neither class has been compared head-to-head in the acute MI setting.</dd>
+        <dt>Limitations</dt>
+        <dd>Retrospective design from a single-country registry; drug adherence, dose titration, and background GDMT were not fully captured. An RCT is needed to confirm this finding.</dd>
+      </dl>
+      <div class="bottom">Bottom line: When choosing between a GLP-1 RA and SGLT2 inhibitor at AMI-PCI discharge, this propensity-matched analysis favours GLP-1 RA initiation &mdash; a strong signal warranting urgent randomised confirmation.</div>
+    </div>
+
+    <!-- Deep dive 3 -->
+    <div class="deep" id="mipe">
+      <div class="ttl"><span class="acr">MT vs AC in Intermediate-Risk PE</span> &mdash; One-year survival with catheter-directed mechanical thrombectomy</div>
+      <div class="src">Chandra A et al. &middot; <em>Catheter Cardiovasc Interv</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42219798/">primary source &#8599;</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt>
+        <dd>Whether catheter-directed mechanical thrombectomy (MT) confers a survival advantage over anticoagulation alone in intermediate-risk PE — and whether this benefit differs across intermediate-risk PE subgroups — remained unknown.</dd>
+        <dt>Methods</dt>
+        <dd>Retrospective 1:1 propensity-score matched cohort study using the TriNetX Analytics Network (2010–2026). Adults with acute PE were stratified by risk: low-intermediate (AHA/ACC Category C1–C2; 2,717 per arm) and high-intermediate (Category C3; 1,150 per arm). Primary endpoint: all-cause mortality at 365 days. Secondary endpoints: new-onset pulmonary hypertension, right heart failure, acute respiratory failure, and bleeding.</dd>
+        <dt>Key results</dt>
+        <dd>MT reduced 1-year mortality in both subgroups: low-intermediate (11.0% MT vs 17.8% AC; HR 0.642, 95% CI 0.556–0.741; P&lt;0.001) and high-intermediate (7.0% vs 11.0%; HR 0.631, 95% CI 0.475–0.839; P=0.002). Critical signal: in low-intermediate risk PE, MT was associated with increased pulmonary hypertension (HR 1.578; P&lt;0.001) and right heart failure (HR 4.473; P&lt;0.001) despite the mortality signal. In high-intermediate risk PE, MT reduced pulmonary hypertension (HR 0.764; P=0.044) and bleeding (HR 0.744; P=0.048).</dd>
+        <dt>Conclusion</dt>
+        <dd>MT was associated with lower 1-year mortality in both intermediate-risk PE subgroups, but the net clinical benefit is risk-profile dependent: benefit appears clearer in high-intermediate risk (Category C3); in low-intermediate risk the survival signal is offset by significantly elevated pulmonary hypertension and right heart failure rates.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt>
+        <dd>TriNetX propensity-matched retrospective cohort — large sample sizes (2,717 and 1,150 per arm) and risk stratification by validated AHA/ACC category are strengths. TriNetX de-identified real-world data cannot capture device choice, operator expertise, or anticoagulation protocol variation. Retrospective design precludes causal inference.</dd>
+        <dt>Clinical relevance</dt>
+        <dd>Extends PE catheter-therapy evidence to a 1-year mortality horizon. The divergent pulmonary hypertension and RHF signals between risk subgroups are the most clinically actionable finding: they caution against extending MT to lower-acuity PE presentations where the haemodynamic aftermath may negate any survival signal.</dd>
+        <dt>Context</dt>
+        <dd>Prior catheter-based PE trials powered their primary endpoints to short-term RV recovery. This is the largest comparative 1-year dataset in intermediate-risk PE to date and is hypothesis-generating for RCT design.</dd>
+        <dt>Limitations</dt>
+        <dd>Retrospective; TriNetX heterogeneous institutions; MT device type not captured; anticoagulation regimen variation; AHA/ACC 2026 PE categories applied retrospectively. An RCT with 1-year mortality primary endpoint is the essential next step.</dd>
+      </dl>
+      <div class="bottom">Bottom line: MT appears to improve 1-year survival in intermediate-risk PE, but the elevated pulmonary hypertension and right heart failure risk in lower-acuity presentations demands risk stratification before catheter intervention — a formal RCT powered for mortality is urgently needed.</div>
+    </div>
+
+    <!-- Tier 1 briefs -->
+    <div class="item" id="doac-vte">
+      <div class="ttl"><span class="acr">Reduced vs Full-Dose DOAC in VTE</span> &mdash; Meta-analysis, 5 RCTs, N=8,781</div>
+      <div class="src">Siddiqui FM et al. &middot; <em>JSCAI</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42183132/">source &#8599;</a></div>
+      <div class="body"><p>Meta-analysis of five RCTs (N=8,781) comparing reduced-dose versus standard-dose DOAC for extended VTE treatment. Reduced-dose DOACs significantly reduced major bleeding (RR 0.62; P=0.019) without a statistically significant increase in recurrent VTE (RR 0.92; P=0.587). The bleeding benefit occurred without significant loss of efficacy protection, supporting dose-reduced DOAC regimens as the preferred strategy for extended-phase anticoagulation in patients with elevated bleeding risk &mdash; particularly relevant to patients with prior PE who are at risk of both recurrence and anticoagulant-related haemorrhage.</p></div>
+    </div>
+
+    <div class="item" id="smurf-pci">
+      <div class="ttl"><span class="acr">SMuRF Control Before PCI</span> &mdash; Modifiable risk factor optimisation and one-year MACE</div>
+      <div class="src">Galougahi KK et al. &middot; <em>Eur Heart J</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42223115/">source &#8599;</a></div>
+      <div class="body"><p>Retrospective cohort of 19,651 PCI patients examined whether pre-procedural control of all four standard modifiable cardiovascular risk factors (SMuRFs: hypertension, dyslipidaemia, diabetes, smoking) independently predicted one-year MACE (all-cause mortality, MI, or stroke). Patients with all four SMuRFs controlled had substantially lower adjusted MACE rates vs those with uncontrolled risk factors. Glycaemic control was the single strongest independent predictor (adjusted HR 0.56) among the four. The data directly motivate structured pre-PCI cardiometabolic optimisation clinics and reinforce that procedural success alone is insufficient without addressing the risk factor milieu.</p></div>
+    </div>
+
+    <div class="item" id="suppress-af">
+      <div class="ttl"><span class="acr">SUPPRESS-AF</span> &mdash; Low-voltage area-guided ablation by substrate size</div>
+      <div class="src">Nishimura T et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42179253/">source &#8599;</a></div>
+      <div class="body"><p>Prospective analysis of low-voltage area (LVA)-guided ablation stratified by LVA extent in persistent AF patients. In patients with extensive LVA (&ge;20 cm&sup2;), targeted substrate ablation conferred a statistically significant reduction in AF recurrence (P=0.029); benefit was not observed in patients with smaller LVA. LVA mapping identifies the subgroup most likely to benefit from substrate-based lesion sets beyond pulmonary vein isolation, supporting routine pre-ablation voltage mapping to personalise the ablation strategy in persistent AF.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · TIER 2 -->
+  <section id="tier2">
+    <div class="sec-h"><span class="chip t2">Tier 2</span><h2>Notable</h2><span class="rule"></span></div>
+
+    <div class="item" id="fineheart">
+      <div class="ttl"><span class="acr">FINE-HEART</span> &mdash; Finerenone and sudden cardiac death in CKD</div>
+      <div class="src">Zannad F et al. &middot; <em>J Am Coll Cardiol</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42233928/">source &#8599;</a></div>
+      <div class="body"><p>Pre-specified pooled analysis of FIDELIO-DKD, FIGARO-DKD, and FINEARTS-HF (N=18,991) examining sudden cardiac death (SCD) and resuscitated cardiac arrest as a composite. Finerenone significantly reduced the SCD/resuscitated arrest composite (HR 0.81; P=0.034). The anti-arrhythmic signal aligns with mineralocorticoid receptor antagonism reducing aldosterone-driven ventricular arrhythmia susceptibility. This positions finerenone as a potential modifier of arrhythmic death in the CKD-HF population, where SCD burden is particularly high and few targeted interventions exist.</p></div>
+    </div>
+
+    <div class="item" id="empire1">
+      <div class="ttl"><span class="acr">EMPIRE I</span> &mdash; ALLEGRA transcatheter heart valve: one-year outcomes</div>
+      <div class="src">Baldus S et al. &middot; <em>Catheter Cardiovasc Interv</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42219796/">source &#8599;</a></div>
+      <div class="body"><p>One-year data from the EMPIRE I registry of the ALLEGRA bioprosthetic transcatheter heart valve in intermediate-to-high surgical risk aortic stenosis patients. Cardiovascular mortality was 6.8% and all-cause mortality 10.8% at one year in the native aortic stenosis population; bioprosthetic valve dysfunction occurred in 5.9% and no structural valve deterioration was observed. Valve haemodynamic performance (gradient, effective orifice area) remained stable. These data support CE-mark use of ALLEGRA across its approved indication spectrum and add to the expanding portfolio of approved THV systems.</p></div>
+    </div>
+
+    <div class="item" id="defineht">
+      <div class="ttl"><span class="acr">DEFINE-HT</span> &mdash; Donor-derived cell-free DNA surveillance after heart transplantation</div>
+      <div class="src">Jorde UP et al. &middot; <em>JACC Heart Fail</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42246920/">source &#8599;</a></div>
+      <div class="body"><p>Prospective study of 110 heart transplant recipients: dd-cfDNA above a pre-specified threshold was associated with a 4.42-fold higher composite risk of treated rejection, graft dysfunction, retransplantation, or death. Test performance supports dd-cfDNA as a non-invasive surveillance biomarker that can reduce reliance on protocol endomyocardial biopsies in stable patients. Ongoing implementation studies are examining whether a dd-cfDNA-guided biopsy-reduction algorithm is safe to adopt in routine transplant surveillance programmes.</p></div>
+    </div>
+
+    <div class="item" id="flow-ckd">
+      <div class="ttl"><span class="acr">FLOW</span> &mdash; Semaglutide CV protection across CKD subgroups</div>
+      <div class="src">Perkovic V et al. (subgroup analysis) &middot; <em>J Am Coll Cardiol</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42233552/">source &#8599;</a></div>
+      <div class="body"><p>Pre-specified cardiovascular subgroup analysis of FLOW (semaglutide 1 mg weekly vs placebo in CKD + T2DM). Across pre-specified cardiovascular subgroups (ASCVD status, heart failure status, and high total CV risk [PREVENT score &ge;20%]), semaglutide reduced the primary kidney and survival composite consistently, irrespective of established CVD or heart failure. Combined with INFINITY, these data provide a compelling rationale for combining semaglutide and finerenone for maximum kidney-heart protection in diabetic CKD &mdash; an approach currently under evaluation in prospective combination trials.</p></div>
+    </div>
+
+    <div class="item" id="glp1-autoimmune">
+      <div class="ttl"><span class="acr">GLP-1 RA in obesity + autoimmune disease</span> &mdash; VTE and mortality outcomes</div>
+      <div class="src">Liang X et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42250252/">source &#8599;</a></div>
+      <div class="body"><p>Target trial emulation in 26,408 obesity patients with autoimmune disease (13,204 GLP-1 RA users matched 1:1 to 13,204 non-users) comparing GLP-1 RA initiation vs no GLP-1 RA. GLP-1 RA users had lower pulmonary embolism rates (HR 0.69) and all-cause mortality (HR 0.56). The immune-modulatory and anti-inflammatory properties of GLP-1 receptor signalling may be particularly relevant in the autoimmune-CVD overlap population, where traditional CV risk reduction tools are often under-utilised and where systemic inflammation itself drives vascular events.</p></div>
+    </div>
+
+    <div class="item" id="ra-strain-tr">
+      <div class="ttl"><span class="acr">Right atrial strain in TR</span> &mdash; Prognostic marker for survival</div>
+      <div class="src">Taramasso M et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42179242/">source &#8599;</a></div>
+      <div class="body"><p>Prospective echocardiographic study enrolling 289 patients with significant TR (239 included in survival analysis): right atrial reservoir strain (RArS) below the median of 11.7% identified a high-risk phenotype with significantly lower survival rates (52% vs 30%; P&lt;0.001) compared with RArS &ge;11.7%. Lower RArS was independently associated with higher all-cause mortality in multivariable analysis (OR 0.92; 95% CI 0.85&ndash;0.99; P=0.04). The data support integrating RArS into the TR severity and intervention-timing toolkit alongside TAPSE, RVEF, and right atrial area, and may help identify patients who derive the greatest benefit from transcatheter TR repair before advanced RV-RA dysfunction supervenes.</p></div>
+    </div>
+
+    <div class="item" id="fourier-lpa">
+      <div class="ttl"><span class="acr">FOURIER</span> &mdash; Safety of very low Lp(a) with evolocumab</div>
+      <div class="src">O'Donoghue ML et al. (substudy) &middot; <em>Eur Heart J</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42234492/">source &#8599;</a></div>
+      <div class="body"><p>Post-hoc FOURIER substudy (N=25,090): very low Lp(a) concentrations were not associated with increased risks of haemorrhagic stroke, serious bleeding, neurocognitive events, or malignancy. However, lower Lp(a) was independently associated with a modestly higher incident diabetes risk (HR 1.05 per 50 nmol/L lower; P=0.002). Evolocumab itself did not increase diabetes risk irrespective of baseline Lp(a). As dedicated Lp(a)-lowering therapies (pelacarsen, olpasiran, muvalaplin) approach late-stage development, the safety reassurance around achieving very low Lp(a) as an on-treatment target is timely and directly relevant to the design of outcomes trials in this space.</p></div>
+    </div>
+
+    <div class="item" id="oct-ami">
+      <div class="ttl"><span class="acr">OCT-optimised stenting in AMI</span> &mdash; Imaging criteria for device failure</div>
+      <div class="src">Ali ZA et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42179255/">source &#8599;</a></div>
+      <div class="body"><p>OCT-guided PCI analysis in 881 AMI patients: minimum stent area below 4.5 mm&sup2;, irregular protrusion, and distal reference lumen narrowing each independently predicted device-oriented cardiovascular events (cardiac death, target-vessel MI, or target-lesion revascularisation) at a median follow-up of 4.0 years; patients with suboptimal deployment (&ge;1 criterion met) had significantly higher event rates. These OCT-derived optimisation benchmarks complement the existing IVUS literature from ILUMIEN III, OPINION, and OCTOBER trials and provide a practical AMI-specific OCT protocol target list for operators using intravascular imaging guidance.</p></div>
+    </div>
+
+    <div class="item" id="hsctn-nste">
+      <div class="ttl"><span class="acr">hs-cTnT in NSTE-ACS</span> &mdash; Diagnostic discrimination for obstructive CAD</div>
+      <div class="src">Ibanez B et al. &middot; <em>Cardiovasc Revasc Med</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42230218/">source &#8599;</a></div>
+      <div class="body"><p>Single-centre retrospective analysis of 728 consecutive NSTE-ACS patients: obstructive CAD was confirmed on angiography in 57%. The AUC of hs-cTnT for predicting obstructive CAD was 0.64, indicating modest discriminatory performance despite clear clinical utility for diagnosis of myocardial injury. Very high hs-cTnT carried the highest positive predictive value for obstructive disease, but a substantial minority of non-obstructive presentations remained troponin-elevated. These data caution against using hs-cTnT magnitude alone to triage angiography timing in NSTE-ACS.</p></div>
+    </div>
+
+    <div class="item" id="ntprobnp-hfref">
+      <div class="ttl"><span class="acr">NT-proBNP over LVEF</span> &mdash; Superior prognostic marker in HFrEF post-GDMT</div>
+      <div class="src">Stolfo D et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42179256/">source &#8599;</a></div>
+      <div class="body"><p>Retrospective cohort of 6,168 HFrEF patients titrated to maximally tolerated GDMT: on-treatment NT-proBNP at approximately 9 months following diagnosis outperformed LVEF recovery in predicting all-cause mortality and HF hospitalisation (superior C-statistic in all subgroups). The data argue for routinely incorporating NT-proBNP response &mdash; rather than LVEF alone &mdash; as the primary biomarker-guided target in post-GDMT risk stratification and therapy escalation decisions, consistent with evolving HF treat-to-target frameworks.</p></div>
+    </div>
+
+    <div class="item" id="hf-lmic">
+      <div class="ttl"><span class="acr">HF management in resource-limited settings</span> &mdash; LMIC adaptation framework</div>
+      <div class="src">Sliwa K et al. &middot; <em>Eur J Heart Fail</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42240859/">source &#8599;</a></div>
+      <div class="body"><p>Consensus document proposing tiered HF management pathways for low- and middle-income health systems where full GDMT quadruple therapy and specialist follow-up are not universally available. Priority pathways focus on ACEi/ARB and beta-blocker initiation as the minimum standard; tiered access models are proposed for SGLT2 inhibitors and MRAs where generic formulations are available. The document also addresses the unique aetiology mix in Sub-Saharan Africa &mdash; peripartum cardiomyopathy and rheumatic HF &mdash; underrepresented in major trial populations.</p></div>
+    </div>
+
+    <div class="item" id="lamd-amyloid">
+      <div class="ttl"><span class="acr">LAMD in cardiac amyloidosis</span> &mdash; Atrial arrhythmia prediction by left atrial mechanical dispersion</div>
+      <div class="src">Martins E et al. &middot; <em>Int J Cardiol</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42242384/">source &#8599;</a></div>
+      <div class="body"><p>Prospective study of left atrial mechanical dispersion (LAMD) in cardiac amyloidosis patients in sinus rhythm: elevated LAMD (above 6.6%) independently predicted new-onset AF or flutter during a median follow-up of 11 months after adjusting for LA volume, CA type (ATTR vs AL), and NT-proBNP. LAMD identifies CA patients at highest atrial arrhythmia risk who may warrant earlier anticoagulation discussion, closer rhythm monitoring, or rhythm-based intervention before symptomatic AF emerges in the context of already-advanced substrate disease.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · TIER 3 -->
+  <section id="tier3">
+    <div class="sec-h"><span class="chip t3">Tier 3</span><h2>Worth knowing</h2><span class="rule"></span></div>
+
+    <div class="item" id="neuroimaging-oohca">
+      <div class="ttl"><span class="acr">Neuroimaging before angiography in OOHCA</span> &mdash; Yield and impact of selective vs routine CT brain</div>
+      <div class="src">Lemkes JS et al. &middot; <em>Catheter Cardiovasc Interv</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42219789/">source &#8599;</a></div>
+      <div class="body"><p>Retrospective analysis of 235 OOHCA survivors: routine CT brain identified relevant pathology in 17.9% of those who underwent it but altered management (deferred angiography) in only 1 case. Door-to-procedure time was significantly longer in the routine CT-B group (105 min vs 53 min for selective CT). These data challenge routine pre-angio CT brain protocols in OOHCA without a clinical trigger for neurological pathology, supporting a selective neuroimaging approach that preserves timely revascularisation.</p></div>
+    </div>
+
+    <div class="item" id="cana-metabolomics">
+      <div class="ttl"><span class="acr">Canagliflozin metabolomics</span> &mdash; CANVAS subset, N=955</div>
+      <div class="src">Fitchett DH et al. &middot; <em>Heart</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42248671/">source &#8599;</a></div>
+      <div class="body"><p>Untargeted metabolomic analysis of 955 CANVAS participants: canagliflozin vs placebo altered 32 plasma metabolites significantly (19 upregulated, 13 downregulated), with the largest effects on ketone bodies (3-hydroxybutyrate), TCA-cycle intermediates (malonate), and glycolytic substrates (glucose); pathway analysis showed upregulation of lipid pathways and downregulation of amino acid pathways. The metabolomic signature partially overlapped with beneficial exercise-induced metabolic changes and signatures associated with lower HF risk. These exploratory findings mechanistically support the metabolic shift hypothesis of SGLT2i cardioprotection, suggesting cellular fuel switching beyond glucose and sodium as key mediators.</p></div>
+    </div>
+
+    <div class="item" id="needle-pad">
+      <div class="ttl"><span class="acr">Needle-based strategies for calcified PAD</span> &mdash; Systematic review</div>
+      <div class="src">Brilakis ES et al. &middot; <em>JSCAI</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42183128/">source &#8599;</a></div>
+      <div class="body"><p>Systematic review across 101 studies of needle-based calcium modification techniques (intravascular lithotripsy, rotational atherectomy, orbital atherectomy, laser atherectomy) in peripheral artery disease with severe vascular calcification. Device success varied by modality and vessel segment; intravascular lithotripsy showed particular promise in tibial and iliac applications. The review highlights the absence of standardised reporting definitions for PAD calcium modification outcomes as the primary barrier to cross-technique comparison.</p></div>
+    </div>
+
+    <div class="item" id="taa-biomarkers">
+      <div class="ttl"><span class="acr">TAA imaging biomarkers beyond diameter</span> &mdash; Review</div>
+      <div class="src">Isselbacher EM et al. &middot; <em>Heart</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42248670/">source &#8599;</a></div>
+      <div class="body"><p>Comprehensive review of imaging biomarkers beyond aortic diameter for thoracic aortic aneurysm risk stratification, including finite-element-derived aortic wall stress, growth rate variability, 4D-flow MRI wall shear stress, and aortic stiffness. Aortic wall stress and rapidly fluctuating growth rate are identified as the most promising supplementary markers for high-risk TAA below guideline intervention thresholds, though prospective outcome-calibrated validation studies remain limited.</p></div>
+    </div>
+
+    <div class="item" id="tat-pci-oac">
+      <div class="ttl"><span class="acr">Short triple antithrombotic therapy after PCI on OAC</span> &mdash; Safety of &lt;7-day TAT</div>
+      <div class="src">Gargiulo G et al. &middot; <em>Catheter Cardiovasc Interv</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42219807/">source &#8599;</a></div>
+      <div class="body"><p>Registry of 172 AF patients on OAC undergoing PCI comparing TAT duration under 7 days vs &ge;7 to &lt;28 days before transitioning to DOAC + P2Y12 dual therapy. No significant difference in the 1-year primary composite of cardiovascular mortality, MI, target lesion revascularisation, or definite/probable stent thrombosis was observed, and secondary bleeding endpoints (GI bleeding, intracranial haemorrhage) also did not differ significantly. These data add to the AUGUSTUS, ENTRUST-AF-PCI, and PIONEER-AF-PCI trial evidence base for minimising the TAT window and transitioning rapidly to dual therapy in PCI patients requiring chronic anticoagulation.</p></div>
+    </div>
+
+    <div class="item" id="lvef-acute-hf">
+      <div class="ttl"><span class="acr">In-hospital LVEF recovery in acute HF</span> &mdash; Phenotype identification and long-term outcomes</div>
+      <div class="src">Mentz RJ et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42179271/">source &#8599;</a></div>
+      <div class="body"><p>Registry of 779 ADHF hospitalisations: in-hospital LVEF improvement (LVEF &gt;40% at discharge with &ge;10% absolute increase from admission) occurred in 14.9% of patients and was independently associated with lower 1-year (HR 0.324; P=0.008) and 5-year all-cause mortality (HR 0.584; P=0.013) in adjusted models. The reversibility phenotype was independently predicted by valvular heart disease, less severe LV remodeling (lower LV volumes), and absence of right ventricular dysfunction &mdash; each with a specific targeted therapy. These data support systematic pre-discharge echocardiography in all AHF admissions to identify reversible aetiology and tailor GDMT titration.</p></div>
+    </div>
+
+    <div class="item" id="ferroptosis-cavd">
+      <div class="ttl"><span class="acr">Ferroptosis and CAVD</span> &mdash; ALOX5 drives calcific aortic valve disease</div>
+      <div class="src">Zheng X et al. &middot; <em>Eur Heart J</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42227114/">source &#8599;</a></div>
+      <div class="body"><p>Translational study identifying ALOX5 (arachidonate 5-lipoxygenase) as a key driver of ferroptotic cell death in valvular interstitial cells, promoting calcification in CAVD. Human CAVD tissue, single-cell RNA sequencing of valve cell populations, and murine valve injury models collectively implicated ALOX5-driven lipid peroxidation as an upstream mineralisation trigger. ALOX5 inhibition reduced calcium deposition in ex vivo human valve tissue. These findings nominate ferroptosis as a druggable CAVD mechanism relevant to the still-vacant CAVD pharmacotherapy landscape.</p></div>
+    </div>
+
+    <div class="item" id="heatwave-takotsubo">
+      <div class="ttl"><span class="acr">Heat waves and Takotsubo syndrome</span> &mdash; Climate exposure and stress cardiomyopathy</div>
+      <div class="src">Osei AD et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42179263/">source &#8599;</a></div>
+      <div class="body"><p>Case-crossover study in California (N=5,018 Takotsubo admissions 2006&ndash;2019): extreme heat exposure in the days preceding admission (particularly lag days 4&ndash;6) was associated with a statistically significant increase in Takotsubo hospitalisations. Female sex and age 65 or younger were effect modifiers, with the largest heat-Takotsubo association in women. These findings add stress cardiomyopathy to the list of climate-sensitive acute cardiac events, alongside heat-related MI, arrhythmia, and HF decompensation.</p></div>
+    </div>
+
+    <div class="item" id="mol-imaging-pa">
+      <div class="ttl"><span class="acr">Molecular imaging vs AVS in primary aldosteronism</span> &mdash; Systematic review</div>
+      <div class="src">Garg R et al. &middot; <em>J Am Heart Assoc</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42216268/">source &#8599;</a></div>
+      <div class="body"><p>Systematic review comparing molecular imaging vs adrenal vein sampling (AVS) for subtype classification in primary aldosteronism. Positive percent agreement ranged from 0.6 to 0.9 (Cohen's &kappa; 0.33&ndash;0.93), with moderate and variable concordance; molecular imaging was less reliable for bilateral hyperplasia. In centres with limited AVS expertise, metomidate-PET/CT emerged as a viable lateralisation alternative before adrenalectomy. Relevant to cardiologists co-managing resistant hypertension with endocrinology: referral pathways may increasingly bypass AVS in lower-complexity PA cases.</p></div>
+    </div>
+
+    <div class="item" id="atr-resonance">
+      <div class="ttl"><span class="acr">Atrial resynchronisation therapy</span> &mdash; State of the art</div>
+      <div class="src">Leclercq C et al. &middot; <em>Europace</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42246754/">source &#8599;</a></div>
+      <div class="body"><p>State-of-the-art review of multisite atrial pacing strategies (Bachmann's bundle pacing, biatrial pacing, high septal pacing) to restore atrial conduction and reduce AF recurrence in interatrial block. Available observational and small-trial data on AF burden reduction are synthesised; the review concludes that adequately powered RCTs are needed before atrial resynchronisation can be recommended as standard adjunct therapy post-ablation or at device implantation in patients with interatrial block on surface ECG.</p></div>
+    </div>
+
+    <div class="item" id="align-iga">
+      <div class="ttl"><span class="acr">ALIGN</span> &mdash; Atrasentan in IgA nephropathy: 2.5-year outcomes</div>
+      <div class="src">Barratt J et al. &middot; <em>Lancet</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42242268/">source &#8599;</a></div>
+      <div class="body"><p>Extended 2.5-year follow-up of the ALIGN trial of atrasentan (selective endothelin A receptor antagonist) in IgA nephropathy with proteinuria &gt;1 g/day: sustained UACR reduction and slower eGFR decline with no new safety signals including no significant increase in fluid retention events. Relevant to cardiologists managing CKD-related cardiovascular risk in IgAN patients &mdash; the FDA-approved indication now has a 2.5-year efficacy-durability evidence base, and combination with finerenone and SGLT2 inhibitors is under study.</p></div>
+    </div>
+
+    <div class="item" id="track">
+      <div class="ttl"><span class="acr">TRACK</span> &mdash; Low-dose rivaroxaban in advanced CKD: null trial</div>
+      <div class="src">Badve SV et al. &middot; <em>JAMA</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42240165/">source &#8599;</a></div>
+      <div class="body"><p>Double-blind RCT of rivaroxaban 2.5 mg twice daily vs placebo in 1,458 patients with stage 4&ndash;5 CKD or dialysis at high CV risk (90 centres, 12 countries), stopped early for lack of efficacy. Primary CV composite: 22.6% vs 20.7% (HR 1.09; P=0.46), with no subgroup benefit. Major bleeding: 8.8% vs 6.0% (HR 1.51; P=0.04). This definitively closes the door on empiric antithrombotic intensification with low-dose rivaroxaban in advanced CKD &mdash; the strategy increases bleeding without CV protection in this ultra-high-risk population.</p></div>
+    </div>
+  </section>
+
+  <!-- 9 · QUICK HITS -->
+  <section id="quickhits">
+    <div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
+    <ul class="qh">
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+    </ul>
+  </section>
+
+  <!-- 10 · EDUCATIONAL PICKS -->
+  <section id="educational">
+    <div class="sec-h"><h2>Educational picks</h2><span class="rule"></span></div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">Stage C-to-D HF Position Statement</span> &mdash; JACC Heart Failure Consensus</div>
+      <div class="src">Lindenfeld J et al. &middot; <em>JACC Heart Fail</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42230068/">source &#8599;</a> <span class="fmt">Consensus</span></div>
+      <div class="body"><p>JACC Heart Failure expert consensus defining the clinical and haemodynamic transition from Stage C (symptomatic chronic HF) to Stage D (advanced HF requiring advanced therapy). Proposes a structured assessment framework using worsening clinical trajectory, biomarker trends, and right heart catheterisation haemodynamics to identify patients warranting urgent LVAD or cardiac transplant evaluation before they become too sick to tolerate these therapies. Practical thresholds and referral triggers are specified for the first time.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">ARCH-ARC Consensus</span> &mdash; Standardised endpoints for thoracic aortic repair trials</div>
+      <div class="src">Coselli JS et al. &middot; <em>Circulation</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42224373/">source &#8599;</a> <span class="fmt">Consensus</span></div>
+      <div class="body"><p>Multi-society Aortic Research Consortium for Harmonised Reporting of Aortic Repair Complications (ARCH-ARC) consensus proposing standardised definitions for type I&ndash;III endoleak, spinal cord ischaemia grades, and reintervention classification in TEVAR and open thoracic aortic repair trials. These definitions are intended to enable cross-trial pooling of registry data and head-to-head comparison of devices and techniques across aortic arch, descending, and thoracoabdominal segments.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">ARVC contemporary review</span> &mdash; Genetics, imaging, and arrhythmia management</div>
+      <div class="src">Calkins H et al. &middot; <em>Eur Heart J</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42244336/">source &#8599;</a> <span class="fmt">Review</span></div>
+      <div class="body"><p>State-of-the-art review of arrhythmogenic right ventricular cardiomyopathy: desmosomal genetics (PKP2, DSP, DSG2), 2023 modified Task Force Criteria, cardiac MRI and exercise CMR stress testing, and updated catheter ablation evidence (endo- and epicardial). Particular focus on exercise restriction rationale, implantable defibrillator programming in ARVC, and the emerging concept of inflammatory &ldquo;hot phase&rdquo; ARVC where acute myocardial oedema drives destabilisation and should prompt temporary activity restriction and anti-inflammatory therapy consideration.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">AHA Scientific Statement</span> &mdash; Physical activity and obesity: cardiovascular prescription</div>
+      <div class="src">Franklin BA et al. &middot; <em>Circulation</em> 2026 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/42220241/">source &#8599;</a> <span class="fmt">AHA Statement</span></div>
+      <div class="body"><p>American Heart Association scientific statement on structured exercise and lifestyle physical activity as CV risk reduction tools in adults with obesity. Addresses the interaction between GLP-1 RA pharmacotherapy and exercise, noting that combination strategies better preserve lean muscle mass during weight loss than pharmacotherapy alone. Specific CV exercise prescriptions are provided for obesity-related HFpEF, T2DM, and hypertension, including supervised cardiac rehabilitation integration and remote monitoring approaches.</p></div>
+    </div>
+
+    <div class="feed">
+      <div class="fh">From the feed &middot; X</div>
+      <div class="small faint" style="margin-top:6px;">Pending &mdash; captured from the editor's live X session; not available in this cloud run. Opinion, not evidence &mdash; surfaced to point you to the debate.</div>
+    </div>
+  </section>
+
+  <!-- 11 · PODCAST PICKS -->
+  <section id="podcasts">
+    <div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
+    <div class="item">
+      <div class="small faint">Podcast picks pending live-session enrichment. In a live-enriched run, this section would include episode-level picks from This Week in Cardiology (Mandrola), JACC Cardiovascular Interventions Podcast, CardioNerds, and TCTMD Talking Points — focused on this week's finerenone CKD meta-analysis, the intermediate-risk PE thrombectomy data, and IABP-SHOCK II revisited.</div>
+    </div>
+  </section>
+
+  <!-- 12 · LANDMARK REVISITED -->
+  <section id="landmark">
+    <div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
+    <div class="landmark">
+      <div style="font-size:13px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.5px;">Landmark Trial</div>
+      <div style="font-size:18px;font-weight:800;margin-top:4px;">IABP-SHOCK II</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:2px;">Thiele H et al. &middot; <em>N Engl J Med</em> 2012 &middot; PMID&nbsp;22920912 &middot; <a href="https://pubmed.ncbi.nlm.nih.gov/22920912/">source &#8599;</a></div>
+
+      <div class="label" style="margin-top:12px;">Why revisit now?</div>
+      <p style="font-size:14px;margin:4px 0 8px;">The PURE trial (NCT06336655, this issue&rsquo;s Industry &amp; Regulatory Watch) is enrolling the first adequately powered mechanistic RCT of active LV unloading added to VA-ECMO in cardiogenic shock. IABP-SHOCK II remains the foundational trial that overturned two decades of Class I guideline support for IABP in CS &mdash; and its lessons are directly relevant to interpreting the emerging MCS trial landscape.</p>
+
+      <div class="label">Trial design</div>
+      <p style="font-size:14px;margin:4px 0 8px;">Randomised, prospective, open-label, multi-centre (37 German centres). N=600 patients (IABP n=301; control n=299). Eligible: acute MI complicated by cardiogenic shock with expected early revascularisation (PCI or CABG). Primary endpoint: 30-day all-cause mortality.</p>
+
+      <div class="label">Key results</div>
+      <p style="font-size:14px;margin:4px 0 8px;">30-day all-cause mortality: 39.7% (IABP) vs 41.3% (control) &mdash; RR 0.96 (95% CI 0.79&ndash;1.17; P=0.69). No significant differences in any secondary endpoint: time to haemodynamic stabilisation, catecholamine dose, or lactate clearance. Safety: major bleeding 3.3% vs 4.4% (P=0.51); peripheral ischaemia 4.3% vs 3.4% (P=0.53); sepsis 15.7% vs 20.5% (P=0.15); stroke 0.7% vs 1.7% (P=0.28) &mdash; all non-significant. Twelve-month follow-up confirmed sustained absence of survival benefit.</p>
+
+      <div class="label">Clinical impact</div>
+      <p style="font-size:14px;margin:4px 0 8px;">IABP-SHOCK II directly drove the ESC to downgrade IABP from Class I to Class III (no benefit, possible harm) in the 2012 and subsequent AMI-CS guidelines &mdash; one of the fastest and most consequential guideline downgrades after a landmark trial in modern cardiology. The null result reshaped the cardiogenic shock device landscape toward active support strategies (Impella, TandemHeart, VA-ECMO), whose own randomised evidence base is still being established.</p>
+
+      <div class="label">Substudies</div>
+      <p style="font-size:14px;margin:4px 0 8px;">Sex-difference substudy (PMID 25287767): no significant sex interaction after multivariable adjustment &mdash; outcomes were similarly null in both men and women. GLP-1 substudy (PMID 38170249): explored metabolic modulation as adjunct during IABP support. Design rationale paper (PMID 22709745): describes the open-label methodology and mortality endpoint selection.</p>
+
+      <div style="margin-top:12px;padding:8px 10px;background:var(--accent-soft);border-radius:6px;font-weight:600;font-size:14px;">Lesson for today: A haemodynamically plausible device can fail a rigorous mortality endpoint. The next generation of cardiogenic shock device trials must enrol rapidly, power for mortality, avoid enrichment bias, and resist premature adoption before RCT evidence arrives &mdash; PURE and other ongoing trials will test whether this lesson has been learned.</div>
+    </div>
+  </section>
+
+  <footer>
+    <div>CardioDigest Issue 2026-w23 &middot; Coverage 1&ndash;7 June 2026 (widened to 25 May 2026 where thin) &middot; 519 candidates harvested &middot; 43 items selected &middot; Landmark: IABP-SHOCK II (PMID 22920912)</div>
+    <div class="disc">
+      <b>Disclosure:</b> CardioDigest is an AI-assisted editorial digest. Articles are selected by algorithm and reviewed by the editorial team. All summaries are derived from published abstracts; findings should be verified against primary sources before clinical application. No sponsored content. Article links: PubMed only. Registry links: ClinicalTrials.gov only.
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>
