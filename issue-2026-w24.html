@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>CardioDigest — Issue 2026-w24</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5b6166; --faint:#8a9099; --line:#e6e8eb; --bg:#ffffff; --card:#fbfbfc;
+    --accent:#8b2635;
+    --accent-soft:#f4e7e9;
+    --t1:#8b2635;
+    --t2:#b5763a;
+    --t3:#5b6166;
+    --tag:#3a6b7e;
+    --maxw:640px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e9eaec; --muted:#a8aeb4; --faint:#7d838a; --line:#2a2d30; --bg:#141517; --card:#1b1d20; --accent:#e0879a; --accent-soft:#2a1c20; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 18px 56px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1,h2,h3{line-height:1.25;margin:0;}
+  .small{font-size:13px;color:var(--muted);}
+  .faint{color:var(--faint);}
+  .mast{border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:18px;}
+  .mast .brand{font-size:26px;font-weight:800;letter-spacing:-.4px;}
+  .mast .brand b{color:var(--accent);}
+  .mast .tagline{font-size:13px;color:var(--muted);margin-top:2px;}
+  .mast .meta{margin-top:10px;font-size:13px;color:var(--muted);}
+  .stats{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);}
+  .stat b{color:var(--ink);}
+  section{margin:26px 0 0;scroll-margin-top:12px;}
+  .sec-h{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:12px;}
+  .sec-h h2{font-size:16px;text-transform:uppercase;letter-spacing:.6px;}
+  .sec-h .rule{flex:1;}
+  .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:4px;color:#fff;}
+  .chip.t1{background:var(--t1);} .chip.t2{background:var(--t2);} .chip.t3{background:var(--t3);}
+  .chip.cond{background:var(--tag);}
+  .chip.pre{background:#6a4b8a;}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+  .toc ol{margin:6px 0 0;padding-left:18px;}
+  .toc li{margin:3px 0;font-size:14px;}
+  .toc .n{color:var(--faint);font-variant-numeric:tabular-nums;}
+  .tldr li{margin:7px 0;}
+  .tldr b{color:var(--ink);}
+  .item{padding:12px 0;border-bottom:1px solid var(--line);}
+  .item:last-child{border-bottom:none;}
+  .item .ttl{font-size:15px;font-weight:700;}
+  .acr{display:inline-block;font-weight:800;color:var(--accent);}
+  .item .src{font-size:12px;color:var(--muted);margin-top:2px;}
+  .item .body{margin-top:6px;font-size:14.5px;}
+  .item .body p{margin:6px 0;}
+  .deep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;}
+  .deep .ttl{font-size:16px;}
+  .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-top:10px;}
+  .deep .bottom{margin-top:10px;padding:8px 10px;background:var(--accent-soft);border-radius:6px;font-weight:600;}
+  .deep dl{margin:4px 0 0;}
+  .deep dt{font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .deep dd{margin:1px 0 0;font-size:14px;}
+  .feed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;}
+  .feed .fh{font-size:12px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.4px;}
+  .feed li{margin:6px 0;font-size:13.5px;}
+  .qh li{margin:6px 0;font-size:14px;}
+  .fmt{font-size:11px;font-weight:700;color:var(--tag);border:1px solid var(--tag);border-radius:4px;padding:1px 6px;margin-left:4px;}
+  .landmark{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:14px;}
+  .landmark .ttl{font-size:16px;font-weight:700;}
+  .landmark .src{font-size:12px;color:var(--muted);margin-top:2px;}
+  .landmark dl{margin:4px 0 0;}
+  .landmark dt{font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .landmark dd{margin:1px 0 0;font-size:14px;}
+  footer{margin-top:34px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted);}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- 1 · HEADER -->
+<header class="mast">
+  <div class="brand">Cardio<b>Digest</b></div>
+  <div class="tagline">Weekly Interventional Cardiology Digest</div>
+  <div class="meta">Issue 2026-w24 · 8–14 June 2026 (widened to 1 June 2026 where thin)</div>
+  <div class="stats">
+    <span class="stat"><b>460</b> candidates reviewed</span>
+    <span class="stat"><b>44</b> selected</span>
+    <span class="stat"><b>4</b> educational</span>
+    <span class="stat"><b>0</b> podcasts</span>
+  </div>
+</header>
+
+<!-- 2 · INDEX -->
+<section id="index">
+  <nav class="toc" aria-label="Contents">
+    <div class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.5px;">In this issue</div>
+    <ol>
+      <li><a href="#tldr">Top Highlights / TL;DR</a></li>
+      <li><a href="#industry">Industry &amp; Regulatory Watch</a></li>
+      <li><a href="#tier1">Tier 1 — Practice-changing</a></li>
+      <li><a href="#tier2">Tier 2 — Notable</a></li>
+      <li><a href="#tier3">Tier 3 — Worth knowing</a></li>
+      <li><a href="#quickhits">Quick hits</a></li>
+      <li><a href="#educational">Educational picks</a></li>
+      <li><a href="#podcasts">Podcast picks</a></li>
+      <li><a href="#landmark">Landmark Revisited</a></li>
+    </ol>
+  </nav>
+</section>
+
+<!-- 3 · TL;DR -->
+<section id="tldr">
+  <div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
+  <ul class="tldr">
+    <li><b>A novel CT volumetric parameter (VTCV) predicts coronary obstruction during TAVR</b> with an AUC of 0.841 and outperforms VTC distance alone — all seven CO events in a prospective 164-patient cohort occurred in the CT-classified high-risk group. <a href="#dd1">↓</a></li>
+    <li><b>Intentional leaflet modification (BASILICA) at valve-in-valve TAVR is associated with a significantly reduced incidence of hypoattenuated leaflet thickening (19.7% vs 40%)</b> — suggesting a protective haemodynamic benefit beyond coronary obstruction prevention. <a href="#dd2">↓</a></li>
+    <li><b>The landmark 2026 AHA/ACC/ADA/ASN CKM Syndrome Guideline provides the first unified framework for the cardiovascular-kidney-metabolic continuum</b>, incorporating the PREVENT equations and recommending absolute-risk-reduction thinking for treatment decisions. <a href="#dd3">↓</a></li>
+    <li><b>Sodium bicarbonate (up to 100 mmol) during in-hospital cardiac arrest did not improve sustained ROSC vs placebo</b> (39% vs 37%; RR 1.05, 95% CI 0.88–1.24) in a 913-patient Danish RCT, arguing against routine use. <a href="#t1-nahco3">↓</a></li>
+    <li><b>The GeminiOne — a novel T-TEER device for degenerative MR — achieved a 1-year clinical success rate of 89.84%</b> (freedom from mortality, reintervention, and MR &gt;2+) in 120 prohibitive-surgical-risk patients. <a href="#t1-gemini">↓</a></li>
+    <li><b>JACC Cardiovasc Interventions publishes a major focus issue on redo-TAVR and leaflet modification</b> — BASILICA position statement, UNICORN bench comparisons, and bench data on splay determinants across TAV-in-TAV combinations all appear this week. <a href="#tier1">↓</a></li>
+    <li><b>Delayed TAVR (&gt;90 days from diagnosis) is associated with higher 3-year composite mortality and heart failure hospitalisations</b> in a 4,069-patient real-world US analysis, reinforcing timely referral. <a href="#t2-delay">↓</a></li>
+  </ul>
+</section>
+
+<!-- 5 · INDUSTRY & REGULATORY WATCH -->
+<section id="industry">
+  <div class="sec-h"><span class="chip cond">Watch</span><h2>Industry &amp; Regulatory</h2><span class="rule"></span></div>
+
+  <div class="item">
+    <div class="ttl">STAR TEER (NCT07007143) — Antithrombotic strategies after TEER without OAC indication</div>
+    <div class="src">Phase 4 · <a href="https://clinicaltrials.gov/study/NCT07007143">ClinicalTrials.gov ↗</a></div>
+    <div class="body"><p>Phase 4 trial registered to evaluate optimal antithrombotic strategies in patients undergoing transcatheter edge-to-edge mitral or tricuspid repair without an independent oral anticoagulation indication. The optimal regimen after TEER — single antiplatelet, dual antiplatelet, or anticoagulation — remains debated; this trial targets that gap. Results will directly inform post-procedural management across both mitral and tricuspid TEER programmes.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">EAGLE-TAVR (NCT06762145) — Glucocorticoid to reduce persistent LBBB after TAVR</div>
+    <div class="src">Phase 4 · <a href="https://clinicaltrials.gov/study/NCT06762145">ClinicalTrials.gov ↗</a></div>
+    <div class="body"><p>Phase 4 RCT testing early glucocorticoid administration to reduce the incidence of persistent new left bundle-branch block (LBBB) following TAVR. Post-procedural LBBB affects pacemaker rates and may influence ventricular function; anti-inflammatory intervention during the acute conduction-system injury phase is the proposed mechanism. A clinically important hypothesis given the persistent need to reduce permanent pacemaker rates post-TAVR.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">CAPITAL DOREMI 2 (NCT05267886) — Inotrope vs placebo in cardiogenic shock</div>
+    <div class="src">Phase 4 · <a href="https://clinicaltrials.gov/study/NCT05267886">ClinicalTrials.gov ↗</a></div>
+    <div class="body"><p>Phase 4 RCT investigating inotrope therapy (vs placebo) in cardiogenic shock, following the DOREMI trial framework. The role of routine inotropes in CS remains contested; a clear result here would carry direct guideline implications for post-MI shock management and the sequencing of pharmacological vs mechanical support.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">PCSK9i before PCI in AMI (NCT06683131)</div>
+    <div class="src">Phase 4 · <a href="https://clinicaltrials.gov/study/NCT06683131">ClinicalTrials.gov ↗</a></div>
+    <div class="body"><p>Phase 4 trial evaluating the effectiveness of initiating a PCSK9 inhibitor before percutaneous coronary intervention in acute MI. In-hospital PCSK9i initiation has shown rapid LDL lowering and potential pleiotropic benefit; this trial tests whether pre-PCI dosing improves outcomes in the acute setting. Directly relevant to interventionalists seeking to integrate lipid-lowering into the acute PCI pathway.</p></div>
+  </div>
+</section>
+
+<!-- 6 · TIER 1 — PRACTICE-CHANGING -->
+<section id="tier1">
+  <div class="sec-h"><span class="chip t1">Tier 1</span><h2>Practice-changing</h2><span class="rule"></span></div>
+
+  <!-- Deep Dive 1 -->
+  <div class="deep" id="dd1">
+    <div class="ttl"><span class="acr">—</span> CT-Based Volumetric Risk Stratification of Coronary Obstruction During TAVR</div>
+    <div class="src">Abdelhafez A et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264632/">PMID 42264632 ↗</a></div>
+
+    <div class="label">Structured abstract</div>
+    <dl>
+      <dt>Background</dt>
+      <dd>Coronary obstruction (CO) during TAVR is rare but potentially fatal. CT-based risk-assessment algorithms exist but their clinical utility and limitations — especially the predictors of CO despite coronary protection (CP) — remain underexplored.</dd>
+      <dt>Methods</dt>
+      <dd>Prospective study (Leipzig TAVR Registry; NCT05015452) enrolling 164 patients judged at risk for CO during TAVR. Preprocedural CT classified each patient into low (58.5%), intermediate (24.4%), or high (17.1%) risk. A novel volumetric parameter — valve-to-coronary volume (VTCV), calculated from sinus width and valve-to-coronary (VTC) distance — was derived for high-risk cases. The decision to perform CP was left to the Heart Team. Endpoints followed VARC-3 definitions.</dd>
+      <dt>Key results</dt>
+      <dd>All seven CO events occurred in the CT-classified high-risk group. VTCV and VTC distance were both significantly lower in patients who developed CO (P=0.005 and P=0.006, respectively). VTCV independently predicted CO (AUC 0.841; 95% CI 0.702–0.979; P&lt;0.001), outperforming VTC distance alone. Coronary protection was performed in 12.8% of low-risk, 52.8% of intermediate-risk, and 93.9% of high-risk patients. VTCV was validated in an external cohort from 11 European centres.</dd>
+      <dt>Conclusion</dt>
+      <dd>CT-based risk stratification reliably triages CO risk into three categories, but CP efficacy is limited in patients with very small VTCV values, identifiable preprocedurally — potentially requiring alternative strategies (BASILICA, chimney stenting, or case-deferral).</dd>
+    </dl>
+
+    <div class="label">Critical appraisal</div>
+    <dl>
+      <dt>Study design</dt>
+      <dd>Prospective single-centre derivation with independent 11-centre European external validation of VTCV. Prospective enrolment and core-lab/central adjudication strengthen credibility. Sample size modest (n=164) given CO rarity; however, all CO events fall cleanly in the high-risk group, supporting prognostic signal.</dd>
+      <dt>Clinical relevance</dt>
+      <dd>CO remains the most feared acute TAVR complication. This paper goes beyond confirming the three-tier CT algorithm — it identifies patients in whom CP itself may be inadequate, enabling escalation planning (BASILICA, snorkel) or selective case refusal before the cath lab. Routine VTCV calculation appears feasible from standard planning CT.</dd>
+      <dt>Context</dt>
+      <dd>Existing risk classifiers (VTC distance, EROA, sinus width) are binary; VTCV adds volumetric precision. This week's companion papers (BASILICA position statement, leaflet modification bench data) collectively represent a step-change in redo-TAVR procedural intelligence. European guideline bodies are expected to incorporate volumetric CT stratification in future TAVR guidance.</dd>
+      <dt>Limitations</dt>
+      <dd>Retrospective VTCV derivation in a prospective dataset; small absolute number of CO events limits subgroup precision. Heart Team decisions on CP were unblinded to CT risk, introducing selection bias. External validation cohort details are not fully described in the abstract.</dd>
+    </dl>
+    <div class="bottom">Bottom line: For every TAVR patient at risk of coronary obstruction, preprocedural calculation of VTCV stratifies both the probability of CO and the likelihood that coronary protection will fail — allowing the Heart Team to select BASILICA, chimney stenting, or avoidance before the procedure begins.</div>
+  </div>
+
+  <!-- Deep Dive 2 -->
+  <div class="deep" id="dd2">
+    <div class="ttl"><span class="acr">—</span> Leaflet Modification at Valve-in-Valve TAVR Reduces Subclinical Leaflet Thrombosis</div>
+    <div class="src">Rotta Detto Loria J et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264630/">PMID 42264630 ↗</a></div>
+
+    <div class="label">Structured abstract</div>
+    <dl>
+      <dt>Background</dt>
+      <dd>Valve-in-valve TAVR carries risk for both coronary obstruction and subclinical leaflet thrombosis characterised by hypoattenuated leaflet thickening (HALT) on CT. Whether BASILICA leaflet modification reduces HALT incidence was previously unknown.</dd>
+      <dt>Methods</dt>
+      <dd>Retrospective analysis of 141 patients who underwent ViV TAVR and had post-procedural multidetector CT. Of these, 61 received leaflet modification and 80 underwent standard ViV TAVR without modification. CT findings (including HALT grading), mean transvalvular gradient, and a sensitivity analysis restricted to self-expanding THVs were conducted. Predictors of HALT assessed by multivariable logistic regression.</dd>
+      <dt>Key results</dt>
+      <dd>Leaflet modification patients had significantly lower mean transvalvular gradients (13±6 vs 18±9 mmHg; P&lt;0.001) and a reduced incidence of HALT (19.7% vs 40%; P&lt;0.01). HALT involving multiple leaflets was numerically less common with modification (33.3% vs 65.6%; P=0.054). Thrombosis predominantly affected non-lacerated cusps in the modification group (66.6% vs 33.3%). In an important finding, no HALT was observed in any patient who underwent dual-leaflet modification. Results were consistent when restricted to self-expanding THVs.</dd>
+      <dt>Conclusion</dt>
+      <dd>Intentional leaflet modification is associated with a significantly reduced incidence of subclinical leaflet thrombosis at ViV TAVR, suggesting a haemodynamic protective mechanism — likely improved flow through reduced obstruction — beyond coronary obstruction prevention.</dd>
+    </dl>
+
+    <div class="label">Critical appraisal</div>
+    <dl>
+      <dt>Study design</dt>
+      <dd>Retrospective single-institution study; selection bias inherent (modification more common in women and small ≤21 mm prostheses). Nonetheless, the signal for HALT reduction persists after sensitivity analysis in SE-THV-only patients. The dual-leaflet finding (zero HALT) is striking but from a small subgroup — hypothesis-generating, not conclusive.</dd>
+      <dt>Clinical relevance</dt>
+      <dd>HALT is associated with reduced leaflet motion and — in some series — increased thromboembolic events. If modification reduces HALT, operators performing ViV TAVR should more systematically apply leaflet modification as the default rather than the exception, particularly in high-risk anatomies (small prostheses, SE valves, women). This rephrases BASILICA from a coronary-protection tool to a general haemodynamic optimisation tool for ViV.</dd>
+      <dt>Context</dt>
+      <dd>HALT rates after ViV TAVR have been reported at 30–50% in other series, consistent with the 40% control rate here. Anticoagulation can reduce HALT but is not universally appropriate post-TAVR. A procedural intervention that durably reduces leaflet thrombosis without anticoagulation has clear advantages. This finding aligns conceptually with the improved gradient data: better leaflet splay → better leaflet washout → less HALT.</dd>
+      <dt>Limitations</dt>
+      <dd>Retrospective design; modified patients were more likely female and had smaller prostheses (potential confounders). Reduced leaflet motion observed in one-third of HALT patients without group difference, limiting functional interpretation. Longer-term follow-up for clinical events (stroke, thromboembolism) not reported.</dd>
+    </dl>
+    <div class="bottom">Bottom line: Leaflet modification at valve-in-valve TAVR not only protects against coronary obstruction but independently reduces the incidence of subclinical leaflet thrombosis by half — dual-leaflet BASILICA appears to eliminate HALT entirely, supporting modification as a standard step in ViV TAVR planning.</div>
+  </div>
+
+  <!-- Deep Dive 3 -->
+  <div class="deep" id="dd3">
+    <div class="ttl"><span class="acr">CKM Guideline</span> — 2026 AHA/ACC/ADA/ASN Cardiovascular-Kidney-Metabolic Syndrome Guideline</div>
+    <div class="src">Ndumele CE et al. · <em>J Am Coll Cardiol / Circulation</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42265997/">PMID 42265997 ↗</a></div>
+
+    <div class="label">Structured abstract</div>
+    <dl>
+      <dt>Background</dt>
+      <dd>Cardiovascular-kidney-metabolic (CKM) syndrome — the interconnection among metabolic risk factors (obesity, type 2 diabetes), chronic kidney disease, and cardiovascular disease — lacks a unified management framework. The 2013 AHA/ACC/TOS obesity guideline is retired by this new document.</dd>
+      <dt>Methods</dt>
+      <dd>Comprehensive literature search (October 2024 – April 2025) from MEDLINE/PubMed, EMBASE, Cochrane Library, and other databases. Audience: practising cardiologists, endocrinologists, nephrologists, and primary care clinicians. Structured as a living document.</dd>
+      <dt>Key results</dt>
+      <dd>The guideline introduces CKM syndrome staging and recommends the PREVENT (Predicting Risk of Cardiovascular Disease Events) equations for outcome-specific risk quantification. Three PREVENT modules are specified: PREVENT-CVD, PREVENT-ASCVD, and PREVENT-HF. Risk-threshold–based decision-making for initiating cardiometabolic therapies (GLP-1 receptor agonists, SGLT2 inhibitors, finerenone) is operationalised. A companion scientific statement codifies how absolute-risk-reduction benefit modelling should guide shared decision-making.</dd>
+      <dt>Conclusion</dt>
+      <dd>This is the first guideline to integrate cardiovascular, renal, and metabolic domains into a single patient-centred decision framework, signalling a shift from siloed to precision preventive cardiology. It is positioned as a living document that will evolve as new trial evidence accumulates.</dd>
+    </dl>
+
+    <div class="label">Critical appraisal</div>
+    <dl>
+      <dt>Study design</dt>
+      <dd>Practice guideline with Class/LOE recommendations from a multi-society writing committee. Co-published in JACC and Circulation with an accompanying AHA Scientific Statement on risk/benefit estimation. Literature scope is broad (2015 onwards); intervention literature review was pre-specified.</dd>
+      <dt>Clinical relevance</dt>
+      <dd>For interventional cardiologists, the CKM framework matters at the pre-procedural and post-procedural stages: risk quantification with PREVENT informs who needs intensified lipid or glycaemic therapy after a PCI; the emphasis on cardiorenal protection post-ACS (SGLT2i, GLP-1 RA) is directly applicable. The guideline's recognition of CKD as a modifier of revascularisation benefit is also pertinent.</dd>
+      <dt>Context</dt>
+      <dd>Recent trials (FLOW, CREDENCE, FIGARO-DKD, SURPASS) have established cardiorenal drug effects beyond glycaemia. This guideline operationalises those findings into actionable staging and treatment algorithms. European counterparts (ESC 2023 Diabetes/Metabolic guideline) are broadly concordant on pharmacotherapy but use different staging nomenclature.</dd>
+      <dt>Limitations</dt>
+      <dd>Living-document format means specific recommendations may change; practitioners need to track updates. PREVENT equations were derived in predominantly US populations; generalisability requires European/Italian validation. Intervention thresholds (absolute risk reduction targets) will need refinement as patient-level meta-analyses mature.</dd>
+    </dl>
+    <div class="bottom">Bottom line: The 2026 CKM Guideline provides interventional cardiologists with a practical staging system and explicit treatment algorithms for the trio of metabolic disease, CKD, and cardiovascular risk — integrating SGLT2 inhibitors, GLP-1 receptor agonists, and finerenone into a unified preventive framework that now applies from the cath lab to the outpatient clinic.</div>
+  </div>
+
+  <!-- Tier 1 Briefs -->
+  <div class="item" id="t1-basilica-ps">
+    <div class="ttl"><span class="acr">BASILICA</span> Working Group Position Statement: Best Practices and Step-by-Step Guide</div>
+    <div class="src">Rogers T et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264628/">PMID 42264628 ↗</a></div>
+    <div class="body"><p>This international working group document synthesises experience with BASILICA (bioprosthetic or native aortic scallop intentional laceration to prevent iatrogenic coronary artery obstruction), covering electrosurgery principles, CT planning, a step-by-step procedural guide, tips for uncommon challenges, scenarios where BASILICA is unlikely to succeed, and variant techniques including intraleaflet deployment and dedicated devices. Perceived technical complexity, limited purpose-built devices, and scarce training have impeded adoption; this document directly addresses all three barriers. For structural operators — particularly those building redo-TAVR programmes — this is now the primary reference for coronary protection in native, ViV, and redo-TAVR settings.</p></div>
+  </div>
+
+  <div class="item" id="t1-eurobasilica">
+    <div class="ttl"><span class="acr">EURO-BASILICA</span> — Leaflet Splitting in Stented vs Stentless Surgical Bioprostheses</div>
+    <div class="src">Richter I et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264634/">PMID 42264634 ↗</a></div>
+    <div class="body"><p>In 131 patients undergoing BASILICA and ViV TAVR from the multicentre EURO-BASILICA registry, stentless valves (n=16) — with longer leaflets (17.0 vs 14.0 mm; P&lt;0.001) — required more contrast (174 vs 91 mL; P&lt;0.001) and longer fluoroscopy time (61.7 vs 41.0 min; P=0.023) and were associated with a significantly higher rate of target-leaflet-related coronary artery obstruction (44.4% vs 7.1%; P&lt;0.001), predominantly partial and non-flow-limiting (33.3% vs 3.9%); in-hospital and 30-day outcomes were similar and no late CAO occurred at 1 year. Stentless valves remain technically feasible with BASILICA, but the substantially higher partial-CAO rate warrants additional coronary protection measures or alternative strategies in selected patients — a critical consideration as older stentless bioprostheses (Freestyle, Toronto SPV) approach structural deterioration in a growing number of patients.</p></div>
+  </div>
+
+  <div class="item" id="t1-gemini">
+    <div class="ttl"><span class="acr">GeminiOne-DMR</span> — Novel T-TEER Device for Degenerative MR: 1-Year Outcomes</div>
+    <div class="src">Zhu D et al. · <em>JACC Asia</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42283667/">PMID 42283667 ↗</a></div>
+    <div class="body"><p>In 120 patients with prohibitive surgical risk and degenerative MR grade ≥3+, the GeminiOne TEER system — featuring a groove-cam mechanism — achieved a 1-year clinical success rate of 89.84%±2.78% (95% CI 84.56%–95.46%), meeting the prespecified primary efficacy endpoint; 1-year freedom from all-cause mortality was 97.48%±1.35% and freedom from major adverse events was 91.61%±2.54%. This first-in-class registry result establishes initial proof of concept for a novel groove-cam T-TEER design; whether the mechanism confers advantages over established systems (MitraClip, PASCAL) for complex or fibrotic degenerative leaflets remains to be determined in head-to-head studies.</p></div>
+  </div>
+
+  <div class="item" id="t1-nahco3">
+    <div class="ttl"><span class="acr">—</span> Sodium Bicarbonate for In-Hospital Cardiac Arrest: A Null RCT</div>
+    <div class="src">Granfeldt A et al. · <em>JAMA</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42273960/">PMID 42273960 ↗</a></div>
+    <div class="body"><p>In a randomised, double-blind, placebo-controlled trial across 21 Danish hospitals (n=913 adults with in-hospital cardiac arrest receiving ≥1 epinephrine dose), up to 100 mmol intravenous sodium bicarbonate did not improve sustained ROSC vs placebo (39% vs 37%; RR 1.05, 95% CI 0.88–1.24; P=0.62); 30-day survival was 12% vs 9.1% and a favourable neurological outcome occurred in 8.1% vs 5.4% — neither secondary endpoint reached significance, though both numerically favoured bicarbonate. Alkalosis and hypernatraemia were more common in the sodium bicarbonate arm. These data provide the first randomised evidence against routine bicarbonate in in-hospital arrest and should prompt protocol review in cath labs and CCUs where bicarbonate use during resuscitation remains common.</p></div>
+  </div>
+</section>
+
+<!-- 7 · TIER 2 — NOTABLE -->
+<section id="tier2">
+  <div class="sec-h"><span class="chip t2">Tier 2</span><h2>Notable</h2><span class="rule"></span></div>
+
+  <div class="item">
+    <div class="ttl">Leaflet Modification Technique Comparison for TAV-in-TAV: UNICORN vs BASILICA</div>
+    <div class="src">Khokhar AA et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264636/">PMID 42264636 ↗</a></div>
+    <div class="body"><p>In a bench study simulating BASILICA, BA-BASILICA, and UNICORN across short-in-tall, short-in-short, and tall-in-short TAV-in-TAV combinations, UNICORN produced the largest functional splay areas (FSA) for short-in-tall and short-in-short configurations (2- to 10-times larger than BASILICA/BA-BASILICA) but was not feasible for tall-in-short anatomies and gave unpredictable results when preceded by balloon laceration; the greatest splay obstruction (up to 93%) occurred in tall-in-short combinations regardless of technique. Commissural alignment and lower implantation depth of the second valve improved FSA across all techniques. Leaflet modification choice for redo-TAVR should be guided by the specific TAV-in-TAV combination on preprocedural CT, with UNICORN best reserved for short-in-tall anatomies.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Factors Limiting Leaflet Splay Efficacy in Redo-TAVR: Bench Insights</div>
+    <div class="src">Meier D et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264637/">PMID 42264637 ↗</a></div>
+    <div class="body"><p>In a systematic bench study evaluating BASILICA, BA-BASILICA, and balloon laceration across naive and degenerated THVs, annular constraint at the minimum per-instructions-for-use diameter reduced splay in all THVs — most severely in Evolut valves — while pulsatile flow conditions during second-valve deployment and leaflet fibrosis or calcification each independently diminished functional splay area; balloon laceration produced highly variable outcomes ranging from complete clearance to obstruction. Operators should anticipate reduced splay in constrained, calcified, or fibrotic index valves and plan adjunctive strategies accordingly; Evolut-in-Evolut redo-TAVR appears to carry particular technical risk.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Anatomical-Fluoroscopic Workflow for Leaflet Modification in Redo-TAVR</div>
+    <div class="src">Onishi T et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264639/">PMID 42264639 ↗</a></div>
+    <div class="body"><p>The authors characterised modifiable vs non-modifiable leaflet zones for SAPIEN 3, Evolut, Navitor, and ACURATE neo2 valves, mapping fluoroscopic landmarks (lowest node along each proposed split line) to guide intraoperative laceration; vertical split-line lengths ranged from 5.0–23.0 mm by valve type, with preprocedural CT identifying ideal split lines facing the coronary ostia. A 4-step workflow — CT planning → commissural orientation mapping → fluoroscopic landmark identification → laceration execution — standardises what has previously been operator-dependent; validation in prospective clinical series is ongoing.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">S3UR vs S3U Bench Performance in TAVR, ViV, and Redo-TAVR</div>
+    <div class="src">Delarive J et al. · <em>JACC Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42264641/">PMID 42264641 ↗</a></div>
+    <div class="body"><p>In bench testing comparing the SAPIEN 3 Ultra RESILIA (S3UR) to S3U across index TAVR, ViV, and redo-TAVR scenarios, the 23 mm S3UR showed lower mean gradient (6.7 vs 7.3 mmHg) and larger effective orifice area, with differences amplified during underexpansion; S3UR pericardium was thinner (0.28±0.02 vs 0.36±0.03 mm) but had significantly higher tensile strength. Critically, S3UR leaflets splayed almost 40% less after central basal split modification — a finding that warrants prospective clinical study before S3UR becomes the default choice in anatomies requiring planned BASILICA during ViV or redo-TAVR.</p></div>
+  </div>
+
+  <div class="item" id="t2-delay">
+    <div class="ttl">Delayed TAVR: Clinical and Economic Consequences in a US Real-World Cohort</div>
+    <div class="src">Vemulapalli S et al. · <em>Struct Heart</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42281844/">PMID 42281844 ↗</a></div>
+    <div class="body"><p>Among 4,069 US patients with clinically significant aortic stenosis who underwent TAVR between 2019 and 2023 (Optum Market Clarity database), 49.6% received delayed TAVR (&gt;90 days from diagnosis); at 3 years, delayed patients had higher baseline frailty scores (10.9 vs 8.5; P&lt;0.01) and significantly worse composite outcomes including all-cause mortality and heart failure hospitalisations; disabling stroke was numerically higher but did not reach significance (p=0.056). Delayed intervention for severe AS translates into measurable incremental harm — a compelling argument for systematic referral pathways and heart team triage protocols to avoid delays exceeding 90 days after diagnosis.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Moderate AS with Concomitant MR: A High-Risk, Undertreated Subgroup</div>
+    <div class="src">Gabr EM et al. · <em>JACC Cardiovasc Imaging</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42274428/">PMID 42274428 ↗</a></div>
+    <div class="body"><p>In 742 patients with ≥moderate AS studied by CMR (422 moderate, 320 severe AS), those with moderate AS plus moderate/severe MR (n=76) had higher NYHA ≥II symptom burden (80.3%), more adverse LV remodelling, and worse clinical outcomes — moderate/severe MR was independently associated with cardiovascular death or HF hospitalisation in moderate AS (adjusted HR 1.86; 95% CI 1.31–2.65; P&lt;0.001), with outcomes worse than isolated severe AS and comparable to severe AS meeting intervention thresholds. This identifies a therapeutic gap: patients with dual moderate valvular disease who fall below guideline intervention thresholds but carry severe-equivalent prognosis, warranting prospective intervention trials.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">ViV TAVR vs Redo-SAVR in Women: Similar Short- and Mid-Term Outcomes</div>
+    <div class="src">Tagliafierro M et al. · <em>Catheter Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42283239/">PMID 42283239 ↗</a></div>
+    <div class="body"><p>In a single-centre propensity-matched analysis of 92 ViV and 40 redo-SAVR women with degenerated aortic bioprostheses (2015–2025), 30-day mortality (1.1% vs 2.5%), stroke (3.3% vs 5.0%), and MACE (3.3% vs 7.5%) were not significantly different; 1-year mortality (8.7% vs 7.5%), stroke, MACE, and pacemaker rates were also comparable, with unmatched analyses consistent. Despite higher frailty and surgical risk in ViV patients, transcatheter reintervention is a valid first-line option for women with degenerated aortic bioprostheses — although patient-prosthesis mismatch risk and residual gradient differences (not reported here) remain relevant to shared decision-making.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Perioperative Continuous vs Interrupted OAC in TAVR: Meta-Analysis</div>
+    <div class="src">Gan X et al. · <em>BMC Cardiovasc Disord</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42277686/">PMID 42277686 ↗</a></div>
+    <div class="body"><p>In a meta-analysis of 5 studies (n=3,316), continuous OAC during the perioperative TAVR period was not associated with increased major bleeding or vascular complications; borderline associations with lower stroke risk, higher device success, and fewer transfusions were noted but require prospective RCT confirmation given the limited study count and heterogeneity. Pending randomised data, this analysis supports cautious consideration of an uninterrupted OAC strategy in carefully selected patients undergoing transfemoral TAVR.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">INaMICRON Trial — Ranolazine to Prevent Coronary Microvascular Dysfunction Post-STEMI</div>
+    <div class="src">Di Serafino L et al. · <em>Int J Cardiol</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42276256/">PMID 42276256 ↗</a></div>
+    <div class="body"><p>INaMICRON is a prospective, multicentre, Phase IIb RCT randomising adults with STEMI treated by successful primary PCI (with ≥1 non-culprit lesion) to ranolazine (500 mg bid for 7 days then 750 mg bid up to 42±7 days) plus standard therapy vs standard therapy alone; coronary microvascular function will be assessed by IMR/angioIMR in the culprit vessel at baseline and during staged PCI, with planned sample size of 100 patients (50/group). Residual CMD after STEMI is common and prognostically important; this trial tests whether early late-INa current inhibition with ranolazine — an established anti-anginal drug with known IMR effects — can favourably modulate microvascular function in the critical early post-infarction period.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">BIOMAG-I — Bioresorbable Magnesium Scaffold in High-Risk Coronary Plaques</div>
+    <div class="src">Rubio PM et al. · <em>Catheter Cardiovasc Interv</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42252499/">PMID 42252499 ↗</a></div>
+    <div class="body"><p>In a post-hoc analysis of the BIOMAG-I trial (83 patients with stable CAD and intravascular imaging), 42 (50.6%) had high-risk plaques defined as μFR&gt;0.80 with plaque burden ≥70%; across all high-risk subgroups (including TCFA &lt;80 μm, MLA &lt;4 mm², or all four features combined), late lumen loss with the DREAMS 3G bioresorbable magnesium scaffold remained low at 6 months (0.21±0.29 mm) and 12 months (0.27±0.44 mm), comparable to or lower than established DES performance. DREAMS 3G shows promise as a "leave-nothing-behind" strategy for high-risk vulnerable plaques, but this is a small-scale hypothesis-generating analysis and larger outcome-oriented trials are needed before clinical adoption.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">GWAS of Coronary Flow Reserve Implicates the NF-κB Pathway in Microvascular Disease</div>
+    <div class="src">Venkatesh R et al. · <em>Nat Cardiovasc Res</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42231019/">PMID 42231019 ↗</a></div>
+    <div class="body"><p>A genome-wide association study using cardiac PET–derived coronary flow reserve (CFR) as a phenotypic readout for coronary microvascular disease (CMVD) identified 45 loci in populations genetically similar to African ancestry and 18 in European-ancestry populations among 241 known ischaemic heart disease loci; downstream pathway analysis highlighted NF-κB as a central molecular node, supported by targeted proteomic data. CFR-based GWAS opens a mechanistic window into CMVD that may eventually yield therapeutic targets, though translation to pharmacological intervention from association data requires multiple steps and will take years.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Emergency M-TEER in Cardiogenic Shock from Papillary Muscle Rupture Under ECMO+Impella Support</div>
+    <div class="src">Ahmed U et al. · <em>J Cardiol Cases</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42254041/">PMID 42254041 ↗</a></div>
+    <div class="body"><p>A case of acute severe MR from papillary muscle rupture post-MI was managed with emergent transcatheter edge-to-edge repair under combined VA-ECMO and Impella support; real-time TEE guidance required transient VA-ECMO flow reduction to optimise right atrial visualisation and Impella adjustment to prevent device interference, and sequential clip deployment achieved significant MR reduction and haemodynamic recovery. This illustrates both the feasibility and the demanding multidisciplinary coordination of cath-lab-based TEER in refractory cardiogenic shock — a potentially life-saving salvage strategy in institutions with structural and MCS expertise.</p></div>
+  </div>
+</section>
+
+<!-- 8 · TIER 3 — WORTH KNOWING -->
+<section id="tier3">
+  <div class="sec-h"><span class="chip t3">Tier 3</span><h2>Worth knowing</h2><span class="rule"></span></div>
+
+  <div class="item">
+    <div class="ttl">TAVI Reintervention: Time-Varying Risk Over a Decade in Medicare Patients</div>
+    <div class="src">Alabbadi S et al. · <em>Ann Thorac Surg</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42276224/">PMID 42276224 ↗</a></div>
+    <div class="body"><p>Among 324,701 TAVI patients in Medicare (2013–2022), 2,387 (0.7%) underwent reintervention; the hazard rate tripled in the late interval (≥7 years post-TAVI: 0.98%) vs the early period (&lt;3.5 years: 0.26%), with valve stenosis accounting for 31.3% of early but 70.8% of late reinterventions, and ViV TAVR proportions rising from 53.9% early to 97.2% late. As TAVI patients age into structural valve deterioration, ViV TAVR rather than redo-surgery is becoming the near-universal reintervention strategy — making leaflet modification literacy (see Tier 1) essential at all structural programmes.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Cusp-Overlap Technique Reduces Pacemaker Implantation Rates with Self-Expanding TAVR</div>
+    <div class="src">Salem M et al. · <em>J Clin Med</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42278871/">PMID 42278871 ↗</a></div>
+    <div class="body"><p>In 203 patients receiving self-expanding TAVR (106 cusp-overlap vs 97 three-cusp technique), the cusp-overlap technique (COT) achieved shallower implantation depth and was associated with significantly fewer post-procedural conduction disturbances and permanent pacemaker implantations vs the three-cusp coplanar view (3CT). COT is now recommended in major guidelines for self-expanding TAVR; this real-world single-centre comparison reinforces routine adoption of COT to reduce the most common procedural complication of SE-TAVR.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Single vs Dual Antiplatelet Therapy After TAVI Without Anticoagulation: Time-Varying Analysis</div>
+    <div class="src">Albabtain MA et al. · <em>J Clin Med</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42279241/">PMID 42279241 ↗</a></div>
+    <div class="body"><p>In a tertiary-centre retrospective analysis (April 2009 – April 2023) using time-varying Cox modelling, SAPT was not significantly different from DAPT for either ischaemic MACE (death, stroke, MI; adjusted HR 1.28 for DAPT vs SAPT, p=0.292) or net adverse clinical events (NACE; HR 0.71 for DAPT vs SAPT, p=0.159); neither endpoint reached significance and the numerical NACE trend favoured DAPT (not SAPT). Randomised evidence consistently favours SAPT over DAPT after TAVI in the absence of anticoagulation indications; this real-world analysis, though underpowered for bleeding, is consistent with no ischaemic disadvantage of SAPT.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Iliofemoral Access-Site Calcification Volume and Long-Term TAVR Mortality</div>
+    <div class="src">Vij V et al. · <em>Clin Res Cardiol</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42274775/">PMID 42274775 ↗</a></div>
+    <div class="body"><p>In 1,067 TAVI patients with pre-procedural CT quantification of iliofemoral access-site calcification (IASC) volume (median 907 mm³), high IASC was not associated with peri-procedural vascular or bleeding complications at 30 days; 1-year all-cause mortality was 11.7% overall with no significant difference between high and low IASC groups (12.8% vs 10.5%; p=0.20). Significantly higher mortality in high IASC patients emerged at 3 years (34.3% vs 22.3%; p&lt;0.01) and 5 years (42.2% vs 28.7%; p&lt;0.01), with IASC volume independently associated with long-term mortality on multivariable analysis (HR 1.24; 95% CI 1.11–1.38). IASC volume appears to reflect systemic vascular disease burden and carries prognostic weight at mid- and long-term follow-up — relevant for long-term risk stratification rather than peri-procedural access planning alone.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Machine Learning Model Predicts Permanent Pacemaker Implantation After TAVR</div>
+    <div class="src">Abras M et al. · <em>Diagnostics (Basel)</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42279588/">PMID 42279588 ↗</a></div>
+    <div class="body"><p>In a prospective study of 179 TAVR patients (2019–2025), an ML model using pre-procedural clinical and echocardiographic features predicted permanent pacemaker implantation (occurring during hospitalisation or within 30 days) with overall accuracy 0.944 and weighted F1-score 0.947; SHAP analysis identified valve size, right coronary sinus diameter, prosthetic valve diameter, and mean aortic annulus diameter as the most influential predictors (baseline clinical variables had lesser contribution). ML-based PPI risk tools may eventually complement anatomical predictors (LBBB, HV interval, calcium distribution) in TAVR preprocedural counselling, though external validation is required.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Pharmacological Management of Cardiogenic Shock: Contemporary Evidence Review</div>
+    <div class="src">Levy B et al. · <em>Curr Opin Crit Care</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42273963/">PMID 42273963 ↗</a></div>
+    <div class="body"><p>This review identifies norepinephrine as the preferred first-line vasopressor (lower arrhythmic risk vs dopamine), flags epinephrine's adverse metabolic profile and association with refractory shock, and concludes that no inotrope (dobutamine, milrinone, levosimendan) has demonstrated clear superiority; early MCS to reduce catecholamine load and tentative evidence for early HF-drug initiation in stabilised patients are also highlighted. A practical pharmacological framework for the CCU/cath lab team managing post-MI cardiogenic shock.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">SAPT vs DAPT in AMI-Cardiogenic Shock Patients Requiring VA-ECMO After PCI</div>
+    <div class="src">Chowdhury JM et al. · <em>Perfusion</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42269176/">PMID 42269176 ↗</a></div>
+    <div class="body"><p>In a retrospective single-centre analysis of 72 AMI-CS patients requiring VA-ECMO who underwent PCI (of 351 screened), SAPT (aspirin or P2Y12 alone) plus anticoagulation was compared to DAPT plus anticoagulation; rates of ECMO-related and overall bleeding, stent thrombosis, and survival were compared. DAPT adds substantial bleeding risk in patients already anticoagulated for VA-ECMO; this dataset supports a de-escalated antithrombotic strategy in this highest-risk population where post-PCI and mechanical support demands converge.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Echocardiography-Guided Phenotyping in Cardiogenic Shock Management</div>
+    <div class="src">Balik M et al. · <em>Curr Opin Crit Care</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42284520/">PMID 42284520 ↗</a></div>
+    <div class="body"><p>This review outlines how echocardiography identifies distinct CS phenotypes (LV systolic failure, LV diastolic failure, RV failure, severe valvular disease, LVOT obstruction) and guides both pharmacological and mechanical support decisions — noting that echocardiographic cardiac index and stroke volume are now part of basic echo competency. Phenotype-directed CS management is gaining traction as an alternative to SCAI-stage-only classification; echocardiography by an experienced operator is the pivotal tool in this approach.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">Orforglipron vs Dapagliflozin in T2DM: ACHIEVE-2 Phase 3 RCT</div>
+    <div class="src">Welch M et al. · <em>Lancet</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42259339/">PMID 42259339 ↗</a></div>
+    <div class="body"><p>In a 40-week multicentre Phase 3 RCT (73 sites, 6 countries) randomising adults with T2DM and inadequate glycaemic control on metformin 1:1:1:1 to oral once-daily orforglipron (3 mg, 12 mg, or 36 mg) vs dapagliflozin 10 mg, all three orforglipron doses (3 mg, 12 mg, and 36 mg) met the prespecified non-inferiority margin (0.3%) for HbA1c reduction vs dapagliflozin at 40 weeks. Oral non-peptide GLP-1 receptor agonists reaching non-inferiority vs SGLT2 inhibitors for glycaemic control are relevant for cardiometabolic patients post-PCI who cannot tolerate injections; cardiovascular outcome data from dedicated CVOT trials are awaited.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">EHR Alerts to Improve Lipid Lowering Post-MI: Active vs Passive Alert Strategy</div>
+    <div class="src">Karalis DG et al. · <em>J Am Heart Assoc</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42261954/">PMID 42261954 ↗</a></div>
+    <div class="body"><p>Switching from a passive (dismissible) to an active (non-dismissible without action) EHR alert in patients with recent MI (LDL ≥70 mg/dL or missing) increased ezetimibe use from 12% to 35% and PCSK9 inhibitor use from 2% to 8% (OR 4.07; 95% CI 1.92–9.46) over 24 months; high-intensity statin use was already high (70–73%) in the active-alert cohort. Simple EHR-based interventions can substantially increase guideline-directed LLT prescribing post-MI — a low-cost, scalable approach with direct relevance to post-PCI secondary prevention pathways.</p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">TWEET-1: Haemodynamic-Guided VA-ECMO Management With Impella 5.5 LV Venting</div>
+    <div class="src">Nascimbene A et al. · <em>Perfusion</em> 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42284561/">PMID 42284561 ↗</a></div>
+    <div class="body"><p>In this prospective feasibility study of 43 VA-ECMO patients (25 ECPELLA+ if PA diastolic ≥20 mmHg; 18 controls), overall survival to discharge was 53% with no significant survival difference between groups; ECPELLA+ patients had higher pulmonary pressures and longer VA-ECMO duration. TWEET-1 demonstrates feasibility of haemodynamic-guided LV unloading criteria in VA-ECMO patients and provides parameters for future interventional trials — though the small, single-centre design precludes definitive conclusions about survival benefit of routine Impella addition to ECMO.</p></div>
+  </div>
+</section>
+
+<!-- 10 · QUICK HITS -->
+<section id="quickhits">
+  <div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
+  <ul class="qh">
+    <li><b>BASILICA algorithm paper: decision framework for leaflet modification.</b> A systematic review and algorithm for selecting among BASILICA, BA-BASILICA, intraleaflet deployment, and alternative coronary protection based on anatomy, pathology, and procedural goals — the companion decision-support tool to this week's position statement. <a href="https://pubmed.ncbi.nlm.nih.gov/42264629/">PubMed ↗</a></li>
+
+    <li><b>HALT reduction after dual-leaflet BASILICA: zero cases observed in the dual-leaflet modification subgroup.</b> No HALT observed on CT in patients undergoing dual-leaflet modification at ViV TAVR — a striking signal warranting prospective confirmation. Part of the same study as <a href="#dd2">deep dive 2</a>. <a href="https://pubmed.ncbi.nlm.nih.gov/42264630/">PubMed ↗</a></li>
+
+    <li><b>Adipose tissue and TAVI outcomes: circulating adiponectin and visceral fat area (VAT) — but not epicardial fat density alone — independently predict 1-year MACCE in a 243-patient CT analysis.</b> Storozhenko T et al., Eur Heart J Open. Epicardial fat parameters become prognostically informative only in combined adipose-adiponectin phenotypes — an emerging imaging-biomarker approach. <a href="https://pubmed.ncbi.nlm.nih.gov/42282065/">PubMed ↗</a></li>
+
+    <li><b>Perioperative thrombocytopenia after TAVR vs SAVR: TAVI produces a more rapid and pronounced platelet nadir at POD 1–2.</b> Karaca Ö et al., J Cardiothorac Surg; n=248. Awareness of differential platelet kinetics may guide antithrombotic timing decisions early post-TAVI. <a href="https://pubmed.ncbi.nlm.nih.gov/42277924/">PubMed ↗</a></li>
+
+    <li><b>Risk stratification for transthyretin cardiac amyloidosis in severe AS: diagnostic accuracy of risk-score tools analysed in a TAVI context.</b> Katarzyna G et al., Front Cardiovasc Med. This 104-patient prospective study found ATTR-CA in 18% of severe AS patients; risk scores (RAISE, T-AMYLO) showed strong diagnostic performance for case detection. <a href="https://pubmed.ncbi.nlm.nih.gov/42257036/">PubMed ↗</a></li>
+
+    <li><b>Sodium bicarbonate for metabolic acidosis in ICU patients on vasopressors: NEJM RCT (SODa-BIC; n=500) shows no reduction in major adverse kidney events (death, RRT, or persistent renal dysfunction) at 30 days vs placebo (40.2% vs 39.4%; P=0.78).</b> SODa-BIC Investigators, NEJM 2026. A null result complementing this week's in-hospital cardiac arrest bicarbonate RCT (see Tier 1). <a href="https://pubmed.ncbi.nlm.nih.gov/42283370/">PubMed ↗</a></li>
+
+    <li><b>Emergency TAV-in-TAV for failed bioprosthesis with severe AR: feasibility case and technical pearls.</b> Wells J et al., JACC Case Rep. Documents the real-time challenges of emergent redo-TAVR in haemodynamic instability. <a href="https://pubmed.ncbi.nlm.nih.gov/42283685/">PubMed ↗</a></li>
+
+    <li><b>Fetal aortic valvuloplasty: technical success 80.2% in 162 cases; higher centre volume associated with fewer fetal deaths but not more success.</b> Gijtenbeek M et al., Circ Cardiovasc Interv; single cardiac puncture and fetal estimated weight were the dominant predictors of outcome — not volume per se. <a href="https://pubmed.ncbi.nlm.nih.gov/42261657/">PubMed ↗</a></li>
+
+    <li><b>CKM syndrome and all-cause deaths: population-level US trends over two decades.</b> Jin S et al., JAHA; CKM-related mortality shows distinct temporal patterns emphasising growing burden of the cardiometabolic nexus. Companion data to this week's CKM guideline deep dive. <a href="https://pubmed.ncbi.nlm.nih.gov/42261944/">PubMed ↗</a></li>
+
+    <li><b>A2AR-cAMP as biomarker of myocardial reperfusion: PCI raises EC50 by 52%, CABG by 323% — suggesting CABG achieves more complete reperfusion at the molecular level.</b> Deharo P et al., Int J Cardiol; 90-patient prospective study. An intriguing non-invasive reperfusion signal, though clinical translation requires larger validation. <a href="https://pubmed.ncbi.nlm.nih.gov/42263949/">PubMed ↗</a></li>
+
+    <li><b>Simultaneous ViV TAVR, bioprosthetic valve fracture, and LAA closure: a combined structural procedure in one session.</b> Chang JH et al., JACC Case Rep. Complex hybrid structural case highlighting the push towards consolidated same-session interventions. <a href="https://pubmed.ncbi.nlm.nih.gov/42283684/">PubMed ↗</a></li>
+
+    <li><b>Concomitant AF ablation + LAAO is safe in 1,899 propensity-matched pairs: no increase in mortality, stroke, device leak, or device-related thrombus at 1 year.</b> Sawalha K et al., JACC Adv (already in dedup for prior issues — see w22). <a href="https://pubmed.ncbi.nlm.nih.gov/42275683/">PubMed ↗</a></li>
+
+    <li><b>Transcatheter PVL closure: 96.4% technical success and 92.9% clinical success in 28 high-risk patients with aortic or mitral PVLs, using reverse loop and AV rail techniques for complex cases.</b> Khalilipur E et al., Catheter Cardiovasc Interv. Advanced access techniques substantially improve success in challenging paravalvular leaks. <a href="https://pubmed.ncbi.nlm.nih.gov/42253251/">PubMed ↗</a></li>
+
+    <li><b>Cagrilintide–semaglutide (CagriSema) added to basal insulin in T2DM: superior HbA1c and body weight reductions vs placebo in a Lancet RCT.</b> Rosenstock J et al., Lancet 2026. Emerging dual amylin/GLP-1 combination therapy relevant to cardiometabolic post-PCI patients with T2DM inadequately controlled on insulin. <a href="https://pubmed.ncbi.nlm.nih.gov/42251856/">PubMed ↗</a></li>
+
+    <li><b>Advances in Clinical Cardiology 2025 — trial summary across ACC, EuroPCR, ESC, TCT, AHA, and EHRA covering major 2025 studies.</b> Todd M et al., Adv Ther. A useful reference compendium for catching up on prior-year landmark presentations. <a href="https://pubmed.ncbi.nlm.nih.gov/42283960/">PubMed ↗</a></li>
+  </ul>
+</section>
+
+<!-- 11 · EDUCATIONAL PICKS -->
+<section id="educational">
+  <div class="sec-h"><h2>Educational picks</h2><span class="rule"></span></div>
+
+  <div class="item">
+    <div class="ttl">JACC Cardiovasc Interv Focus Issue — Redo-TAVR and Leaflet Modification (June 2026)</div>
+    <div class="body"><p>This week's landmark JACC CVI focus issue on redo-TAVR and leaflet modification is the most comprehensive resource yet assembled on the topic. Twelve papers — including the BASILICA Working Group Position Statement, the EURO-BASILICA registry analysis, multiple bench studies on technique factors, the CT risk stratification paper (this issue's deep dive 1), and the HALT-reduction paper (deep dive 2) — form an integrated curriculum from bench to bedside. Structural operators preparing or expanding redo-TAVR programmes should treat this issue as required reading. <span class="fmt">Special Issue</span></p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">2026 AHA/ACC/ADA/ASN CKM Guideline At-a-Glance (Panjrath GS et al., JACC 2026)</div>
+    <div class="src"><a href="https://pubmed.ncbi.nlm.nih.gov/42263011/">PMID 42263011 ↗</a></div>
+    <div class="body"><p>The official summary companion to this week's landmark CKM Guideline (deep dive 3) condenses the staging system, PREVENT equation recommendations, and treatment algorithm into a clinical-practice-ready reference. Recommended for busy cardiologists who need the actionable framework without the full guideline text. <span class="fmt">Guideline At-a-Glance</span></p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">TAVI and Coronary Interventions: Review of Technical Considerations and Clinical Scenarios (EuroIntervention 2026)</div>
+    <div class="src">Aquino Bruno H et al. · <em>EuroIntervention</em> 2026 (widened coverage) · <a href="https://pubmed.ncbi.nlm.nih.gov/42219978/">PMID 42219978 ↗</a></div>
+    <div class="body"><p>A comprehensive practical overview of coronary interventions in the TAVI context — covering physiological assessment, PCI timing before and after TAVI, commissural alignment effects on coronary access, and device-related factors influencing re-access. A useful paired reading with this week's CT risk stratification and BASILICA papers for operators building end-to-end TAVI + coronary management protocols. <span class="fmt">Expert Review</span></p></div>
+  </div>
+
+  <div class="item">
+    <div class="ttl">From the feed · X</div>
+    <div class="body">
+      <div class="disc small">Pending — captured from the editor's live X session; not available in this cloud run. Curated expert voices (Alkhouli, Kirtane, Bangalore, Rao, Capodanno, Al-Lamee, Tarantini) on this week's redo-TAVR/BASILICA focus issue and the CKM guideline will be added in the live-enriched version.</div>
+    </div>
+  </div>
+</section>
+
+<!-- 12 · PODCAST PICKS -->
+<section id="podcasts">
+  <div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
+  <div class="disc small">Pending — podcast episode verification requires a live browsing session. Recommended shows to check this week: <em>JACC: Cardiovascular Interventions Podcast</em> (likely covering the redo-TAVR focus issue), <em>This Week in Cardiology</em> (Mandrola — NaHCO₃ RCT and CKM guideline), <em>CardioNerds</em> (structural heart and CKM), and <em>TCTMD Talking Points</em> (BASILICA and redo-TAVR). A curated podcast selection will be included in the live-enriched version.</div>
+</section>
+
+<!-- LANDMARK REVISITED -->
+<section id="landmark">
+  <div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
+  <div class="landmark">
+    <div class="ttl"><span class="acr">PARTNER 3</span> — Transcatheter Aortic-Valve Replacement with a Balloon-Expandable Valve in Low-Risk Patients</div>
+    <div class="src">Mack MJ et al. (PARTNER 3 Investigators) · <em>N Engl J Med</em> 2019;380(18):1695–1705 · <a href="https://pubmed.ncbi.nlm.nih.gov/30883058/">PMID 30883058 ↗</a> · NCT02675114</div>
+
+    <div class="label">Structured abstract</div>
+    <dl>
+      <dt>Background</dt>
+      <dd>By 2019, TAVR with balloon-expandable valves had already proven non-inferior or superior to surgery in high-risk and intermediate-risk patients (PARTNER 1A, PARTNER 2A). Whether the same valve platform could outperform surgery in <em>low-risk</em> patients — typically younger with longer life expectancy — was the critical outstanding question for TAVR's expansion into the mainstream population.</dd>
+      <dt>Methods</dt>
+      <dd>1,000 patients with severe symptomatic aortic stenosis and low surgical risk (mean STS-PROM 1.9%) were randomised at 71 centres to transfemoral TAVR with the balloon-expandable SAPIEN 3 valve vs surgical aortic valve replacement (SAVR). Mean age was 73 years. Both non-inferiority (margin 6 percentage points) and superiority testing were prespecified in the as-treated population. Primary endpoint: composite of death, stroke, or rehospitalisation at 1 year.</dd>
+      <dt>Key results</dt>
+      <dd>At 1 year, TAVR was superior to SAVR for the primary composite endpoint: 8.5% vs 15.1% (absolute difference −6.6 pp; 95% CI −10.8 to −2.5; P&lt;0.001 for non-inferiority; HR 0.54, 95% CI 0.37–0.79; P=0.001 for superiority). At 30 days, TAVR produced fewer strokes (P=0.02), lower rates of death or stroke (P=0.01), less new-onset atrial fibrillation (P&lt;0.001), and shorter index hospitalisation (P&lt;0.001). No significant between-group differences in major vascular complications, new permanent pacemaker insertions, or moderate/severe paravalvular regurgitation were observed.</dd>
+      <dt>Conclusion</dt>
+      <dd>In patients with severe AS at low surgical risk, TAVR with a balloon-expandable valve was superior to SAVR for the composite of death, stroke, or rehospitalisation at 1 year — establishing TAVR as an acceptable treatment option across all surgical risk categories.</dd>
+    </dl>
+
+    <div class="label">The question &amp; the verdict</div>
+    <p style="font-size:14px;margin:6px 0;">PARTNER 3 asked whether TAVR's proven benefit in high- and intermediate-risk patients extended to those who were actually good surgical candidates. The answer was unambiguously affirmative — and the mechanism was primarily early harm reduction (30-day AF, stroke, hospital stay) rather than late durability advantage, which remains the unresolved question. The trial changed guidelines immediately: within 12 months, both ESC and ACC/AHA updated recommendations to include TAVR as an option for low-risk patients. It is the single most consequential TAVR trial since PARTNER 1B established TAVR vs no therapy in inoperable patients.</p>
+
+    <div class="label">Statistical appraisal</div>
+    <dl>
+      <dt>Endpoint design</dt>
+      <dd>The composite primary endpoint (death/stroke/rehospitalisation) included a heterogeneous third component: rehospitalisation. This component drove much of the early TAVR superiority (avoidance of post-surgical recovery hospitalisations) and should not be conflated with hard events. All-cause death and stroke individually were not significantly different at 1 year in the primary report.</dd>
+      <dt>Intention-to-treat vs as-treated</dt>
+      <dd>Primary analyses were performed in the as-treated population (the prespecified primary analysis population), which excluded crossovers. ITT results were reported as sensitivity analyses and were consistent. With 2.9% crossover rate, this distinction is minor but notable.</dd>
+      <dt>Generalisability</dt>
+      <dd>Mean STS-PROM of 1.9% but mean age of 73 years — an important nuance. Many "low-risk" TAVR patients in practice are older; true low-risk young patients (age &lt;65) were a small minority of PARTNER 3. The trial enrolled predominantly bicuspid-valve-excluded and non-severely calcified patients. Generalising results to younger or anatomically complex low-risk patients requires caution.</dd>
+      <dt>Effect size &amp; precision</dt>
+      <dd>The 6.6 percentage-point absolute difference in the composite is clinically meaningful and the confidence interval is tight, conferring high precision. However, the most durable hard endpoint (all-cause death) had only 2.5% vs 4.0% absolute difference at 1 year — a difference that may narrow or reverse over longer follow-up as prosthesis durability questions emerge for TAVR valves implanted in 73-year-olds expected to outlive a 15-year bioprosthesis.</dd>
+    </dl>
+
+    <div class="label">Subsequent substudies &amp; follow-up</div>
+    <dl>
+      <dt>5-Year Echocardiographic Outcomes — Hahn RT et al., JACC Cardiovasc Imaging 2025 · <a href="https://pubmed.ncbi.nlm.nih.gov/40243974/">PMID 40243974 ↗</a></dt>
+      <dd>At 5 years, valve haemodynamics remained favourable in both TAVR and SAVR arms; structural valve deterioration rates were low and comparable, providing the most comprehensive long-term echocardiographic durability data for the SAPIEN 3 platform in low-risk patients.</dd>
+    </dl>
+
+    <div class="label">Why it still matters</div>
+    <p style="font-size:14px;margin:6px 0 10px;">PARTNER 3 is directly responsible for the current reality this week's redo-TAVR focus issue addresses: a generation of relatively young, low-risk patients implanted with SAPIEN 3 valves since 2019 who will reach structural valve deterioration within the next decade. The lifetime management framework — first TAVR, then ViV, then redo-TAVR or valve explant — begins with the PARTNER 3 population. Every leaflet modification paper in this week's JACC CVI focus issue is, in a real sense, preparing for the consequences of PARTNER 3's success. The trial also crystallised one of interventional cardiology's central unsolved problems: we can implant a valve more safely than surgery at 1 year, but we do not yet have randomised 15-year data confirming TAVR durability matches surgical bioprostheses in younger patients. PARTNER 3's long-term cohort will be one of the definitive arbiters of this question over the next 10 years.</p>
+  </div>
+</section>
+
+<!-- 13 · FOOTER -->
+<footer>
+  <p>CardioDigest is an editorial digest prepared for practising interventional cardiologists. Appraisals represent the editorial judgement of CardioDigest and do not replace independent clinical assessment, the primary literature, or current guidelines. All links verified at time of publication.</p>
+  <p>Issue 2026-w24 · covering 8–14 June 2026 (widened to 1 June 2026 where thin) · 460 candidates reviewed, 44 selected · Archive: CardioDigest Issue 2026-w24</p>
+</footer>
+
+</div>
+</body>
+</html>
