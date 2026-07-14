@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>CardioDigest — Issue 2026-w27</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5b6166; --faint:#8a9099; --line:#e6e8eb; --bg:#ffffff; --card:#fbfbfc;
+    --accent:#8b2635;        /* desaturated cardio bordeaux */
+    --accent-soft:#f4e7e9;
+    --t1:#8b2635;            /* practice-changing */
+    --t2:#b5763a;            /* notable */
+    --t3:#5b6166;            /* worth knowing */
+    --tag:#3a6b7e;           /* educational / format tags */
+    --maxw:640px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e9eaec; --muted:#a8aeb4; --faint:#7d838a; --line:#2a2d30; --bg:#141517; --card:#1b1d20; --accent:#e0879a; --accent-soft:#2a1c20; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 18px 56px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1,h2,h3{line-height:1.25;margin:0;}
+  .small{font-size:13px;color:var(--muted);}
+  .faint{color:var(--faint);}
+
+  /* Masthead */
+  .mast{border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:18px;}
+  .mast .brand{font-size:26px;font-weight:800;letter-spacing:-.4px;}
+  .mast .brand b{color:var(--accent);}
+  .mast .tagline{font-size:13px;color:var(--muted);margin-top:2px;}
+  .mast .meta{margin-top:10px;font-size:13px;color:var(--muted);}
+  .stats{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);}
+  .stat b{color:var(--ink);}
+
+  /* Section headers with visual coding */
+  section{margin:26px 0 0;scroll-margin-top:12px;}
+  .sec-h{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:12px;}
+  .sec-h h2{font-size:16px;text-transform:uppercase;letter-spacing:.6px;}
+  .sec-h .rule{flex:1;}
+  .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:4px;color:#fff;}
+  .chip.t1{background:var(--t1);} .chip.t2{background:var(--t2);} .chip.t3{background:var(--t3);}
+  .chip.cond{background:var(--tag);}
+  .chip.pre{background:#6a4b8a;}
+
+  /* Index / TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+  .toc ol{margin:6px 0 0;padding-left:18px;}
+  .toc li{margin:3px 0;font-size:14px;}
+  .toc .n{color:var(--faint);font-variant-numeric:tabular-nums;}
+
+  /* TL;DR */
+  .tldr li{margin:7px 0;}
+  .tldr b{color:var(--ink);}
+
+  /* Items */
+  .item{padding:12px 0;border-bottom:1px solid var(--line);}
+  .item:last-child{border-bottom:none;}
+  .item .ttl{font-size:15px;font-weight:700;}
+  .acr{display:inline-block;font-weight:800;color:var(--accent);}
+  .item .src{font-size:12px;color:var(--muted);margin-top:2px;}
+  .item .body{margin-top:6px;font-size:14.5px;}
+  .item .body p{margin:6px 0;}
+
+  /* Deep dive */
+  .deep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;}
+  .deep .ttl{font-size:16px;}
+  .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-top:10px;}
+  .deep .bottom{margin-top:10px;padding:8px 10px;background:var(--accent-soft);border-radius:6px;font-weight:600;}
+  .deep dl{margin:4px 0 0;}
+  .deep dt{font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .deep dd{margin:1px 0 0;font-size:14px;}
+
+  /* From the feed */
+  .feed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;}
+  .feed .fh{font-size:12px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.4px;}
+  .feed li{margin:6px 0;font-size:13.5px;}
+
+  .qh li{margin:6px 0;font-size:14px;}
+  .fmt{font-size:11px;font-weight:700;color:var(--tag);border:1px solid var(--tag);border-radius:4px;padding:1px 6px;margin-left:4px;}
+
+  /* Landmark */
+  .landmark{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:14px;}
+
+  footer{margin-top:34px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted);}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1 · HEADER -->
+  <header class="mast">
+    <div class="brand">Cardio<b>Digest</b></div>
+    <div class="tagline">Weekly Interventional Cardiology Digest</div>
+    <div class="meta">Issue 2026-w27 · 29 June 2026 – 5 July 2026 (widened to 22 June 2026 where thin)</div>
+    <div class="stats">
+      <span class="stat"><b>491</b> candidates reviewed</span>
+      <span class="stat"><b>39</b> selected</span>
+      <span class="stat"><b>7</b> educational</span>
+      <span class="stat"><b>0</b> podcasts</span>
+    </div>
+  </header>
+
+  <!-- 2 · INDEX -->
+  <section id="index">
+    <nav class="toc" aria-label="Contents">
+      <div class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.5px;">In this issue</div>
+      <ol>
+        <li><a href="#tldr">Top Highlights / TL;DR</a></li>
+        <li><a href="#industry">Industry &amp; Regulatory Watch</a></li>
+        <li><a href="#tier1">Tier 1 — Practice-changing</a></li>
+        <li><a href="#tier2">Tier 2 — Notable</a></li>
+        <li><a href="#tier3">Tier 3 — Worth knowing</a></li>
+        <li><a href="#quickhits">Quick hits</a></li>
+        <li><a href="#educational">Educational picks</a></li>
+        <li><a href="#podcasts">Podcast picks</a></li>
+        <li><a href="#landmark">Landmark Revisited</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- 3 · TL;DR -->
+  <section id="tldr">
+    <div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
+    <ul class="tldr">
+      <li><b>Mechanical leaflet splitting cleared coronary obstruction in a high-risk valve-in-valve TAVR cohort</b> — a 150-patient U.S. commercial series succeeded in 144/145 attempts with only 2.0% coronary obstruction. <a href="#makkar">↓</a></li>
+      <li><b>TUXEDO-2 confirms an ultra-thin sirolimus stent is noninferior to everolimus DES in 1,800 diabetic multivessel patients</b> — 1-year target lesion failure 7.92% vs 8.75%. <a href="#tuxedo2">↓</a></li>
+      <li><b>A 23,338-patient network meta-analysis puts a number on the imaging-guidance benefit</b> — IVUS/OCT-guided PCI cut MACE 26% versus angiography guidance alone (HR 0.74). <a href="#hiruma">↓</a></li>
+      <li><b>LOFTER-TAVR's 293-patient registry shows leaflet modification prevents coronary obstruction in 91% of high-risk TAVR cases</b> — but early post-procedure safety events remain frequent. <a href="#lofter-tavr">↓</a></li>
+      <li><b>BATMAN prevents LVOT obstruction in 95% of high-risk transseptal mitral valve replacement</b> — with complications concentrated in valve-in-MAC anatomy. <a href="#batman">↓</a></li>
+      <li><b>Bench testing exposes a hidden safety hazard in off-label BASILICA/LAMPOON/SESAME electrosurgery</b> — catheter-shaft heating diverts energy from the target once applications run longer than 2 seconds. <a href="#electrosurgery-failure">↓</a></li>
+      <li><b>PROLONG's 14-year follow-up favors early antiplatelet discontinuation after PFO closure</b> — stopping by 12 months cut major bleeding by roughly two-thirds (0.9% vs 2.8%) with no added ischemic risk, a net benefit driven by patients with a RoPE score ≥7. <a href="#prolong-pfo">↓</a></li>
+    </ul>
+  </section>
+
+  <!-- 5 · INDUSTRY & REGULATORY WATCH -->
+  <section id="industry">
+    <div class="sec-h"><span class="chip cond">Watch</span><h2>Industry &amp; Regulatory</h2><span class="rule"></span></div>
+    <div class="item">
+      <div class="ttl">Cangrelor and Coronary Microvascular Dysfunction During Elective PCI</div>
+      <div class="body"><p>A newly registered Phase 4 trial testing whether periprocedural cangrelor reduces microvascular dysfunction during elective PCI, an angiography-invisible mechanism increasingly implicated in periprocedural myocardial injury. <a href="https://clinicaltrials.gov/study/NCT06089577">NCT06089577 ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Ticin for Coronary Lesions Treated With Drug-Eluting Balloons</div>
+      <div class="body"><p>Phase 4 evaluation of the Ticin drug-coated balloon platform in native coronary lesions, adding to the expanding drug-coated-balloon evidence base for de novo small-vessel and in-stent disease. <a href="https://clinicaltrials.gov/study/NCT05674630">NCT05674630 ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Adenosine Pre-Medication in Primary PCI</div>
+      <div class="body"><p>A Phase 4 trial testing whether adenosine pretreatment ahead of primary PCI improves microvascular or angiographic outcomes in STEMI, revisiting a long-debated adjunctive-pharmacology question in the primary-PCI setting. <a href="https://clinicaltrials.gov/study/NCT07536802">NCT07536802 ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Antiplatelet Effect of Berberine After PCI</div>
+      <div class="body"><p>A Phase 4 study of the natural compound berberine as an antiplatelet adjunct after PCI, reflecting growing interest in non-traditional agents for post-PCI secondary prevention. <a href="https://clinicaltrials.gov/study/NCT03378934">NCT03378934 ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">REMAP ECMO — Beta-Receptor Modulation Trial</div>
+      <div class="body"><p>A Phase 2 trial testing beta-receptor modulation during ECMO support, targeting the adrenergic physiology that complicates weaning and myocardial recovery in mechanically supported patients. <a href="https://clinicaltrials.gov/study/NCT06522594">NCT06522594 ↗</a></p></div>
+    </div>
+  </section>
+
+  <!-- 6 · TIER 1 — Practice-changing -->
+  <section id="tier1">
+    <div class="sec-h"><span class="chip t1">Tier 1</span><h2>Practice-changing</h2><span class="rule"></span></div>
+
+    <div class="deep" id="makkar">
+      <div class="ttl"><span class="acr">—</span> — Real-World Outcomes of Dedicated Leaflet Modification for Bioprosthetic Valve-In-Valve TAVR: A 150-Patient Commercial Experience</div>
+      <div class="src">Makkar RR et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42360254/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Coronary obstruction during valve-in-valve (ViV) TAVR is infrequent but catastrophic; mechanical splitting of bioprosthetic leaflets may mitigate this risk, but real-world experience has been limited.</dd>
+        <dt>Methods</dt><dd>Consecutive postapproval cases using a dedicated mechanical leaflet-splitting device were performed at 28 centers from February to November 2025 in patients selected by CT criteria (virtual valve-to-coronary distance ≤4 mm and/or virtual valve-to-sinotubular junction distance ≤3 mm); events were adjudicated by VARC-3 definitions.</dd>
+        <dt>Key results</dt><dd>Among 150 patients (age 78.9±8.5 years, 60.0% female; 63.3% failed surgical and 36.7% failed transcatheter valves), CT predicted acute coronary obstruction risk in 87.3%. Leaflet splitting was attempted in 145 and successful in 144/145 (99.3%; dual-leaflet splitting in 57.2%). Coronary obstruction occurred in 3/150 (2.0%; 95% CI 0.7–5.7), all-cause mortality in 3/150 (2.0%), and conversion to surgery in 2/150 (1.3%).</dd>
+        <dt>Conclusion</dt><dd>In this early U.S. commercial experience, mechanical leaflet splitting achieved high procedural success in an anatomically high-risk ViV TAVR cohort, though serious complications occurred and longer-term follow-up is needed.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>Prospective, multicenter (28 centers), consecutive postapproval commercial registry with VARC-3-adjudicated events — the largest reported real-world experience with a dedicated leaflet-splitting device.</dd>
+        <dt>Clinical relevance</dt><dd>Coronary obstruction risk was CT-predicted in the large majority of patients (87.3%), confirming this as a genuinely high-risk ViV cohort; 99.3% technical success for leaflet splitting supports the device's feasibility in exactly the population it targets.</dd>
+        <dt>Context</dt><dd>Complements registry data on off-label BASILICA/LAMPOON and the emerging UNICORN technique reported elsewhere in this issue — leaflet modification is consolidating into a standard adjunct for anatomically high-risk redo-TAVR.</dd>
+        <dt>Limitations</dt><dd>Single-arm commercial registry without a comparator group and a short in-hospital follow-up window; 2 of 3 deaths were attributed to left ventricular perforation rather than the leaflet-splitting step itself, but causal attribution in an uncontrolled series remains difficult.</dd>
+      </dl>
+      <div class="bottom">Bottom line: In anatomically high-risk ViV TAVR, dedicated mechanical leaflet splitting is technically reliable (99.3% success) and should be part of standard planning when CT predicts coronary obstruction risk.</div>
+    </div>
+
+    <div class="deep" id="tuxedo2">
+      <div class="ttl"><span class="acr">TUXEDO-2</span> — Ultra-Thin Sirolimus-Eluting Versus Everolimus-Eluting Stents in Diabetic Multivessel Coronary Artery Disease Patients</div>
+      <div class="src">Kaul U et al. · J Am Coll Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42383943/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Diabetic patients with multivessel disease are at increased risk of adverse PCI outcomes, and stent-comparison trials have routinely excluded or under-represented them, leaving the comparative performance of ultra-thin sirolimus-eluting (SES) versus everolimus-eluting (EES) stents in this population unclear.</dd>
+        <dt>Methods</dt><dd>TUXEDO-2 was an investigator-initiated, prospective, open-label, multicenter, 2×2 factorial RCT randomizing PCI patients with diabetes and multivessel disease 1:1 to an ultra-thin biodegradable-polymer SES (Supraflex Cruz) or durable-polymer EES (Xience); the primary endpoint was 1-year target lesion failure (TLF), tested for noninferiority with a 4.5% margin.</dd>
+        <dt>Key results</dt><dd>Among 1,800 randomized patients (mean age 60.3 years, 28% women), TLF occurred in 148 patients: 70 patients (7.92%) with BP-SES versus 78 patients (8.75%) with DP-EES — a risk difference of -0.83 percentage points (1-sided upper 97.5% bound 3.42%), meeting the prespecified noninferiority margin. Cardiac death (3.6% vs 3.4%), target-vessel MI (6.61% vs 7.54%), ischemia-driven target-lesion revascularization (0.8% vs 1.0%), and stent thrombosis (1.0% vs 0.7%) did not differ significantly.</dd>
+        <dt>Conclusion</dt><dd>In patients with diabetes and multivessel disease, ultra-thin biodegradable-polymer SES was noninferior to durable-polymer EES at 1 year.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>Adequately powered (n=1,800), prospective, multicenter, 2×2 factorial noninferiority RCT — the largest dedicated stent-comparison trial enrolling exclusively diabetic multivessel patients.</dd>
+        <dt>Clinical relevance</dt><dd>Confirms a newer-generation ultra-thin biodegradable-polymer platform performs comparably to a well-established durable-polymer benchmark in the highest-risk PCI population for stent failure.</dd>
+        <dt>Context</dt><dd>Extends the ultra-thin-strut DES evidence base specifically into diabetic multivessel disease, a subgroup previously reliant on subgroup analyses rather than dedicated RCTs.</dd>
+        <dt>Limitations</dt><dd>Open-label design; only 1-year follow-up reported, while diabetic-stent outcomes (late lumen loss, very late stent thrombosis) can diverge beyond 1 year; the antiplatelet (ticagrelor vs prasugrel) factorial arm is not addressed in these results.</dd>
+      </dl>
+      <div class="bottom">Bottom line: Ultra-thin biodegradable-polymer SES is a noninferior, reasonable default DES choice in diabetic multivessel PCI, pending longer-term follow-up.</div>
+    </div>
+
+    <div class="deep" id="hiruma">
+      <div class="ttl"><span class="acr">—</span> — Intravascular Imaging Guidance for PCI and Clinical Outcomes: Meta-Analyses of Randomized Controlled Trials</div>
+      <div class="src">Hiruma Y et al. · Cardiovasc Interv Ther 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42400815/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Recent randomized trials have questioned the incremental benefit of intravascular imaging-guided PCI over angiography guidance, and which patients benefit most has remained uncertain.</dd>
+        <dt>Methods</dt><dd>Systematic identification of RCTs comparing IVUS-, OCT-, or angiography-guided PCI, with pairwise and network meta-analysis of MACE (cardiovascular death, target-vessel MI, target-vessel/lesion revascularization) and prespecified subgroup analyses by lesion complexity, clinical presentation (ACS vs CCS), and trial region (Asian vs non-Asian).</dd>
+        <dt>Key results</dt><dd>29 RCTs comprising 23,338 patients were included (8,443 IVUS-guided, 5,115 OCT-guided, 9,780 angiography-guided). Imaging-guided PCI was associated with significantly lower MACE than angiography-guided PCI (HR 0.74, 95% CI 0.63–0.87), with no significant difference between IVUS and OCT guidance; benefit was numerically greater in complex lesions, ACS, and Asian populations, but a significant interaction was confirmed only for Asian versus non-Asian trials (P&lt;0.01).</dd>
+        <dt>Conclusion</dt><dd>Intravascular imaging-guided PCI lowers MACE risk compared with angiography guidance, with more consistent benefit in trials enrolling Asian populations.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>Network meta-analysis of 29 RCTs and 23,338 patients — among the largest contemporary syntheses of imaging-guided PCI, enabling simultaneous IVUS-versus-OCT and imaging-versus-angiography comparisons.</dd>
+        <dt>Clinical relevance</dt><dd>A 26% relative MACE reduction (HR 0.74) reinforces guideline preference for intravascular imaging in complex PCI, and equivalence between IVUS and OCT gives operators latitude to choose based on availability and lesion characteristics.</dd>
+        <dt>Context</dt><dd>Reconciles apparently conflicting signals from recent large individual RCTs by pooling across trial regions and lesion complexity, addressing why benefit has looked inconsistent trial-to-trial.</dd>
+        <dt>Limitations</dt><dd>Trial-level (not patient-level) meta-analysis with substantial clinical heterogeneity across the pooled RCTs; the Asian-versus-non-Asian interaction may reflect operator experience or enrolled lesion complexity rather than a true biological difference, and needs prospective confirmation.</dd>
+      </dl>
+      <div class="bottom">Bottom line: Default to intravascular imaging guidance for complex or ACS-related PCI, choosing IVUS or OCT by operator expertise and lesion characteristics rather than platform superiority.</div>
+    </div>
+
+    <div class="item" id="lofter-tavr">
+      <div class="ttl"><span class="acr">LOFTER-TAVR</span> — Leaflet Modification to Mitigate Coronary Obstruction Risk During TAVR: Results From the LOFTER-TAVR Registry</div>
+      <div class="src">Occhipinti G et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42331413/">source ↗</a></div>
+      <div class="body"><p>LOFTER-TAVR was an international, multicenter registry of 293 consecutive patients at high risk for coronary obstruction undergoing leaflet modification (68.9% leaflet-splitting, 31.1% intraleaflet disruption) before TAVR between September 2019 and January 2026. Successful leaflet modification was achieved in 306/318 leaflets (96.2%), leaflet-modification-directed technical success in 251/293 patients (85.7%), and 91.1% of patients underwent TAVR without a coronary obstruction event, though delayed coronary obstruction still occurred in 1.0% and freedom from VARC-3 early safety events was only 61.8% at 30 days. The registry supports leaflet modification as feasible across a broad anatomical spectrum, but its substantial early clinical-risk burden argues for careful preprocedural planning and a structured multidisciplinary approach.</p></div>
+    </div>
+
+    <div class="item" id="batman">
+      <div class="ttl"><span class="acr">BATMAN</span> — Balloon-Assisted Translocation of the Mitral Anterior Leaflet to Prevent Outflow Tract Obstruction During TMVR</div>
+      <div class="src">Giustino G et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42331411/">source ↗</a></div>
+      <div class="body"><p>The BATMAN registry followed 83 patients at high risk for LVOT obstruction undergoing transseptal transcatheter mitral valve replacement (24 valve-in-valve, 39 valve-in-ring, 19 valve-in-mitral-annular-calcification) treated with balloon-assisted translocation of the anterior mitral leaflet. Technical success was achieved in 98.8% of cases, and the primary efficacy endpoint (successful TMVR free from LVOT obstruction and procedural death) was met in 95.1% overall (100% ViR, 95.8% ViV, 84.2% ViMAC; P=0.03), while the primary safety endpoint occurred in 7.3%, concentrated in the ViMAC subgroup (21.1% vs 0% ViR and 8.3% ViV; P=0.02). BATMAN is a highly effective LVOT-obstruction-prevention technique for ViR and ViV TMVR, but its higher complication rate in ViMAC anatomy argues for extra caution in that subgroup.</p></div>
+    </div>
+
+    <div class="item" id="electrosurgery-failure">
+      <div class="ttl"><span class="acr">—</span> — Failure Mechanisms in Off-Label Electrosurgery Devices for BASILICA, LAMPOON, and SESAME</div>
+      <div class="src">Murray JL et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42331415/">source ↗</a></div>
+      <div class="body"><p>Using a benchtop 2-compartment model, investigators mapped mechanisms of energy loss and nontarget heating in off-label transcatheter electrosurgery systems used for BASILICA, LAMPOON, and SESAME. Longer, higher-power energy applications caused substantial catheter-shaft heating via coupling between the guidewire and metallic catheter braiding, diverting energy from the intended target, whereas applications of ≤2 seconds and nonmetallic catheters largely avoided these failure modes; for SESAME, energizing the intracavitary rather than intramyocardial limb of the flying-V reduced dangerous intramyocardial heating. Operators performing these off-label techniques should favor nonmetallic catheters, use the shortest effective energy application, and follow the SESAME limb-energizing modification to reduce the risk of unintended tissue injury.</p></div>
+    </div>
+
+    <div class="item" id="prolong-pfo">
+      <div class="ttl"><span class="acr">PROLONG</span> — Tailoring Antiplatelet Therapy Duration After PFO Closure: Insights From the PROLONG Registry</div>
+      <div class="src">Gaspardone C et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42379134/">source ↗</a></div>
+      <div class="body"><p>The PROLONG registry retrospectively followed 940 patients (mean age 47±12 years, 55% women) for 14.0±3.1 years after PFO device closure at 12 Italian centers, comparing antiplatelet therapy (APT) discontinued by 12 months versus continued beyond 12 months. Net adverse clinical events occurred in 3.6% of the discontinuation group versus 7.2% of the continuation group (adjusted HR 0.71, 95% CI 0.38–1.37; P=0.31), driven by lower major bleeding with discontinuation (0.9% vs 2.8%; P=0.014); the benefit of discontinuation was significant specifically in patients with a Risk of Paradoxical Embolism (RoPE) score ≥7 (aHR 0.32, 95% CI 0.11–0.90; P=0.039). In patients with a high RoPE score, extending antiplatelet therapy beyond 12 months after successful PFO closure appears to trade bleeding risk for no measurable ischemic benefit.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · TIER 2 — Notable -->
+  <section id="tier2">
+    <div class="sec-h"><span class="chip t2">Tier 2</span><h2>Notable</h2><span class="rule"></span></div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">UNICORN</span> — UNICORN During Transcatheter Aortic Valve Replacement in Native and Bioprosthetic Aortic Valves</div>
+      <div class="src">Hebbo E et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42331407/">source ↗</a></div>
+      <div class="body"><p>A 9-site series of 53 patients (8 native, 30 surgical, 15 transcatheter valves) undergoing UNICORN — an intraleaflet radiofrequency-needle technique to prevent coronary obstruction during TAVR — used intraleaflet deployment in 76% and full-leaflet tearing in 24% of cases. Primary success (TAVR without periprocedural coronary obstruction, reintervention, or death) occurred in 96% (51/53), with 2 patients (4%) requiring rescue PCI and overall 30-day safety achieved in 87%; intraprocedural hypotension was frequent (23%). UNICORN reliably prevented coronary obstruction in this early multicenter experience and should be considered when lower-risk mitigation strategies are unlikely to succeed.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Persistent Severe Tricuspid Regurgitation After Mitral Transcatheter Edge-to-Edge Repair</div>
+      <div class="src">Kühlein M et al. · Struct Heart 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42382303/">source ↗</a></div>
+      <div class="body"><p>A dual-center cohort of 905 patients (median age 79.7 years, 43.4% female) undergoing M-TEER for severe MR between 2015–2025 assessed the prognostic impact of persistent severe tricuspid regurgitation (TR) at 3-month follow-up, stratified by guideline-based eligibility for staged transcatheter tricuspid valve intervention (TTVI). Persistent severe TR occurred in 16.3%; overall 1- and 2-year survival were 87.7% and 77.6%, but TTVI-ineligible patients with persistent TR had markedly worse 2-year survival (39.5%) than TTVI-eligible patients (82.9%, similar to patients without persistent TR at 87.7%), with TTVI ineligibility independently associated with mortality (HR 5.25, 95% CI 1.39–19.8). Persistent TR after M-TEER is prognostically important mainly in patients anatomically ineligible for staged tricuspid intervention, arguing for systematic TTVI-eligibility assessment rather than treating persistent TR as a uniform risk marker.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Coronary Artery Bypass Grafting Based on CT-Derived Fractional Flow Reserve Versus Angiography: Early Results</div>
+      <div class="src">Kim MS et al. · Ann Thorac Surg 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42392427/">source ↗</a></div>
+      <div class="body"><p>In a randomized trial of 106 patients undergoing CABG, revascularization strategy was guided either by CT-derived fractional flow reserve (CT-FFR ≤0.78, n=53) or by quantitative coronary angiography (n=53), with early postoperative angiography comparing graft patency. The average number of revascularized coronary arteries per patient was similar (3.7±0.8 vs 3.5±0.7; P=0.089), but the CT-FFR group had significantly more perfectly patent grafts (167/196, 85.2%) than the QCA group (133/183, 72.7%; P=0.007), with correspondingly fewer competitive grafts. Guiding CABG target selection by CT-FFR rather than angiographic stenosis alone produced more perfectly patent grafts in this early analysis, though longer-term clinical outcome data are still needed.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Lipoprotein(a) Testing in Invasive Coronary Angiography: Screening Yield and Anatomic Coronary Disease Burden</div>
+      <div class="src">Jurin I et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42386402/">source ↗</a></div>
+      <div class="body"><p>A retrospective registry of 2,230 patients with available lipoprotein(a) [Lp(a)] measurements undergoing invasive coronary angiography (June 2024–January 2026) assessed screening yield and the association between elevated Lp(a) and anatomically complex coronary disease (SYNTAX score ≥23, chronic total occlusion, or left main disease). Lp(a) was ≥149 nmol/L in 18.5% of patients, and this threshold was independently associated with complex anatomic CAD (adjusted OR 1.50, 95% CI 1.16–1.94; P=0.002); 11.8% of patients qualified as potential candidates for an emerging Lp(a)-lowering-therapy trial framework. Routine Lp(a) testing during invasive angiography identifies a substantial minority of patients with a treatable lipid risk factor and heavier anatomic disease burden.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Efficacy of Previous Failure on Subsequent Procedural Outcomes of CTO-PCI: A Systematic Review and Meta-Analysis</div>
+      <div class="src">Sun W et al. · Pak J Med Sci 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42369959/">source ↗</a></div>
+      <div class="body"><p>A meta-analysis pooled 6 studies (15,803 patients, 20.6% with prior failed CTO-PCI) comparing outcomes of reattempted CTO-PCI after a prior failure versus first-attempt CTO-PCI. Patients with prior failed CTO-PCI had lower procedural success (OR 0.50, 95% CI 0.32–0.77) and technical success (OR 0.69, 95% CI 0.53–0.88) on reattempt, with higher J-CTO scores and more tortuous vessels, but no significant difference in MACE (OR 1.14, 95% CI 0.62–2.09) versus first-attempt cases. A prior failed attempt meaningfully lowers the odds of technical success at reattempt without raising complication risk, supporting referral of these harder cases to high-volume CTO operators — though high between-study heterogeneity (I²=89%) tempers confidence in the magnitude.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">YELLOW III</span> — Serial OCT-Based Coronary Physiology and Plaque Composition Following Intensive Lipid-Lowering Therapy</div>
+      <div class="src">Revaiah PC et al. · Atherosclerosis 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42378923/">source ↗</a></div>
+      <div class="body"><p>A serial imaging substudy of YELLOW III used AI-based OCT tissue characterization and optical flow ratio (OFR) in 105 paired coronary segments with lipid-rich, non-obstructive plaque treated with evolocumab plus high-intensity statin, imaged at baseline and 26 weeks. Total plaque volume fell significantly (201.2±81.8 to 191.3±72.4 mm³; P&lt;0.001), driven by reductions in lipid and macrophage volume, while OFR improved modestly (0.924±0.062 to 0.932±0.060; P&lt;0.001) and correlated inversely with the reduction in plaque volume. Maximal lipid-lowering therapy produces measurable regression of high-risk plaque composition and a small but significant physiological improvement in non-obstructive lesions.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Eyeballing Versus Comprehensive Geriatric Frailty Assessment and Outcomes After TAVR</div>
+      <div class="src">Arow Z et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42399160/">source ↗</a></div>
+      <div class="body"><p>Among 6,343 TAVR patients (2012–2024), frailty was assessed either by physician "eyeball" judgment (n=4,603) or formal comprehensive geriatric assessment reserved for uncertain cases (n=1,740), with 1-year all-cause mortality as the primary endpoint. In the eyeball cohort, frail patients had significantly higher in-hospital (2.1% vs 1.0%; P=0.006) and 1-year mortality (8.1% vs 6.3%; P=0.024) than non-frail patients, while in the formal-assessment cohort the frail-versus-non-frail difference (7.3% vs 5.3%) did not reach significance (P=0.160). Routine clinical eyeballing of frailty provided meaningful prognostic stratification on its own, supporting a pragmatic two-step approach that reserves formal geriatric assessment for genuinely uncertain cases.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Long-Term Outcomes of a Self-Expanding Transcatheter Heart Valve</div>
+      <div class="src">Kim WK et al. · Struct Heart 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42382077/">source ↗</a></div>
+      <div class="body"><p>A 4-center cohort of 961 patients undergoing transfemoral TAVI with the ACURATE neo self-expanding valve (2012–2018) reported long-term durability, with 758 patients analyzed for structural valve deterioration (SVD) and bioprosthetic valve failure (BVF). All-cause mortality was 13.6%, 43.1%, and 67.3% at 1, 5, and 8 years; in the durability cohort, cumulative incidence at 8 years was 3.5% for moderate SVD, 2.1% for severe SVD, and 3.2% for BVF, with paired echocardiography beyond 5 years showing stable mean gradients (9 to 6 mmHg) and effective orifice area (1.8 to 1.7 cm²). The ACURATE neo platform shows favorable long-term structural durability out to 8 years in this real-world elderly population.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Incidence and Prognostic Value of Electrocardiographic Changes in Patients With Myocardial Injury After Elective PCI</div>
+      <div class="src">LaRaja A et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42399161/">source ↗</a></div>
+      <div class="body"><p>Among 10,735 consecutive adults undergoing elective PCI (2011–2020), 1,741 (16.2%) developed post-PCI myocardial injury by biomarker criteria, and new ischemic ECG changes within 24 hours were assessed for incremental prognostic value. New ischemic ECG changes occurred in 18.4% of patients with myocardial injury and increased stepwise with CK-MB level, but over a median 5.3-year follow-up were not independently associated with mortality (adjusted HR 1.27, 95% CI 0.82–1.96). Ischemic ECG changes after elective PCI, while common in patients with biomarker-defined injury, added no independent long-term prognostic information beyond biomarkers alone.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">MOMENTUM 3</span> — Impact of Age on Long-Term Clinical Outcomes Following HeartMate 3 LVAD Implantation</div>
+      <div class="src">Elad B et al. · JACC Heart Fail 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42376716/">source ↗</a></div>
+      <div class="body"><p>Among 2,200 HeartMate 3 LVAD recipients from the MOMENTUM 3 trial, outcomes were stratified by age (&lt;50, 50–59, 60–69, ≥70 years), with 2-year survival and survival free of disabling stroke or reoperation as primary outcomes. Compared with patients &lt;50 years (89.1% 2-year survival), survival was similar for ages 50–59 (86.3%; HR 1.16, P=0.47) but significantly reduced for ages 60–69 (77.7%; HR 1.76, P=0.0033) and ≥70 (72.8%; HR 2.24, P&lt;0.0001), with gastrointestinal bleeding and sepsis rising with age. Age is a strong independent driver of HeartMate 3 outcomes, with a clear survival inflection above 60 years, supporting earlier LVAD referral in younger candidates who need durable mechanical circulatory support.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · TIER 3 — Worth knowing -->
+  <section id="tier3">
+    <div class="sec-h"><span class="chip t3">Tier 3</span><h2>Worth knowing</h2><span class="rule"></span></div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Modification of Calcified Native and Surgical Bioprosthetic Aortic Valves: Lessons From the Bench</div>
+      <div class="src">Loretz L et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42331414/">source ↗</a></div>
+      <div class="body"><p>Bench testing assessed leaflet modification across 100 calcific native aortic cusps and 7 types of surgical bioprosthetic valves, evaluating splay, laceration pattern, and embolic debris by calcific load. Calcification in the traversal/laceration zone was common (89% and 97% of native cusps) and was associated with greater laceration difficulty (P=0.028), leaflet tears (P=0.02), and embolic debris (P&lt;0.05); leaflet splay decreased with shorter leaflet length in both native cusps and surgical valves. Leaflet modification remains feasible across a wide range of calcific burden, but increasing calcification measurably raises procedural difficulty and embolic-debris risk.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">UNICORN</span> — BenchTop Validation of UNICORN Leaflet Modification Technique in Redo-TAVR</div>
+      <div class="src">Lam SC et al. · JACC Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42331409/">source ↗</a></div>
+      <div class="body"><p>In vitro bench testing across four transcatheter heart valve platforms (SAPIEN 3, Evolut, Navitor, ACURATE neo2) characterized leaflet behavior after intraleaflet balloon dilatation (8–14 mm), including the minimum fenestration size for a second valve to cross. Most index leaflets tolerated dilatation up to 12–14 mm without laceration and successful intraleaflet deployment was achieved with SAPIEN 3, Evolut, and ACURATE neo2 — but deployment failed in the Navitor (and Portico) platform, whose leaflet resisted expansion and caused frame distortion. UNICORN sizing parameters are now bench-defined for most contemporary platforms, but the Navitor/Portico platform does not currently support reliable intraleaflet deployment.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Cardiac Remodelling and Clinical Outcomes After Mitral Edge-to-Edge Repair With the PASCAL System</div>
+      <div class="src">Bladt M et al. · Eur Heart J Imaging Methods Pract 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42394649/">source ↗</a></div>
+      <div class="body"><p>A retrospective study of 130 patients undergoing M-TEER with the PASCAL system assessed periprocedural hemodynamics in a subset of 86 patients and, in a further subset with 6–12-month follow-up (n=73), reverse cardiac remodeling. M-TEER significantly improved cardiac index (+11.37%, P&lt;0.01) and reduced left atrial pressure (-36.97%, P&lt;0.01) periprocedurally, with follow-up echocardiography showing reduced LV end-diastolic diameter (-4.0%, P=0.004) and improved RV function (+5.8%, P=0.019). Acute hemodynamic improvement with PASCAL M-TEER translates into measurable reverse cardiac remodeling by mid-term follow-up, supporting periprocedural hemodynamics as an early signal of durable benefit.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Murray Law-Based Quantitative Flow Ratio Versus Invasive FFR in the LAD: Impact of Hydrostatic Pressure Correction</div>
+      <div class="src">Ágoston A et al. · Front Cardiovasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42389633/">source ↗</a></div>
+      <div class="body"><p>In 33 LAD lesions, invasive FFR was compared against Murray-law-based quantitative flow ratio (μQFR) before and after correcting FFR for the hydrostatic pressure offset between the coronary ostium and the distal pressure-wire sensor. Hydrostatic correction raised mean FFR from 0.78±0.11 to 0.81±0.10 (P&lt;0.0001), essentially matching mean μQFR (0.81±0.10) and eliminating the small systematic bias between the two (mean difference improved from +0.03 to 0.00). Hydrostatic pressure error is a measurable, correctable source of systematic discrepancy between invasive FFR and angiography-derived QFR in the LAD.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Initial 4-Year Experience With Microaxial Flow Pumps Within a Tertiary Centre in Regional Australia</div>
+      <div class="src">Quirk T et al. · Heart Lung Circ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42399151/">source ↗</a></div>
+      <div class="body"><p>A single tertiary-center review described 23 microaxial flow pump (MFP) insertions over 4 years: 22% for protected PCI, 13% for VA-ECMO venting (ECPELLA), and 65% for ACS/cardiogenic shock. There were no deaths in the protected-PCI cohort, but mortality was 67% in the ECPELLA group and 40% in the cardiogenic-shock cohort, with vascular complications including limb ischemia in 17% and site bleeding in 30%. This early regional experience confirms MFP is feasible across indications, but the sharp mortality gradient by indication shows outcomes are driven far more by the underlying indication than by the device itself.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Validation of ESC Ischemic and Bleeding Risk Criteria After Endovascular Therapy in Lower Extremity Artery Disease</div>
+      <div class="src">Shimono H et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42387668/">source ↗</a></div>
+      <div class="body"><p>A single-center Japanese cohort of 333 patients with lower extremity artery disease (LEAD) undergoing endovascular therapy evaluated the ESC high-ischemic-risk (HIR) and high-bleeding-risk (HBR) criteria for major adverse cardiovascular and limb events (MACLE). Over a median follow-up of 1,175 days, 93 patients had MACLE; only ESC-HBR remained independently associated on multivariable analysis (HR 1.59, 95% CI 1.21–2.10; P=0.001), with modest discrimination for either score. The ESC bleeding-risk criteria carried more independent prognostic value than the ischemic-risk criteria after EVT in this cohort, though modest overall discrimination argues against relying on either score in isolation.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Sex-Based Differences in Long-Term Mortality After TAVR Among Patients With Bicuspid Aortic Valve</div>
+      <div class="src">Moore X et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42379973/">source ↗</a></div>
+      <div class="body"><p>A retrospective analysis of 327 bicuspid aortic valve stenosis patients (183 men, 144 women) undergoing TAVR compared long-term mortality by sex over a median 4.5-year follow-up. Men had greater coronary disease burden and valve calcium (median 3519 vs 1815 AU; P&lt;0.001), but long-term mortality did not differ significantly by sex (31.1% men vs 25.0% women; log-rank P=0.095), with exploratory analyses linking higher eGFR to lower mortality in women and diabetes to higher mortality in men. Despite a heavier baseline calcific burden in men, TAVR for bicuspid stenosis showed no significant long-term sex-based mortality gap.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Prognostic Utility of the Dicrotic Notch Index in Patients Undergoing TAVR</div>
+      <div class="src">Iskandar O et al. · Struct Heart 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42382304/">source ↗</a></div>
+      <div class="body"><p>In 569 TAVR patients, the dicrotic notch index (DNI, derived from the central aortic pressure waveform) was measured pre- and post-procedure and tested as a predictor of 2-year event-free survival. DNI rose significantly from pre- to post-TAVR (0.45 to 0.58; P&lt;0.001), and a post/pre-TAVR DNI ratio &gt;1.19 independently predicted lower 2-year all-cause mortality (HR 0.53, 95% CI 0.34–0.82). A simple waveform-derived index available from routine periprocedural pressure monitoring appears to carry independent prognostic information after TAVR.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Imaging-Derived Sarcopenic Obesity and Cardiovascular Outcomes</div>
+      <div class="src">Sanghvi MM et al. · J Am Coll Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42383941/">source ↗</a></div>
+      <div class="body"><p>Using a deep-learning pipeline applied to 55,768 cardiovascular MRI examinations, investigators derived a novel sarcopenic obesity index and tested its association with cardiac remodeling and outcomes alongside genome-wide association analysis. A higher sarcopenic obesity index was independently associated with incident heart failure (HR 1.31, 95% CI 1.16–1.49), cardiovascular death (HR 1.51, 95% CI 1.25–1.81), and all-cause mortality (HR 1.37, 95% CI 1.26–1.49), with genome-wide analysis identifying 16 associated loci including ACVR2B, the target of bimagrumab. An imaging-derived sarcopenic obesity phenotype identifies cardiovascular risk that simple BMI-based obesity measures miss.</p></div>
+    </div>
+
+    <div class="item">
+      <div class="ttl"><span class="acr">—</span> — Accuracy of a Novel Peripheral Artery Disease Scoring System to Identify Obstructive CAD in Severe Aortic Stenosis</div>
+      <div class="src">Thakkar HV et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42392909/">source ↗</a></div>
+      <div class="body"><p>Peripheral CT scans from 350 pre-TAVR patients were used to calculate a novel peripheral artery disease scoring system (Hostile score) and test its accuracy for excluding obstructive coronary artery disease ahead of TAVR. Obstructive CAD was present in 32.6% of patients; the Hostile score showed sensitivity 91.1%, specificity 58.8%, and diagnostic accuracy 80.6% (AUC 0.82) for excluding obstructive CAD, and a high score independently predicted higher all-cause mortality (OR 2.13, 95% CI 1.13–4.02; P=0.02). A peripheral CT-derived score already collected during routine pre-TAVR planning can help exclude obstructive CAD without additional invasive testing.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · QUICK HITS -->
+  <section id="quickhits">
+    <div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
+    <ul class="qh">
+      <li><b>Stent-free STEMI in plaque erosion.</b> A 34-year-old with anterior STEMI from plaque erosion was managed with thrombus aspiration and a deferred-stent strategy — OCT confirmed erosion, and at 1 year he remained event-free on DAPT and intensive lipid-lowering alone. <a href="https://pubmed.ncbi.nlm.nih.gov/42397042/">↗</a></li>
+      <li><b>Hybrid brachial access rescues an "impossible" PCI.</b> Surgical brachial artery exposure enabled 7 Fr access for complex multivessel and left-main bifurcation PCI in a patient with Leriche syndrome and bilateral forearm/iliofemoral occlusion — the first reported use of this hybrid approach. <a href="https://pubmed.ncbi.nlm.nih.gov/42394310/">↗</a></li>
+      <li><b>OCT macrophage arc flags MACE risk up to 8-fold.</b> In 1,025 CAD patients, an OCT-derived macrophage arc ≥157.5° independently predicted MACE (HR 6.9), rising to HR 8.1 when combined with thin-cap fibroatheroma status. <a href="https://pubmed.ncbi.nlm.nih.gov/42376680/">↗</a></li>
+      <li><b>Most non-culprit plaques get safer, not riskier, on serial OCT.</b> Among 406 ACS patients re-imaged at 1 year, vulnerability regression (96 patients) far outpaced progression (10 patients), tracking with on-treatment LDL-C. <a href="https://pubmed.ncbi.nlm.nih.gov/42386567/">↗</a></li>
+      <li><b>Small dense LDL plus CRP nearly quadruples plaque-rupture odds.</b> In 315 OCT-imaged ACS patients, high small-dense-LDL-C combined with high hs-CRP carried a 3.87-fold higher odds of plaque rupture than both-low, despite similar standard LDL-C levels. <a href="https://pubmed.ncbi.nlm.nih.gov/42373415/">↗</a></li>
+      <li><b>Pacemaker timing matters differently by sex after TAVI.</b> In 1,114 patients, new post-procedural pacemakers tracked with higher 30-day mortality in women, while pre-existing pacemakers tracked with lower 5-year survival in men. <a href="https://pubmed.ncbi.nlm.nih.gov/42394202/">↗</a></li>
+      <li><b>A simple ECG algorithm cut temporary pacing nearly 9-fold after TAVR.</b> Applied to 664 pacemaker-naïve patients, the discharge/TPM algorithm reduced temporary-pacemaker use from a consensus-suggested 39.2% to 4.5% without compromising safety. <a href="https://pubmed.ncbi.nlm.nih.gov/42382078/">↗</a></li>
+      <li><b>The MAGGIC heart-failure score also predicts death after M-TEER.</b> In 3,609 OCEAN-Mitral registry patients, top-tertile MAGGIC score carried up to a 4.15-fold higher 1-year mortality and matched or beat dedicated surgical/M-TEER risk models. <a href="https://pubmed.ncbi.nlm.nih.gov/42396786/">↗</a></li>
+      <li><b>CardioMEMS post-market safety looks reassuring.</b> Of 5,468 FDA MAUDE reports on the CardioMEMS HF System, 98.0% were benign device malfunctions, with only 2.0% classed as serious events — the majority of adverse events were attributable to the external electronics unit rather than the implanted sensor. <a href="https://pubmed.ncbi.nlm.nih.gov/42399163/">↗</a></li>
+      <li><b>Retrograde balloon angioplasty opens "uncrossable" CTEPH lesions.</b> Transcollateral retrograde BPA restored antegrade flow in 15 of 30 previously uncrossable pulmonary lesions (50%), with only mild hemoptysis and no severe complications in 19 patients. <a href="https://pubmed.ncbi.nlm.nih.gov/42393941/">↗</a></li>
+      <li><b>Ischemic heart disease guidelines don't travel well to low-resource settings, clinicians say.</b> A 587-clinician, 97-country survey found only 9.0% considered current guidelines highly applicable in low/middle-income countries, versus 63.2% for high-income countries. <a href="https://pubmed.ncbi.nlm.nih.gov/42386047/">↗</a></li>
+      <li><b>Hyperoxia on VA-ECMO is a symptom, not the culprit.</b> In 227 VA-ECMO patients, the hyperoxia-mortality link disappeared after adjusting for native cardiac index — low cardiac index, not high PaO2, was the independent mortality predictor (OR 0.22). <a href="https://pubmed.ncbi.nlm.nih.gov/42400098/">↗</a></li>
+    </ul>
+  </section>
+
+  <!-- 11 · EDUCATIONAL PICKS -->
+  <section id="educational">
+    <div class="sec-h"><span class="chip cond">Edu</span><h2>Educational picks</h2><span class="rule"></span></div>
+
+    <div class="item">
+      <div class="ttl">Antiplatelet Therapy in the Management of Atherosclerotic Cardiovascular Disease: 2026 ACC Scientific Statement <span class="fmt">Consensus</span></div>
+      <div class="body"><p>A comprehensive, guideline-referenced synthesis of contemporary antiplatelet evidence — aspirin's shrinking primary-prevention role, DAPT-duration logic, and the perpetual ischaemia-versus-bleeding balance after ACS or PCI — worth a full read for anyone titrating antithrombotic therapy in the cath lab. <a href="https://pubmed.ncbi.nlm.nih.gov/42377293/">open ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">From Anatomy to Vulnerability: A Comprehensive Appraisal of Coronary Physiology and Plaque Characterization <span class="fmt">Review</span></div>
+      <div class="body"><p>Ties together IVUS, NIRS, and OCT with emerging angiography-derived radial wall strain for identifying vulnerable non-obstructive plaque — a useful primer for anyone building a vulnerability-guided, imaging-informed risk-stratification approach. <a href="https://pubmed.ncbi.nlm.nih.gov/42396219/">open ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Current State of Computed Tomography–Derived Fractional Flow Reserve (FFR-CT) and Its Diagnostic Advantages <span class="fmt">Review</span></div>
+      <div class="body"><p>A concise narrative review of how FFR-CT closes the anatomic–physiologic gap left by coronary CTA — improving specificity for ischaemia-producing lesions and shaping who reaches the cath lab and which vessels warrant invasive physiology. <a href="https://pubmed.ncbi.nlm.nih.gov/42368293/">open ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">CT-Guided PCI: Toward Precision in Case Triage and Procedural Planning <span class="fmt">Review</span></div>
+      <div class="body"><p>A practice-oriented <i>Cardiac Interventions Today</i> feature on folding pre-procedural CT into coronary work — using it to triage complexity, anticipate calcium and plaque burden, and plan the approach before the wire crosses. <a href="https://citoday.com/articles/2026-may-june/ct-guided-pci-toward-precision-in-case-triage-and-procedural-planning">open ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Commissural and Coronary Alignment Strategies in Transcatheter Aortic Valve Replacement <span class="fmt">State-of-the-Art</span></div>
+      <div class="body"><p>Summarises why commissural — and increasingly coronary — alignment matters for coronary access, valve-in-valve feasibility, and haemodynamics in younger TAVI patients, then walks through the alignment techniques for the latest iterations of the most-used devices. <a href="https://pubmed.ncbi.nlm.nih.gov/42396469/">open ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Jailed Balloon Anchor Technique to Improve Guiding Catheter Stability During IVUS-Guided Ostial Stenting <span class="fmt">Case</span></div>
+      <div class="body"><p>A practical fix for a common annoyance: a side-branch balloon anchor stabilises guiding-catheter position during IVUS-guided ostial stenting when cardiac and respiratory motion disengage the catheter from the ostium. <a href="https://pubmed.ncbi.nlm.nih.gov/42376905/">open ↗</a></p></div>
+    </div>
+    <div class="item">
+      <div class="ttl">Optimising Cath Lab Management for TAVI Success <span class="fmt">Webinar</span></div>
+      <div class="body"><p>A Radcliffe structural-heart session on scaling a TAVI programme — cath lab workflow, minimalist technique, and throughput — useful for any operator or lab under pressure to grow structural volume without sacrificing safety. <a href="https://www.radcliffecardiology.com/video-index/optimising-cath-lab-management-scale-tavi">open ↗</a></p></div>
+    </div>
+
+    <div class="feed">
+      <div class="fh">From the feed · X</div>
+      <p class="small">Pending — captured from the editor's live X session; not available in this cloud run.</p>
+    </div>
+  </section>
+
+  <!-- 12 · PODCAST PICKS -->
+  <section id="podcasts">
+    <div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
+    <p class="small">Pending live-session enrichment — no episodes could be independently verified in this headless run.</p>
+  </section>
+
+  <!-- Landmark Revisited -->
+  <section id="landmark">
+    <div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
+    <div class="landmark">
+      <div class="ttl"><span class="acr">ORBITA</span> — Percutaneous Coronary Intervention in Stable Angina: A Double-Blind, Randomised Controlled Trial</div>
+      <div class="src">Al-Lamee R et al. · Lancet 2018 · <a href="https://pubmed.ncbi.nlm.nih.gov/29103656/">primary source ↗</a></div>
+
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Symptomatic relief is the primary goal of PCI in stable angina, but prior to ORBITA no blinded, placebo-controlled trial had tested its efficacy against a sham procedure.</dd>
+        <dt>Methods</dt><dd>ORBITA randomized 200 patients with severe (≥70%) single-vessel stenosis 1:1 to PCI or a placebo procedure after 6 weeks of medication optimization, blinded to patients and outcome assessors; the primary endpoint was between-group difference in exercise-time increment at 6 weeks.</dd>
+        <dt>Key results</dt><dd>Lesions had mean area stenosis 84.4% (SD 10.2), FFR 0.69 (0.16), and iFR 0.76 (0.22). There was no significant difference in the primary endpoint (PCI minus placebo 16.6 s, 95% CI -8.9 to 42.0; P=0.20); there were no deaths, with 4 pressure-wire-related complications in the placebo group and 5 major bleeding events overall.</dd>
+        <dt>Conclusion</dt><dd>In medically optimized patients with stable angina and severe single-vessel stenosis, PCI did not increase exercise time beyond the effect of a placebo procedure.</dd>
+      </dl>
+
+      <div class="label">The question &amp; the verdict</div>
+      <div class="body"><p>ORBITA asked whether PCI's well-documented angina relief was a true physiological effect of relieving obstruction, or partly a placebo response to an invasive procedure — a question pharmacology had answered for decades but interventional cardiology, absent a blinded sham arm, never had. The verdict — no significant exercise-time benefit over sham at 6 weeks in medically optimized stable angina — did not show PCI is ineffective; it isolated the specific increment PCI adds once background antianginal therapy is already optimized, in a population with objectively less severe ischemia (FFR 0.69) than many real-world PCI candidates.</p></div>
+
+      <div class="label">Statistical appraisal</div>
+      <div class="body"><p>The blinded, placebo-controlled, intention-to-treat design is ORBITA's methodological achievement — pressure-wire assessment under sedation made a convincing sham procedure possible, eliminating the placebo and observer-bias contamination inherent in every prior open-label PCI-versus-medical-therapy trial. The trial was adequately powered for its physiological surrogate primary endpoint (exercise time) but was never powered for hard clinical events, and 6-week follow-up captures only an early symptomatic window. The wide confidence interval around the point estimate (-8.9 to 42.0 s) is compatible with a clinically meaningful PCI benefit the trial was simply too small and too short to detect with confidence — the distinction between "no evidence of effect" and "evidence of no effect" that shaped years of subsequent debate.</p></div>
+
+      <div class="label">Subsequent substudies &amp; follow-ups</div>
+      <div class="body">
+        <p><b>ORBITA-2</b> (Rajkumar CA et al., N Engl J Med 2023; <a href="https://pubmed.ncbi.nlm.nih.gov/38015442/">PMID 38015442 ↗</a>) — a larger, harder-endpoint successor that removed background antianginal medication entirely before randomizing 301 patients 1:1 to PCI or placebo procedure, with a 12-week angina symptom score as primary endpoint. PCI produced a significantly lower angina symptom score than placebo (2.9 vs 5.6; OR 2.21, 95% CI 1.41–3.47; P&lt;0.001) — the placebo-controlled confirmation of a genuine PCI symptomatic benefit that ORBITA alone could not establish.</p>
+        <p><b>Age-interaction analysis</b> (Simader FA et al., J Am Coll Cardiol 2026;87:253-265; <a href="https://pubmed.ncbi.nlm.nih.gov/41603507/">PMID 41603507 ↗</a>) — a Bayesian secondary analysis of ORBITA-2 found PCI's symptom-relief benefit was significantly greater in older patients (OR 2.03 vs 1.70; Pr[interaction]=0.99), while its effect on objective exercise time ran the opposite direction, far larger in younger patients (+125 s at age 50 vs +31.9 s at age 70; Pr[interaction]=0.96).</p>
+        <p><b>Focal-versus-diffuse disease pattern</b> (Chiew K et al., J Am Coll Cardiol 2026;88:42-58; <a href="https://pubmed.ncbi.nlm.nih.gov/42017887/">PMID 42017887 ↗</a>) — pullback-based classification of disease pattern in 245 ORBITA-2 patients showed focal disease predicted significantly greater placebo-controlled benefit from PCI across angina score, daily episodes, and quality-of-life measures (OR up to 1.80) than diffuse disease.</p>
+      </div>
+
+      <div class="bottom">Why it still matters: ORBITA and its ORBITA-2 successor together reset the evidentiary bar for interventional procedures — establishing that a sham-controlled trial is both feasible and necessary before an invasive therapy's symptomatic claims are accepted at face value, and reframing PCI-for-angina as a treatment whose benefit is real but concentrated in patients with less background antianginal therapy, more severe physiological ischemia, and — per the newest substudies — focal rather than diffuse disease.</div>
+    </div>
+  </section>
+
+  <!-- 13 · FOOTER -->
+  <footer>
+    <div class="disc">
+      CardioDigest is an <b>editorial digest</b>. Appraisals are the opinion of CardioDigest and do
+      <b>not replace</b> independent clinical judgement or the primary literature. Every figure is
+      verified against the primary source before publication; unverifiable items are removed.
+      Social-commentary items are opinion, not evidence.
+    </div>
+    <p class="small">Issue 2026-w27 · covering 29 June 2026 – 5 July 2026 (widened to 22 June 2026 where thin) · 491 candidates reviewed, 39 selected · Archive: CardioDigest Issue 2026-w27</p>
+  </footer>
+
+</div>
+</body>
+</html>
