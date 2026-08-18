@@ -3,7 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CardioDigest — Issue 2026-w32</title>
+<meta name="color-scheme" content="light dark">
+<title>CardioDigest — Issue No. 11</title>
 <style>
   :root{
     --ink:#1a1a1a; --muted:#5b6166; --faint:#8a9099; --line:#e6e8eb; --bg:#ffffff; --card:#fbfbfc;
@@ -95,226 +96,381 @@
 </head>
 <body>
 <div class="wrap">
-<header class="mast"><div class="brand">Cardio<b>Digest</b></div><div class="tagline">Weekly Interventional Cardiology Digest</div><div class="meta">Issue No. 11 · 18/08/26</div><div class="subtitle">Covering 3–9 August 2026 (widened to 27 July 2026 where thin)</div><div class="disc small" style="margin-top:8px;">Automated fallback edition — assembled mechanically from peer-reviewed PubMed abstracts (every figure copied verbatim from its source). Plainer than the editorial edition, but every number is source-verified.</div></header>
 
-<section id="tldr">
-<div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
-<ul>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/42556854/">Tirzepatide, added to standard care, lowered atherosclerotic cardiovascular event risk versus sitagliptin in a population-based cohort — this week's most cardiology-relevant read</a></li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/42554995/">ICECAP: an adaptive-randomization trial testing cooling durations from 6 to 72 hours to find the optimal length of therapeutic hypothermia after out-of-hospital cardiac arrest</a></li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/42561994/">PSMAddition: a phase 3 trial adding [(177)Lu]Lu-PSMA-617 to androgen-deprivation therapy in metastatic, hormone-sensitive prostate cancer</a></li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/42560689/">IRMA: a randomized trial of iron syrup versus micronutrient powders alongside malaria chemoprevention in rural Malawian children</a></li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/42545803/">A state-of-the-art review of classic Hodgkin lymphoma — biology, staging, and contemporary management</a></li>
-<li><a href="https://pubmed.ncbi.nlm.nih.gov/42562413/">A pragmatic RCT of a patient-centred digital adherence tool for drug-susceptible tuberculosis treatment</a></li>
-</ul>
-</section>
+  <!-- 1 · HEADER -->
+  <header class="mast">
+    <div class="brand">Cardio<b>Digest</b></div>
+    <div class="tagline">Weekly Interventional Cardiology Digest</div>
+    <div class="meta">Issue No. 11 · 18/08/26</div>
+    <div class="subtitle">Covering 3–9 August 2026 (widened to 27 July 2026 where thin) · LV unloading in complex PCI, OCT/IVUS-guided intervention, TAVR coronary access &amp; pure-AR, cardiogenic-shock support — Landmark: RENOVATE-COMPLEX-PCI</div>
+    <div class="stats">
+      <span class="stat"><b>568</b> articles</span>
+      <span class="stat"><b>9</b> educational</span>
+      <span class="stat"><b>0</b> podcasts</span>
+    </div>
+  </header>
 
-<section id="industry">
-<div class="sec-h"><h2>Industry &amp; Regulatory Watch</h2><span class="rule"></span></div>
-<div class="item"><div class="ttl">A Study on the Impact of Bivalirudin Usage During PCI for High-risk Plaques on Post-PCI Coronary Microcirculation.</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT05984537">NCT05984537 ↗</a></div></div>
-<div class="item"><div class="ttl">Cangrelor on Top of anticoagUlation in Patients With myocaRdial Infarction-related Cardiogenic Shock/Cardiac Arrest receiVIng VA-ECMO</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT06792643">NCT06792643 ↗</a></div></div>
-<div class="item"><div class="ttl">Ciprofol&#x27;s Impact on Oxygenator Function in Extracorporeal Membrane Oxygenation (ECMO) Patients</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT06934811">NCT06934811 ↗</a></div></div>
-<div class="item"><div class="ttl">Physiology of Unloading VA ECMO Trial</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT06336655">NCT06336655 ↗</a></div></div>
-<div class="item"><div class="ttl">Ivabradine in the Acute Management of Cardiogenic Shock</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT07714746">NCT07714746 ↗</a></div></div>
-</section>
+  <!-- 2 · INDEX -->
+  <section id="index">
+    <nav class="toc" aria-label="Contents">
+      <div class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.5px;">In this issue</div>
+      <ol>
+        <li><a href="#tldr">Top Highlights / TL;DR</a></li>
+        <li><a href="#industry">Industry &amp; Regulatory Watch</a></li>
+        <li><a href="#tier1">Tier 1 — Practice-changing</a></li>
+        <li><a href="#tier2">Tier 2 — Notable</a></li>
+        <li><a href="#tier3">Tier 3 — Worth knowing</a></li>
+        <li><a href="#quickhits">Quick hits</a></li>
+        <li><a href="#educational">Educational picks</a></li>
+        <li><a href="#podcasts">Podcast picks</a></li>
+        <li><a href="#landmark">Landmark Revisited</a></li>
+      </ol>
+    </nav>
+  </section>
 
-<section id="tier1">
-<div class="sec-h"><h2>Tier 1 — Practice-changing</h2><span class="rule"></span></div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Tirzepatide and the risk of atherosclerotic cardiovascular events: population based cohort study</div>
-  <div class="src">Krüger N et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556854/">source ↗</a></div>
-  <div class="body"><p>This population-based cohort study estimated the real-world reduction in major adverse cardiovascular events (MACE) from adding tirzepatide to standard of care. At one year, the weighted risk of MACE was 2.9% (95% confidence interval (CI) 2.5% to 3.4%) with tirzepatide versus 4.4% (3.8% to 4.9%) with sitagliptin — a risk difference of -1.4% (95% CI -2.1% to -0.7%; number needed to treat (NNT)=70) and a hazard ratio of 0.68 (95% CI 0.58 to 0.80).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Duration of Therapeutic Hypothermia After Out-of-Hospital Cardiac Arrest: The ICECAP Randomized Clinical Trial</div>
-  <div class="src">Meurer WJ et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42554995/">source ↗</a></div>
-  <div class="body"><p>Therapeutic hypothermia is widely used for neuroprotection after cardiac arrest, but trials have not consistently demonstrated improved neurological outcomes, and the optimal cooling duration remains uncertain. This trial used adaptive randomized allocation to therapeutic hypothermia at 33 °C for cooling durations of 6, 12, 18, 24, 30, 36, 42, 48, 60, or 72 hours to help settle the question.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> [(177)Lu]Lu-PSMA-617 in patients with PSMA-positive metastatic androgen pathway modulator-naive/sensitive prostate cancer (PSMAddition): a phase 3 randomised, controlled trial</div>
-  <div class="src">Tagawa ST et al. · Lancet 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42561994/">source ↗</a></div>
-  <div class="body"><p>The contemporary standard of care for metastatic androgen pathway modulator-naive/sensitive (APMN/S) prostate cancer — also known as metastatic hormone-sensitive prostate cancer — is androgen deprivation therapy (ADT) plus an androgen receptor pathway inhibitor (ARPI) until progression. Between June 15, 2021, and July 25, 2023, 1529 patients were screened and 1144 randomly assigned (n=572 per arm; 1144 [100%] male, 572 [50%] with de novo metastatic APMN/S prostate cancer, 779 [68%] with high-volume disease; median age 68·0 years [IQR 62·0-73·0]).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Iron or Multiple Micronutrient Powder Supplements With Malaria Chemoprevention in Rural Malawian Children: The IRMA Randomized Clinical Trial</div>
-  <div class="src">Phiri KS et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560689/">source ↗</a></div>
-  <div class="body"><p>The World Health Organization recommends universal preventive iron interventions for young children in anemia-prevalent areas to counter anemia's effects on child neurodevelopment and other outcomes. This trial tested six months of one of four regimens: iron syrup and malaria chemoprevention (n = 542), iron-containing micronutrient powders and malaria chemoprevention (n = 543), malaria chemoprevention alone (n = 541), or placebo alone (n = 542).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Classic Hodgkin Lymphoma: A Review</div>
-  <div class="src">Patel KK et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545803/">source ↗</a></div>
-  <div class="body"><p>Hodgkin lymphoma (HL) is a lymphoid malignancy derived from B cells; globally, it accounted for 82 409 new cases and 22 701 deaths in 2022.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Evaluation of patient centred digital adherence technology for tuberculosis treatment outcomes: pragmatic randomised controlled trial</div>
-  <div class="src">Rubinstein F et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42562413/">source ↗</a></div>
-  <div class="body"><p>This pragmatic RCT evaluated Tuberculosis Treatment Support Tools (TB-TST), a patient centred digital adherence technology, for improving treatment outcomes among individuals with drug susceptible tuberculosis in Argentina. 555 patients aged ≥16 years with newly diagnosed drug susceptible tuberculosis, recruited between November 2020 and July 2023, randomised to standard of care (n=278) or standard of care plus TB-TST (n=277).</p></div>
-</div>
-</section>
+  <!-- 3 · TL;DR -->
+  <section id="tldr">
+    <div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
+    <ul class="tldr">
+      <li><b>Elective LV unloading in complex PCI cut inotrope need but didn't prevent stunning</b> — and caused far more loss of pulse pressure in the randomized CHIP-BCIS3 substudy. <a href="#chip-bcis3-unloading">↓</a></li>
+      <li><b>Calcific plaque on baseline OCT carried the highest 2-year risk after PCI</b> — 10.7% vs 4.0% target-vessel failure for fibrotic lesions in this ILUMIEN IV substudy. <a href="#ilumien4-oct-plaque">↓</a></li>
+      <li><b>IVUS didn't lower death or MI in complex PCI</b> — but cut definite stent thrombosis and repeat revascularization in this 12-RCT meta-analysis, though the revascularization benefit was sensitive to publication bias. <a href="#ivus-complex-meta">↓</a></li>
+      <li><b>A CTA-first coronary work-up before TAVI matched invasive angiography for survival</b> — while sparing 73% of patients an invasive study over ~5 years. <a href="#ctavi-cta-first">↓</a></li>
+      <li><b>Tirzepatide was associated with a 32% lower 1-year MACE</b> vs a placebo-proxy comparator in type 2 diabetes with established ASCVD (HR 0.68). <a href="#tirzepatide-mace">↓</a></li>
+      <li><b>Only 18.2% of eligible HFrEF patients receive quadruple GDMT</b> — closing that gap could prevent an estimated 113,747 US deaths and 357,332 HF hospitalizations annually. <a href="#gdmt-hfref-impact">↓</a></li>
+    </ul>
+  </section>
 
-<section id="tier2">
-<div class="sec-h"><h2>Tier 2 — Notable</h2><span class="rule"></span></div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Syncope</div>
-  <div class="src">Kenny RA et al. · N Engl J Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42555934/">source ↗</a></div>
-  <div class="body"><p>Syncope is a common clinical problem caused by transient cerebral hypoperfusion and encompasses reflex, orthostatic, and cardiac mechanisms.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Addition of High-Dose Vitamin D3 to Standard Treatment in Patients With Metastatic Colorectal Cancer: The SOLARIS Randomized Clinical Trial (Alliance A021703)</div>
-  <div class="src">Ng K et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545685/">source ↗</a></div>
-  <div class="body"><p>A phase 2 randomized clinical trial previously found that high-dose vitamin D3 added to standard treatment improved progression-free survival (PFS) compared with standard-dose vitamin D3 in patients with metastatic colorectal cancer (mCRC). In this trial of 455 randomized patients (median age, 59 years; 181 [40%] female) with median follow-up 20 months, the median PFS for high-dose vitamin D3 (n = 228) was 11.8 months (95% CI, 10.3-13.3) versus 10.3 months (95% CI, 9.4-12.2) for standard-dose vitamin D3 (n = 227) — a difference that did not reach significance (1-sided log-rank P = .25).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Economic Impact of the 2025 New Mexico Measles Outbreak: Highlighting the Cost of Efforts to Prevent Future Outbreaks</div>
-  <div class="src">Pike J et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546299/">source ↗</a></div>
-  <div class="body"><p>In 2025, the United States experienced its highest measles case count since 1992. In New Mexico, 100 confirmed measles cases (99 outbreak-related), including 1 death, occurred across 9 counties from February through September 2025.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Comparative effectiveness of azithromycin versus roflumilast in patients with chronic obstructive pulmonary disease: emulated target trial</div>
-  <div class="src">Portela GT et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556860/">source ↗</a></div>
-  <div class="body"><p>This emulated target trial compared the risk of moderate or severe exacerbations of chronic obstructive pulmonary disease (COPD) among new users of azithromycin versus roflumilast in a population of patients with active COPD treated in routine clinical practice. Azithromycin was associated with a 17% reduction, versus roflumilast, in the hazard of first moderate or severe COPD exacerbation (hazard ratio 0.83, 95% confidence interval (CI) 0.79 to 0.87; number needed to treat 15, 95% CI 12 to 21).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Intracranial delivery of B7-H3-targeting CAR-T cells for recurrent glioblastoma: a phase 1 trial</div>
-  <div class="src">Zhang Y et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42562965/">source ↗</a></div>
-  <div class="body"><p>Recurrent glioblastoma (rGBM) is a leading brain malignancy with few therapeutic options. In this open-label, 3 + 3 dose-escalation trial, patients aged 18-75 years with B7-H3-positive (≥30%) rGBM received intracranial infusion of TX103 at three dose levels (DLs-2 × 107, 6 × 107 and 1.5 × 108 cells per infusion).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Divergent impacts of explainable AI for dermatological diagnosis on clinicians versus lay people</div>
-  <div class="src">Xu X&#x27; et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42552380/">source ↗</a></div>
-  <div class="body"><p>Artificial intelligence (AI) is increasingly permeating healthcare, from serving as a physician assistant to powering consumer applications. Here we present results from two large-scale experiments, involving 623 lay people and 153 primary care physicians (PCPs), respectively, in which a fairness-based AI model for dermatological diagnoses and different XAI-based explanations were combined to examine how XAI assistance, particularly multimodal large language models (LLMs), influences diagnostic performance.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Dronabinol for nightmares in post-traumatic stress disorder: a randomized controlled trial</div>
-  <div class="src">Roepke S et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42557458/">source ↗</a></div>
-  <div class="body"><p>Nightmares are a hallmark of post-traumatic stress disorder (PTSD), yet pharmacological treatments remain limited. A total of 171 patients underwent randomization (mean age, 37.9 ± 12.8 years; 79.3% female), with 87 assigned to dronabinol and 84 to placebo.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Psilocybin-assisted therapy for treatment-resistant major depressive disorder in a public healthcare setting: a randomized controlled trial</div>
-  <div class="src">Rucker JJ et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42562964/">source ↗</a></div>
-  <div class="body"><p>Psilocybin-assisted therapy may be a promising new treatment for treatment-resistant depression. The adjusted between-group difference at week 3 on the MADRS was -10.41 (95% confidence interval: -14.86 to -5.95;</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> A clinically validated framework for auditing AI chatbot behavior in mental health interactions</div>
-  <div class="src">Weilnhammer V et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42567928/">source ↗</a></div>
-  <div class="body"><p>Millions of users turn to consumer artificial intelligence chatbots to discuss emotional, behavioral and mental-health concerns, creating an urgent need for rigorous and scalable safety evaluations. Across 810 conversations, spanning 9 target chatbots and 30 simulated user profiles, concerning behavior in target chatbots was widespread, albeit reduced in newer models.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Large-scale whole-genome sequencing reveals the landscape and health implications of de novo mutations</div>
-  <div class="src">Qin N et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42567929/">source ↗</a></div>
-  <div class="body"><p>De novo mutations (DNMs) are an important source of congenital diseases. Here we performed whole-genome sequencing of 24,030 individuals from 7,851 parent-offspring families, identifying 390,924 de novo single-nucleotide variants (dnSNVs).</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> The next generation of antibody-drug conjugates</div>
-  <div class="src">Mosele F et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42547622/">source ↗</a></div>
-  <div class="body"><p>Antibody-drug conjugates (ADCs)-composed of a monoclonal antibody linked to a payload-were designed to deliver high concentrations of cytotoxic agents to cancer cells.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Public Policy Approaches to Addressing Adult Obesity: A Position Paper From the American College of Physicians</div>
-  <div class="src">Crowley R et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546304/">source ↗</a></div>
-  <div class="body"><p>Forty percent of U.S. adults have obesity, a complex condition determined by genetics, behavior, environment, and other modifiable and nonmodifiable factors. Obesity is associated with certain comorbid conditions, including type 2 diabetes, high cholesterol, heart disease, and some cancer types, and may increase the severity of communicable illnesses, such as influenza.</p></div>
-</div>
-</section>
+  <!-- 5 · INDUSTRY & REGULATORY WATCH -->
+  <section id="industry">
+    <div class="sec-h"><span class="chip cond">Watch</span><h2>Industry &amp; Regulatory</h2><span class="rule"></span></div>
+    <div class="item"><div class="ttl">Bivalirudin During PCI for High-Risk Plaques and Post-PCI Coronary Microcirculation</div><div class="body">Newly registered Phase 4 trial testing whether intraprocedural bivalirudin protects the coronary microcirculation when treating high-risk plaques — relevant to this issue's imaging-guided and no-reflow themes. <a href="https://clinicaltrials.gov/study/NCT05984537">source ↗</a></div></div>
+    <div class="item"><div class="ttl">Cangrelor on Top of Anticoagulation in MI-Related Cardiogenic Shock / Arrest on VA-ECMO</div><div class="body">Phase 2 registration evaluating adjunctive cangrelor for antiplatelet coverage in infarct-related cardiogenic shock or arrest requiring VA-ECMO — a real gap given oral agents' unreliable absorption in shock. <a href="https://clinicaltrials.gov/study/NCT06792643">source ↗</a></div></div>
+    <div class="item"><div class="ttl">Physiology of Unloading VA-ECMO Trial</div><div class="body">Phase 2 trial characterising the haemodynamics of LV unloading during veno-arterial ECMO — directly aligned with this week's device-hemolysis and shock-support coverage. <a href="https://clinicaltrials.gov/study/NCT06336655">source ↗</a></div></div>
+    <div class="item"><div class="ttl">Ivabradine in the Acute Management of Cardiogenic Shock</div><div class="body">Phase 3 registration testing ivabradine for rate control in acute cardiogenic shock — a heart-rate lever that avoids negative inotropy, one to watch in the shock space. <a href="https://clinicaltrials.gov/study/NCT07714746">source ↗</a></div></div>
+  </section>
 
-<section id="tier3">
-<div class="sec-h"><h2>Tier 3 — Worth knowing</h2><span class="rule"></span></div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Blood pressure-lowering drugs reduce risk for major cardiovascular events regardless of CKD G category</div>
-  <div class="src">Mathew A et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546307/">source ↗</a></div>
-  <div class="body"><p>GIM/FP/GP: [Formula: see text] Cardiology: [Formula: see text] Endocrinology: [Formula: see text] Nephrology: [Formula: see text].</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> The Need to Avoid a Regulatory Gray Zone in Digital Wellness</div>
-  <div class="src">Whyte JJ et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545688/">source ↗</a></div>
-  <div class="body"><p>This Viewpoint discusses the potential for consumer-facing digital health technologies to influence health-related decisions; highlights the regulatory challenges posed by their increased use; and calls for regulatory standards for these technologies that are evidence-based, transparent, understandable by consumers, and proportionate to potential benefits and harms.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Food Politics, Obesity, and the &quot;Wicked Mess&quot; We Are In: A Healthy Dialogue With Marion Nestle</div>
-  <div class="src">Angus DC et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42555059/">source ↗</a></div>
-  <div class="body"><p>What led to the current obesity epidemic in the US and how it can be addressed are discussed by JAMA Senior Editor Derek C.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Sorting Results of Unknown Significance-A Framework for Clinicians Navigating Wearable Data in the AI Era</div>
-  <div class="src">Kishore SP et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545692/">source ↗</a></div>
-  <div class="body"><p>This Perspective outlines a framework for clinicians navigating physiologic data from wearable devices, referred to as “results of unknown significance,” including the need for universal evidentiary standards and shared language.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Communicating With Patients About Physical Activity</div>
-  <div class="src">Midtgaard J et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560728/">source ↗</a></div>
-  <div class="body"><p>This JAMA Insights discusses suggested methods for communicating about and promoting physical activity among patients with chronic medical conditions and how to tailor these conversations to individual patient needs.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> One-Year Outcomes After Endovascular Treatment for Large Acute Ischemic Stroke: The TESLA Randomized Clinical Trial</div>
-  <div class="src">Zaidat OO et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545711/">source ↗</a></div>
-  <div class="body"><p>This randomized clinical trial examines 1-year safety and efficacy outcomes in patients who underwent intra-arterial thrombectomy or medical management following an acute ischemic stroke with large-core infarcts.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Will New Lyme Disease Approaches Change Patient Care?</div>
-  <div class="src">Schweitzer K et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42566225/">source ↗</a></div>
-  <div class="body"><p>This Medical News article discusses the emerging advances in Lyme disease diagnostics, prevention, and therapeutics as well as the practical challenges that continue to limit innovation.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Global Immunization Coverage Saw Gains in 2025, But Experts Warn of Trouble Ahead</div>
-  <div class="src">Anderer S et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42566211/">source ↗</a></div>
-  <div class="body"><p>This Medical News article discusses the latest global immunization coverage estimates released by the World Health Organization and the United Nation Children’s Fund.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> Therapeutic Use of Cannabis and Cannabinoids</div>
-  <div class="src">Walter KL et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560697/">source ↗</a></div>
-  <div class="body"><p>This JAMA Patient Page describes conditions and uses of cannabis and cannabinoids, cannabis use disorder, risk of harm, and harm reduction strategies.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> On Losing a Patient</div>
-  <div class="src">Johari P et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560694/">source ↗</a></div>
-  <div class="body"><p>In this narrative medicine essay, a psychiatric resident tries to process the loss of a patient to suicide.</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> In older adults, mRNA-1010 vs. a licensed standard-dose influenza vaccine reduced influenza A- or B-related ILI at a median 181 d</div>
-  <div class="src">Chen V et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546301/">source ↗</a></div>
-  <div class="body"><p>GIM/FP/GP: [Formula: see text] Infectious Disease: [Formula: see text] Public Health: [Formula: see text].</p></div>
-</div>
-<div class="item">
-  <div class="ttl"><span class="acr">—</span> In noncardioembolic ischemic stroke or high-risk TIA, asundexian reduced ischemic stroke and did not increase major bleeding</div>
-  <div class="src">Hill MD et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546306/">source ↗</a></div>
-  <div class="body"><p>GIM/FP/GP: [Formula: see text] Neurology: [Formula: see text] Hematology: [Formula: see text].</p></div>
-</div>
-</section>
+  <!-- 6 · TIER 1 — Practice-changing -->
+  <section id="tier1">
+    <div class="sec-h"><span class="chip t1">Tier 1</span><h2>Practice-changing</h2><span class="rule"></span></div>
 
-<section id="quickhits">
-<div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
-<ul class="qh">
-<li><div style="font-weight:700;">Intravascular ultrasound-guided versus angiography-guided percutaneous coronary intervention for complex coronary lesions: A systematic review and meta-analysis</div><div>However, IVUS guidance significantly reduced definite stent thrombosis (RR 0.31, 95% CI 0.12-0.77, P = 0.010), any repeat revascularization (RR 0.67, 95% CI 0.51-0.88, P = 0.007), target lesion revascularization (RR 0.73, 95% CI 0.55-0.97, P = 0.031), and target vessel revascularization (RR 0.70, 95% CI 0.52-0.95, P = 0.039). <a href="https://pubmed.ncbi.nlm.nih.gov/42557127/">↗</a></div></li><li><div style="font-weight:700;">In hospitalized adults having colonoscopy, 1 L of bowel preparation was noninferior to 2-L or 4-L regimens for adequate bowel cleansing</div><div>GIM/FP/GP: [Formula: see text] Gastroenterology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546300/">↗</a></div></li><li><div style="font-weight:700;">In large-core ischemic stroke with onset in the past 24 h, EVT vs. medical therapy improves functional outcomes and reduces mortality at 90 d</div><div>Emergency Med: [Formula: see text] Neurology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546311/">↗</a></div></li><li><div style="font-weight:700;">In alcohol use disorder and comorbid obesity, weekly semaglutide reduced heavy drinking days at 26 wk</div><div>GIM/FP/GP: [Formula: see text] Public Health: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546302/">↗</a></div></li><li><div style="font-weight:700;">In symptomatic HF, sacubitril-valsartan vs. dapagliflozin and torsemide vs. furosemide did not differ for health status at 6 mo</div><div>GIM/FP/GP: [Formula: see text] Cardiology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546309/">↗</a></div></li><li><div style="font-weight:700;">In adults with uncontrolled hypertension, a multifaceted team-based intervention vs. enhanced usual care improved BP control at 18 mo</div><div>GIM/FP/GP: [Formula: see text] Cardiology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546303/">↗</a></div></li><li><div style="font-weight:700;">In clinically stable ICH with hypertension, a triple pill of low-dose antihypertensive drugs reduced recurrence at a median 2.5 y</div><div>GIM/FP/GP: [Formula: see text] Neurology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546305/">↗</a></div></li><li><div style="font-weight:700;">In veterans with chronic pain, a whole health team intervention reduced pain interference more than CBT or usual care at 12 mo</div><div>GIM/FP/GP: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546310/">↗</a></div></li><li><div style="font-weight:700;">Does Maximum Troponin T Value Correlate With Acute Coronary Occlusion Among Patients Treated as NSTEMI?</div><div>In multivariable analysis, persistent chest pain (OR 2.6; 95% CI: 1.06-6.40; p = 0.037) and de novo wall motion abnormality (OR 3.41; 95% CI: 1.30-8.89; p = 0.012) were independently associated with coronary occlusion. <a href="https://pubmed.ncbi.nlm.nih.gov/42552740/">↗</a></div></li><li><div style="font-weight:700;">Integrating HEART Score and Early CT Coronary Angiography in a Chest Pain Hot Clinic-A Safe Alternative to Inpatient Care From UK Tertiary Center Experience</div><div>RESULTS: A total of 349 patients were reviewed in the hot clinic between July 4, 2024, and December 31, 2024. <a href="https://pubmed.ncbi.nlm.nih.gov/42549939/">↗</a></div></li><li><div style="font-weight:700;">Early versus delayed percutaneous coronary revascularization in patients with concomitant sepsis and non-ST elevation myocardial infarction</div><div>METHODS: This multicenter retrospective study included 217 hospitalized patients with sepsis and AMI who underwent PCI after sepsis treatment, from January 2016 to May 2024. <a href="https://pubmed.ncbi.nlm.nih.gov/42567766/">↗</a></div></li><li><div style="font-weight:700;">Contemporary trends, predictors, and outcomes of pulmonary artery catheter use in heart failure-related cardiogenic shock</div><div>After adjustment, PAC was associated with lower in-hospital mortality (aOR 0.67, 95% CI 0.54-0.83), but longer stay (+2.4 days), higher charges (+$65,075), higher rates of acute kidney injury (aOR 1.55) and mechanical circulatory support (aOR 1.69). <a href="https://pubmed.ncbi.nlm.nih.gov/42552158/">↗</a></div></li><li><div style="font-weight:700;">Hospital-Level Variations in Outcomes and Readmissions Among Patients With STEMI and Cardiogenic Shock Receiving Mechanical Circulatory Support: Insights From a National Cohort</div><div>Patients who received Impella at transplant centers had lower mortality (aOR 0.65, 95% CI 0.43-0.99; p = 0.045) and lower 30-day readmission rates compared with those treated at centers offering only Impella support. <a href="https://pubmed.ncbi.nlm.nih.gov/42545104/">↗</a></div></li>
-</ul>
-</section>
+    <div class="deep" id="chip-bcis3-unloading">
+      <div class="ttl"><span class="acr">CHIP-BCIS3</span> — Impact of Left Ventricular Unloading on Hemodynamics and Stunning in Complex PCI</div>
+      <div class="src">Ezad SM et al. · J Am Coll Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42554527/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Elective LV unloading during high-risk PCI is hypothesized to blunt hemodynamic instability and myocardial stunning, but had not been tested in a randomized trial.</dd>
+        <dt>Methods</dt><dd>Prespecified substudy of the CHIP-BCIS3 randomized trial. Patients with severe LV systolic dysfunction undergoing complex PCI were randomized to elective unloading with a microaxial flow pump (mAFP) or standard care, with invasive hemodynamics by pulmonary-artery catheter at baseline and post-PCI. Coprimary outcomes were systolic blood-pressure reduction, loss of pulse pressure (LOPP), and inotrope requirement.</dd>
+        <dt>Key results</dt><dd>Of 125 eligible patients, 97 were enrolled (50 mAFP; 47 standard care); baseline cardiac index was 2.10 ± 0.55 L/min/m². Systolic BP reduction was similar (RR 0.86; 95% CI 0.58–1.29), while inotrope use was lower with mAFP (RR 0.57; 95% CI 0.34–0.97). LOPP was markedly more frequent with mAFP (RR 7.83; 95% CI 2.53–24.24) and was associated with peri-procedural myocardial injury (OR 3.00; 95% CI 1.00–9.03). Changes in cardiac index (−0.25 vs −0.24 L/min/m²; P = 0.20) and pulmonary capillary wedge pressure (2 vs 3 mm Hg; P = 0.79) did not differ.</dd>
+        <dt>Conclusion</dt><dd>Elective mAFP unloading reduced inotrope requirements but increased loss of pulse pressure and did not prevent myocardial stunning.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>A prespecified randomized substudy with invasive, catheter-based hemodynamic endpoints — the strongest available design for a mechanistic question that registries cannot settle, though the mechanistic endpoints are surrogates rather than clinical outcomes.</dd>
+        <dt>Clinical relevance</dt><dd>Speaks directly to the CHIP-lab decision of whether to place prophylactic support before a complex, low-EF case: the mixed signal (less inotrope but more pulse-pressure loss and unchanged stunning) argues against reflexive elective unloading purely to protect the myocardium.</dd>
+        <dt>Context</dt><dd>Fits within a hemodynamic-support literature that has repeatedly shown better device haemodynamics without a clean clinical payoff in non-shock high-risk PCI; the finding that loss of pulse pressure tracked with myocardial injury is hypothesis-generating for how continuous-flow support may itself perturb coronary perfusion.</dd>
+        <dt>Limitations</dt><dd>Small (97 patients), enrolment stopped short of the 125 eligible, open-label with surrogate coprimary endpoints, and a single microaxial platform — none of which supports conclusions about hard clinical outcomes.</dd>
+      </dl>
+      <div class="bottom">Bottom line: In complex PCI with severe LV dysfunction, elective microaxial unloading spared inotropes but did not abolish stunning and introduced frequent loss of pulse pressure — reserve it for a haemodynamic indication, not routine myocardial protection.</div>
+    </div>
 
-<section id="educational">
-<div class="sec-h"><h2>Educational picks</h2><span class="rule"></span></div>
-<div class="small faint" style="margin-bottom:8px;">Pointers worth a practising interventionalist's time — sourced from the field's education platforms and the interventional journals' review/state-of-the-art output. Titles and links only; no appraisal.</div>
-<ul class="qh">
-<li><div style="font-weight:700;">Optimizing PCI Workflows: Imaging, Physiology, and Therapy Selection <span class="fmt">Webinar</span></div><div>Expert panel on wiring intravascular imaging and coronary physiology into everyday PCI decisions and matching therapy to the lesion in front of you. <a href="https://citoday.com/articles/2026-july-aug/panel-discussion-optimizing-pci-workflows-imaging-physiology-and-therapy-selection">source ↗</a></div></li>
-<li><div style="font-weight:700;">CT-Guided PCI: Toward Precision in Case Triage and Procedural Planning <span class="fmt">Workflow</span></div><div>How pre-procedural coronary CT is reshaping case triage — lesion and calcium assessment, strategy and access decisions made before the patient reaches the table. <a href="https://citoday.com/articles/2026-may-june/ct-guided-pci-toward-precision-in-case-triage-and-procedural-planning">source ↗</a></div></li>
-<li><div style="font-weight:700;">Iatrogenic RCA Dissection: Retrograde Bailout <span class="fmt">Case</span></div><div>A step-by-step complication case — recognising an iatrogenic RCA dissection and rescuing it via a retrograde approach when antegrade re-wiring fails. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/iatrogenic-rca-dissection-retrograde-bailout">source ↗</a></div></li>
-<li><div style="font-weight:700;">Precision Approach for Transradial Access During PCI <span class="fmt">State-of-the-Art</span></div><div>A practical review of refining radial access — cutting spasm and occlusion, weighing the higher-crossover trade-off of distal-radial technique, and optimising haemostasis. <a href="https://pubmed.ncbi.nlm.nih.gov/42553599/">source ↗</a></div></li>
-<li><div style="font-weight:700;">Integrating Invasive and Noninvasive Imaging for Coronary Atherosclerosis: Pragmatic Algorithms From Anatomy to Physiology <span class="fmt">Review</span></div><div>Ties CT, angiography, intravascular imaging and physiology into working algorithms for assessing coronary disease from anatomy through to function. <a href="https://pubmed.ncbi.nlm.nih.gov/42564930/">source ↗</a></div></li>
-<li><div style="font-weight:700;">Functional Coronary Vascular Disease: Endotype-Based Classification, Diagnosis, and Targeted Management <span class="fmt">Review</span></div><div>An endotype framework for ANOCA/INOCA — how to diagnose vasospastic and microvascular disease in the cath lab and target treatment to the mechanism. <a href="https://pubmed.ncbi.nlm.nih.gov/42548607/">source ↗</a></div></li>
-<li><div style="font-weight:700;">State of the Art: Personalized Antiplatelet Therapy by Genotype and Platelet Function Testing <span class="fmt">State-of-the-Art</span></div><div>Where genotype and platelet-function testing actually change post-PCI antiplatelet choice, and how to weigh a one-size strategy against personalised escalation or de-escalation. <a href="https://pubmed.ncbi.nlm.nih.gov/42554288/">source ↗</a></div></li>
-<li><div style="font-weight:700;">Contemporary Strategies in Minimalist TAVR <span class="fmt">Webinar</span></div><div>Expert panel on streamlining TAVR — conscious sedation, next-day discharge and the workflow choices that make a minimalist pathway safe and reproducible. <a href="https://citoday.com/articles/2026-july-aug/panel-discussion-contemporary-strategies-in-minimalist-tavr">source ↗</a></div></li>
-<li><div style="font-weight:700;">TAVR in Bicuspid Aortic Valve: Plan A or Only Plan B? <span class="fmt">Case</span></div><div>A worked bicuspid-anatomy case that frames annular assessment, sizing and the real decision of whether transcatheter is first choice or a fallback. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/TAVR-in-bicuspid-aortic-valve-Plan-A-or-only-Plan-B">source ↗</a></div></li>
-</ul>
-<div class="feed"><div class="fh">From the feed</div><div class="small">Pending — the platform-feed picks need a live logged-in session, which was not available for this edition.</div></div>
-</section>
+    <div class="deep" id="ilumien4-oct-plaque">
+      <div class="ttl"><span class="acr">ILUMIEN IV</span> — OCT-Defined Plaque Morphology and Clinical Outcomes After PCI</div>
+      <div class="src">Lopez JJ et al. · JACC Cardiovasc Imaging 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42547197/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>OCT can classify predominant plaque morphology (fibrous, lipidic, calcified), but the prognostic impact of predominant plaque type after PCI was unclear.</dd>
+        <dt>Methods</dt><dd>Substudy of the OCT-guided cohort of the ILUMIEN IV trial (n = 1,233 assigned to OCT guidance). Core-lab analysis classified each lesion as predominantly lipidic (arc ≥180° or thin-cap fibroatheroma), calcific (arc ≥180°), or fibrotic. The primary endpoint was target-vessel failure (TVF: cardiac death, target-vessel MI, or ischemia-driven target-vessel revascularization).</dd>
+        <dt>Key results</dt><dd>Single de novo lesion PCI was performed in 926 patients; plaque was predominantly lipidic in 309 (33%), calcific in 252 (27%), and fibrotic in 365 (39%). After adjustment, PCI of a predominantly calcific lesion carried higher TVF than a fibrotic lesion (10.7% vs 4.0%; adjusted HR 2.20; 95% CI 1.12–4.33; P = 0.02), driven by more ischemia-driven target-vessel revascularization (8.2% vs 3.1%; adjusted HR 2.31; 95% CI 1.08–4.96; P = 0.03). Lipidic lesions were intermediate (TVF 5.6%; ID-TVR 4.0%).</dd>
+        <dt>Conclusion</dt><dd>Baseline OCT plaque morphology was prognostic after PCI: calcific lesions had the highest and fibrotic the lowest 2-year TVF — the first large-trial demonstration of this relationship.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>Core-lab–adjudicated substudy nested in a randomized imaging trial — robust image analysis and adjudicated events, but the plaque-morphology comparison is observational and non-randomized.</dd>
+        <dt>Clinical relevance</dt><dd>Reframes pre-PCI OCT as a prognostic, not just procedural, tool: a predominantly calcific lesion flags a patient who may warrant more aggressive lesion preparation and closer surveillance.</dd>
+        <dt>Context</dt><dd>Reinforces a recurrent theme this week — calcium as the dominant residual risk after modern PCI — echoing the IVUS calcium-angle and lithotripsy-prediction work elsewhere in this issue.</dd>
+        <dt>Limitations</dt><dd>Restricted to single de novo lesions in the OCT arm, modest absolute event counts, and residual confounding by lesion complexity that adjustment cannot fully remove.</dd>
+      </dl>
+      <div class="bottom">Bottom line: Predominant calcific plaque on baseline OCT more than doubled 2-year target-vessel failure — read plaque type as a prognostic signal, and prepare calcified lesions accordingly.</div>
+    </div>
 
-<section id="podcasts">
-<div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
-<div class="disc small">Pending — not available in this automated fallback edition (the editorial draft step was unavailable; this issue was assembled mechanically from source abstracts). Returns in the next live-enriched edition.</div>
-</section>
+    <div class="deep" id="ctavi-cta-first">
+      <div class="ttl"><span class="acr">—</span> — Computed Tomography Versus Angiography for Coronary Stenoses Before TAVI</div>
+      <div class="src">Garzon S et al. · Am J Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42543097/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Coronary artery disease is common before TAVI, but the optimal pre-procedural coronary assessment strategy — CT angiography first versus invasive angiography first — is uncertain.</dd>
+        <dt>Methods</dt><dd>Single-center comparison of 307 consecutive TAVI patients managed with an invasive-angiography-first (ICA-first, n = 150) or CT-angiography-first (CTA-first, n = 157) strategy. The primary outcome was all-cause mortality.</dd>
+        <dt>Key results</dt><dd>Over a median 61.7 months, mortality did not differ between strategies (unadjusted HR 0.88; 95% CI 0.66–1.16), and assessment strategy was not an independent predictor of death after adjustment (HR 0.95; 95% CI 0.67–1.34). A CTA-first strategy avoided invasive angiography in 73% of patients, with a non-significant trend toward more late post-TAVI catheterization (HR 2.47; 95% CI 0.94–6.45). Pre-TAVI PCI was not associated with lower mortality, though CAD itself marked a higher-risk phenotype.</dd>
+        <dt>Conclusion</dt><dd>A CTA-first strategy yielded equivalent long-term survival while sparing most patients an invasive study, supporting it as the default pre-TAVI coronary assessment.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>Single-center observational cohort with long follow-up and a hard primary endpoint — pragmatic and clinically framed, but non-randomized and vulnerable to allocation and era effects.</dd>
+        <dt>Clinical relevance</dt><dd>The pre-TAVI work-up already includes gated CT for annular sizing; leveraging it to triage coronary disease avoids an extra invasive procedure in a frail, largely elderly population.</dd>
+        <dt>Context</dt><dd>Consistent with the broader move toward CT-first coronary gatekeeping before structural intervention; the neutral signal on pre-TAVI PCI adds to ongoing equipoise about revascularising bystander CAD before valve work.</dd>
+        <dt>Limitations</dt><dd>Single center, modest sample, no core-lab CT adjudication, and a trend toward more late catheterization in the CTA arm that a larger study might render significant.</dd>
+      </dl>
+      <div class="bottom">Bottom line: Defaulting to a CT-first coronary assessment before TAVI spared roughly three of four patients an invasive angiogram without any survival penalty over five years.</div>
+    </div>
 
-<section id="landmark">
-<div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
-<div class="disc small">Pending — not available in this automated fallback edition (the editorial draft step was unavailable; this issue was assembled mechanically from source abstracts). Returns in the next live-enriched edition.</div>
-</section>
+    <div class="item" id="tirzepatide-mace">
+      <div class="ttl"><span class="acr">—</span> — Tirzepatide and the Risk of Atherosclerotic Cardiovascular Events: Population-Based Cohort Study</div>
+      <div class="src">Krüger N et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556854/">source ↗</a></div>
+      <div class="body"><p>Using two US claims databases with a trial-benchmarked emulation design, this cohort compared 35,353 patients with type 2 diabetes and established ASCVD who initiated tirzepatide against 17,618 who initiated sitagliptin (a cardiovascular-neutral placebo proxy), with propensity-overlap weighting. At one year the weighted MACE risk was 2.9% with tirzepatide versus 4.4% with sitagliptin (risk difference −1.4%; HR 0.68, 95% CI 0.58–0.80; NNT 70), with lower MI (HR 0.67) but no meaningful difference in ischaemic stroke. Reductions also spanned all-cause mortality (HR 0.55) and infection-related outcomes, hinting at mechanisms beyond atherosclerosis — though this is observational data, not a randomized cardiovascular outcomes trial.</p></div>
+    </div>
 
-<footer class="disc small">Issue 2026-w32 · covering 3–9 August 2026 (widened to 27 July 2026 where thin) · 568 candidates reviewed, 43 selected · Automated fallback edition. Educational content for clinicians — not medical advice.</footer>
+    <div class="item" id="ivus-complex-meta">
+      <div class="ttl"><span class="acr">—</span> — IVUS-Guided Versus Angiography-Guided PCI for Complex Coronary Lesions: Systematic Review and Meta-Analysis</div>
+      <div class="src">Ye Z et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42557127/">source ↗</a></div>
+      <div class="body"><p>This updated meta-analysis pooled 12 randomized trials (7,089 patients, weighted mean follow-up 18.0 months) comparing IVUS-guided versus angiography-guided PCI in complex coronary anatomy, with cardiac death as the primary outcome. IVUS did not reduce cardiac death (RR 1.02, 95% CI 0.76–1.38), all-cause death, or MI, but it did lower definite stent thrombosis (RR 0.31, 95% CI 0.12–0.77) and repeat revascularization (any RR 0.67; TLR RR 0.73; TVR RR 0.70). These revascularization benefits were attenuated to non-significance after trim-and-fill correction for publication bias, supporting selective — not universal — IVUS use in complex lesions.</p></div>
+    </div>
+
+    <div class="item" id="gdmt-hfref-impact">
+      <div class="ttl"><span class="acr">—</span> — National Impact of Optimal Implementation of Quadruple GDMT in HFrEF</div>
+      <div class="src">Keykhaei M et al. · JACC Heart Fail 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42554537/">source ↗</a></div>
+      <div class="body"><p>This population-level decision-analytic model estimated the eligible-but-untreated HFrEF population and the deaths and hospitalizations preventable with full quadruple GDMT (ARNI, beta-blocker, MRA, SGLT2 inhibitor) using contemporary US epidemiologic data. An estimated 2.76 million US adults with chronic symptomatic HFrEF were eligible, yet only 18.2% received all four classes; optimal implementation was projected to prevent 113,747 deaths (95% UI 90,173–149,875) over 12 months and 357,332 HF hospitalizations annually. The modelling underscores an enormous, modifiable implementation gap directly relevant to post-MI and post-PCI patients with reduced ejection fraction.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · TIER 2 — Notable -->
+  <section id="tier2">
+    <div class="sec-h"><span class="chip t2">Tier 2</span><h2>Notable</h2><span class="rule"></span></div>
+
+    <div class="item" id="tavr-pnar-aorta">
+      <div class="ttl"><span class="acr">NTCVR</span> — Ascending Aorta and Pure Aortic Regurgitation TAVR</div>
+      <div class="src">Hong N et al. · Heart 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42567693/">source ↗</a></div>
+      <div class="body"><p>This national registry analysed 890 patients with pure native aortic regurgitation treated with self-expandable transfemoral TAVR at 72 Chinese centres (2017–2023), with 30-day all-cause mortality as the primary endpoint. In-hospital and 30-day mortality were 2.0% and 2.7%; ascending-aorta diameter (OR 1.103 per mm) and renal insufficiency (OR 4.602) independently predicted 30-day death, and patients with an ascending aorta >41.6 mm had markedly higher mortality (OR 5.027, 95% CI 2.042–12.696). Ascending-aorta size emerges as a key gatekeeper when considering off-label TAVR for pure regurgitation.</p></div>
+    </div>
+
+    <div class="item" id="agent-ide-isr">
+      <div class="ttl"><span class="acr">AGENT IDE</span> — Predictors of Target Lesion Failure in In-Stent Restenosis</div>
+      <div class="src">Abbott JD et al. · Circ Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42558055/">source ↗</a></div>
+      <div class="body"><p>This post hoc analysis of the AGENT IDE trial examined 406 patients with in-stent restenosis randomized to a paclitaxel-coated balloon, using Cox modelling to find predictors of 2-year target lesion failure. TLF occurred in 27.0%; independent risks were multiple stent layers (HR 1.80), White race (HR 1.71), and greater post-preparation residual stenosis (HR 1.16 per 10%), while LAD location was protective (HR 0.56). The data spotlight residual stenosis after lesion preparation as a modifiable lever before drug-coated balloon therapy for ISR.</p></div>
+    </div>
+
+    <div class="item" id="sca-deb-smallvessel">
+      <div class="ttl"><span class="acr">SCA-DEB</span> — Scoring-Balloon plus Sirolimus-Eluting Balloon in Diffuse Small-Vessel Disease</div>
+      <div class="src">Vassilev D et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42543702/">source ↗</a></div>
+      <div class="body"><p>This prospective single-arm study treated 167 patients (194 vessels) with diffuse (lesion length ≥20 mm), small-vessel (1.5–2.75 mm) coronary disease using systematic scoring-balloon angioplasty followed by sirolimus-eluting balloon, with mean lesion length 35 ± 15 mm. Over a median 15 months, MACE was 5.4%, target-lesion revascularization 4.8%, and patient-oriented composite events 10.2%. A fully "leave-nothing-behind" scoring-plus-drug-balloon strategy delivered promising results in an anatomy where drug-eluting stents perform poorly, though a single-arm design limits inference.</p></div>
+    </div>
+
+    <div class="item" id="gulf-cto">
+      <div class="ttl"><span class="acr">Gulf CTO</span> — Outcomes Across Management Strategies for Chronic Total Occlusion</div>
+      <div class="src">Daoulah A et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42561488/">source ↗</a></div>
+      <div class="body"><p>This 7-centre registry of 741 angiographically confirmed CTO patients compared an initial strategy of medical therapy (n = 151), PCI (n = 441), or CABG (n = 149) with adjustment for baseline risk. After adjustment, neither PCI nor CABG differed from medical therapy for in-hospital major adverse events or 36-month event-free survival, but angina control at last follow-up favoured revascularization (CCS class I in 86.2% medical, 91.7% PCI, 98.0% CABG; significant only for CABG). In a non-randomized cohort with strong allocation bias, revascularization — particularly CABG — bought symptom relief rather than a demonstrable hard-outcome benefit.</p></div>
+    </div>
+
+    <div class="item" id="pfo-ida-stroke">
+      <div class="ttl"><span class="acr">—</span> — Incomplete Device Apposition and Stroke Recurrence After PFO Closure</div>
+      <div class="src">Yan C et al. · Heart 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42567695/">source ↗</a></div>
+      <div class="body"><p>This prospective four-centre cohort used 6-month cardiac CT angiography to assess incomplete device apposition (IDA) in 233 patients after PFO closure for secondary stroke prevention. IDA was present in 55.8% (predominantly at the anterior-inferior rim), associated with larger/longer PFOs and larger devices, and during a median 20 months carried higher risks of recurrent stroke (log-rank P = 0.022) and new-onset symptoms (P < 0.001). CTA-detected malapposition may explain a subset of post-closure recurrences and warrants prospective study of preventive device strategies.</p></div>
+    </div>
+
+    <div class="item" id="laac-pmvi">
+      <div class="ttl"><span class="acr">—</span> — Left Atrial Appendage Closure After Prior Mitral Valve Interventions</div>
+      <div class="src">Velazquez G et al. · Clin Res Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545494/">source ↗</a></div>
+      <div class="body"><p>This multicentre study of 1,213 LAAC patients compared 142 with prior mitral valve interventions (PMVI) against those without, with a 2-year composite of death and ischaemic events. Procedural success was very high in both groups (99.3% vs 99.4%) and device-related thrombus similar (7.0% vs 6.8%); the 2-year composite did not differ (21.3% vs 21.8%), though PMVI independently predicted higher all-cause mortality (adjusted OR 1.76) while no ischaemic strokes occurred in the PMVI group. LAAC is feasible and safe after mitral intervention, with excess mortality reflecting baseline comorbidity rather than thromboembolic failure.</p></div>
+    </div>
+
+    <div class="item" id="impella-haptoglobin">
+      <div class="ttl"><span class="acr">—</span> — Early Haptoglobin Decline During Impella CP Versus IABP in Cardiogenic Shock</div>
+      <div class="src">Kawakami S et al. · J Am Heart Assoc 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42568059/">source ↗</a></div>
+      <div class="body"><p>This single-centre registry of 91 cardiogenic-shock patients (IABP 67; Impella CP 24) tracked serial serum haptoglobin every 12 hours to characterise subclinical haemolysis. Low haptoglobin (<19 mg/dL) occurred more often with Impella than IABP (67% vs 31%, P = 0.004), and Impella use independently predicted low haptoglobin (OR 2.82), though overt clinical haemolysis was uncommon in both. Serial haptoglobin may offer an early, inexpensive readout of device-related haemolysis to guide microaxial-pump management — a theme echoed by this issue's flow-pump AKI data.</p></div>
+    </div>
+
+    <div class="item" id="pac-hfcs">
+      <div class="ttl"><span class="acr">—</span> — Pulmonary Artery Catheter Use in Heart Failure-Related Cardiogenic Shock</div>
+      <div class="src">Alahmad A et al. · Cardiovasc Revasc Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42552158/">source ↗</a></div>
+      <div class="body"><p>Using the National Inpatient Sample (2016–2022), this analysis of 17,480 weighted HF-related cardiogenic shock hospitalizations (excluding ACS) examined pulmonary-artery catheter (PAC) use and in-hospital mortality. PAC utilization more than doubled from 9.9% to 21.3%, and after adjustment PAC was associated with lower in-hospital mortality (aOR 0.67) — persisting across four sensitivity analyses including exclusion of LVAD/transplant patients (aOR 0.74) — at the cost of longer, costlier stays. The consistent survival signal strengthens the case for prospective testing of PAC-guided management in HF-CS.</p></div>
+    </div>
+
+    <div class="item" id="combineaf-bleeding">
+      <div class="ttl"><span class="acr">COMBINE-AF</span> — Extracranial Bleeding on Oral Anticoagulants in Atrial Fibrillation</div>
+      <div class="src">Siegal DM et al. · Circulation 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42549517/">source ↗</a></div>
+      <div class="body"><p>This pooled analysis of 73,737 anticoagulated AF patients from five pivotal trials characterised extracranial clinically relevant bleeding by ISTH severity over a mean 705 days. Clinically relevant extracranial bleeding occurred in 10,634 patients (cumulative incidence 26%; 7.6 per 100 person-years), including a 7% cumulative incidence of major bleeds, with gastrointestinal sites comprising 49% of major bleeds. Baseline covariates explained only about two-thirds of the population-attributable risk, indicating substantial unmeasured drivers of bleeding — directly relevant to peri-procedural antithrombotic decisions.</p></div>
+    </div>
+
+    <div class="item" id="aiecg-tavr">
+      <div class="ttl"><span class="acr">—</span> — AI-ECG for Long-Term Mortality Stratification After TAVR</div>
+      <div class="src">Shi W et al. · JACC Asia 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42559773/">source ↗</a></div>
+      <div class="body"><p>This two-centre study trained and externally validated an AI model on 711 preoperative ECG images to predict 3-year all-cause death after TAVR. The model discriminated well internally and externally (AUC 0.767 vs 0.712), and AI-flagged high-risk patients (15.5%) had a 61.5% 3-year mortality versus 16.5% in low-risk patients (adjusted HR 3.49). A routine pre-procedural ECG, read by AI, could sharpen individualized follow-up intensity after TAVR — pending prospective validation.</p></div>
+    </div>
+
+    <div class="item" id="sblp-cimh">
+      <div class="ttl"><span class="acr">SBLP</span> — Small-Balloon Low-Pressure Pullback for Coronary Intramural Hematoma</div>
+      <div class="src">Chen C et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42543703/">source ↗</a></div>
+      <div class="body"><p>This retrospective cohort compared three strategies for PCI-related coronary intramural hematoma in 181 patients: additional stenting ± cutting balloon (n = 109), conservative management (n = 20), and small-balloon low-pressure pullback (SBLP, n = 52). Over 15.1 months, MACE was lowest with SBLP (7.7%) versus stenting (29.4%) and conservative care (50%), with adjusted HR 0.060 for SBLP versus conservative management, plus shorter stays and fewer stents. SBLP is a promising stent-sparing bailout for intramural hematoma, though the retrospective, single-centre design invites confirmation.</p></div>
+    </div>
+  </section>
+
+  <!-- 8 · TIER 3 — Worth knowing -->
+  <section id="tier3">
+    <div class="sec-h"><span class="chip t3">Tier 3</span><h2>Worth knowing</h2><span class="rule"></span></div>
+
+    <div class="item" id="ivus-calcium-angle">
+      <div class="ttl"><span class="acr">—</span> — IVUS Distance-Averaged Calcium Angles Predict Stent Underexpansion</div>
+      <div class="src">Wang JJ et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42552752/">source ↗</a></div>
+      <div class="body"><p>This single-centre analysis of 292 IVUS-guided DES cases tested whether averaging calcium angles measured every 1 mm within 5 mm of the maximum-calcium site predicts stent underexpansion (percent expansion <70%). Distance-averaged angles improved discrimination over the maximum calcium angle, with AUC 0.75–0.77, and the 2 mm-averaged angle was as accurate as wider windows. A simple refinement to IVUS calcium assessment may better flag lesions needing dedicated calcium modification before stenting.</p></div>
+    </div>
+
+    <div class="item" id="dl-ivl">
+      <div class="ttl"><span class="acr">—</span> — Deep Learning to Predict Intravascular Lithotripsy Responsiveness</div>
+      <div class="src">Liu Y et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42561486/">source ↗</a></div>
+      <div class="body"><p>This study applied deep learning to pre-IVL and post-stent OCT in 134 patients to predict post-stenting luminal expansion after intravascular lithotripsy for calcified lesions. Incorporating complex morphological features raised predictive performance well above conventional geometry (adjusted R² 0.72 vs 0.58 at lesion level), with lumen/calcium circularity, wall eccentricity, and calcium-to-lumen balance as key predictors. AI-derived plaque morphology could help select which calcified lesions will actually respond to lithotripsy, though prospective validation is needed.</p></div>
+    </div>
+
+    <div class="item" id="crown-oa-design">
+      <div class="ttl"><span class="acr">CROWN</span> — OCT-Guided Orbital Atherectomy for Calcified Lesions (Design)</div>
+      <div class="src">Ntantou E et al. · Neth Heart J 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42550426/">source ↗</a></div>
+      <div class="body"><p>CROWN is a prospective, multicentre, single-arm observational study enrolling 100 patients with de novo severely calcified coronary lesions undergoing OCT-guided orbital atherectomy before stenting across sites in the Netherlands, Germany, and Italy. Peri-procedural OCT is acquired before and after atherectomy and after stenting, with the primary endpoint the proportion achieving an OCT-derived minimum stent area ≥5.5 mm². The study aims to clarify how orbital atherectomy modifies calcium and to refine device selection for the calcified lesions that increasingly dominate residual PCI risk.</p></div>
+    </div>
+
+    <div class="item" id="cto-surg-ineligible">
+      <div class="ttl"><span class="acr">—</span> — CTO PCI in Patients Ineligible for Surgical Revascularization</div>
+      <div class="src">Park J et al. · Int J Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556542/">source ↗</a></div>
+      <div class="body"><p>This single-centre cohort compared 75 surgically ineligible patients (6.6%) against all other patients among 1,135 undergoing CTO PCI, with all-cause mortality at 30 days and 1 year and overlap weighting for baseline differences. Despite greater comorbidity, lower ejection fraction, and more extensive disease, surgically ineligible patients had similar technical success (94.7% vs 91.1%) and no adjusted excess mortality at 30 days or 1 year. CTO PCI appears a reasonable option for carefully selected patients turned down for surgery, with the caveat of few mortality events.</p></div>
+    </div>
+
+    <div class="item" id="cto-renal-contrast">
+      <div class="ttl"><span class="acr">—</span> — Long-Term Renal Function After CTO PCI and Contrast Exposure</div>
+      <div class="src">Testerini FBB et al. · Am J Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42570833/">source ↗</a></div>
+      <div class="body"><p>This retrospective cohort of 275 CTO-PCI patients (median contrast 215 mL) examined whether procedural contrast volume drives long-term renal deterioration over a median 3.3 years. Persistent kidney dysfunction (≥25% eGFR decline) occurred in 52.4%, but contrast volume was not independently associated with it (P = 0.267) and showed no dose-response across quartiles; patient factors (age, male sex, hypertension, diabetes) predicted decline. The data challenge contrast volume as the main culprit for late renal decline after CTO PCI.</p></div>
+    </div>
+
+    <div class="item" id="mafp-haemolysis">
+      <div class="ttl"><span class="acr">—</span> — Microaxial Flow Pump Level, Haemolysis, and Kidney Injury in Shock</div>
+      <div class="src">Nakashima T et al. · Eur Heart J Acute Cardiovasc Care 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42563404/">source ↗</a></div>
+      <div class="body"><p>This retrospective study of 160 cardiogenic-shock patients on a microaxial flow pump (49 pump-alone; 111 with VA-ECMO) linked pump level, cumulative plasma-free haemoglobin exposure, and acute kidney injury. In the pump-alone group, higher pump levels tracked with higher plasma-free haemoglobin and AKI, and a level ≥P8 sustained ≥24 h independently predicted AKI (adjusted RR 3.31, 95% CI 1.67–6.58). Running a microaxial pump at high levels for prolonged periods carries a measurable haemolysis-mediated renal cost — a practical titration signal for the shock team.</p></div>
+    </div>
+
+    <div class="item" id="ttvr-after-teer">
+      <div class="ttl"><span class="acr">—</span> — Transcatheter Tricuspid Valve Replacement After Failed T-TEER</div>
+      <div class="src">Voß F et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42544860/">source ↗</a></div>
+      <div class="body"><p>This prospective single-centre series analysed 21 TTVR patients, including 5 with residual/recurrent severe-to-torrential tricuspid regurgitation after prior tricuspid edge-to-edge repair, describing a "valve-after-clip" algorithm. Procedural success was 100% in both the post-T-TEER and primary-TTVR groups with no periprocedural complications after T-TEER, though wire-based intentional clip excision was needed in 60% and procedure times were longer. The valve-after-clip concept is feasible and offers a bail-out for the ~12% of T-TEER patients with recurrent TR.</p></div>
+    </div>
+
+    <div class="item" id="asd-hemodynamics">
+      <div class="ttl"><span class="acr">—</span> — Baseline Invasive Hemodynamics and Response After ASD Closure</div>
+      <div class="src">Hashimoto G et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42543705/">source ↗</a></div>
+      <div class="body"><p>This retrospective study of 204 adults undergoing percutaneous secundum ASD closure tested whether pre-closure invasive haemodynamics predict a suboptimal clinical response (persistent dyspnoea and/or new diuretic need). Suboptimal response occurred in 14.2%; age (OR 1.05/year) and mean pulmonary artery pressure (OR 1.10/mmHg) were independently associated, with mPAP showing moderate discrimination (AUC 0.794). Baseline pulmonary-pressure burden may help counsel patients about the likelihood of symptomatic benefit before ASD closure.</p></div>
+    </div>
+
+    <div class="item" id="ppm-rbbb-tavr">
+      <div class="ttl"><span class="acr">—</span> — Pacemaker Need After Balloon-Expandable TAVR in Pre-Existing Bundle Branch Block</div>
+      <div class="src">Rajendran J et al. · Struct Heart 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42569345/">source ↗</a></div>
+      <div class="body"><p>This retrospective study of 380 patients with pre-existing bundle branch block undergoing balloon-expandable TAVR compared 30-day permanent pacemaker rates between right (n = 269) and left (n = 111) bundle branch block. Pacemaker implantation was more frequent with RBBB than LBBB (18.59% vs 7.21%), and baseline RBBB (OR 3.56) and prior AF/flutter (OR 4.13) independently predicted 30-day pacing, while deeper right-sided membranous-septum implantation depth was protective. Pre-existing RBBB flags a patient for heightened conduction vigilance and higher valve implantation.</p></div>
+    </div>
+
+    <div class="item" id="inoca-cmd-sublingual">
+      <div class="ttl"><span class="acr">—</span> — Coronary Microvascular Dysfunction and Sublingual Microcirculation in INOCA</div>
+      <div class="src">Smilowitz NR et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556212/">source ↗</a></div>
+      <div class="body"><p>This study examined whether noninvasive sublingual sidestream darkfield microscopy detects systemic microvascular abnormalities in 135 INOCA patients undergoing invasive coronary function testing. Coronary microvascular dysfunction was present in 46.7%, but sublingual perfused-boundary region, red-cell filling, and microvascular density did not differ by CMD status nor correlate with coronary flow reserve or index of microcirculatory resistance. The negative result argues that coronary microvascular dysfunction in INOCA is not simply a readout of a generalised systemic microcirculopathy.</p></div>
+    </div>
+
+    <div class="item" id="operator-sex-pci">
+      <div class="ttl"><span class="acr">—</span> — Operator-Patient Sex and Outcomes After PCI</div>
+      <div class="src">Ayayo SA et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42557679/">source ↗</a></div>
+      <div class="body"><p>This analysis of 138,112 ACS PCI procedures in England and Wales (2017–2020) evaluated in-hospital MACCE and mortality by patient sex and operator-patient sex concordance. Female patients had 10% higher MACCE and 14% higher mortality overall, differences that were statistically significant among the male operators performing 94.6% of procedures but not among female operators; operator-patient sex discordance was associated with less radial access, less prasugrel use, and higher MACCE (RR 1.12). The persistent female-patient disadvantage warrants scrutiny, though limited female-operator numbers demand cautious interpretation.</p></div>
+    </div>
+  </section>
+
+  <!-- 10 · QUICK HITS -->
+  <section id="quickhits">
+    <div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
+    <ul class="qh">
+      <li><b>ICECAP · cooling duration after cardiac arrest</b> — Across 1,158 comatose out-of-hospital arrest survivors cooled to 33 °C, extending hypothermia from 6 up to 72 h did not improve 90-day neurological outcome (6 hours performed as well as 72). <a href="https://pubmed.ncbi.nlm.nih.gov/42554995/">↗</a></li>
+      <li><b>SCD after MI · mid-range EF</b> — A five-study meta-analysis found a pooled annual sudden-death rate of 1.74% in post-MI patients with LVEF 36–50%, a group currently outside ICD eligibility. <a href="https://pubmed.ncbi.nlm.nih.gov/42571650/">↗</a></li>
+      <li><b>Aficamten · obstructive HCM (FOREST-HCM)</b> — In 172 oHCM patients, KCCQ overall summary score improved 18.8 points by 48 weeks in this open-label extension, sustained from week 12. <a href="https://pubmed.ncbi.nlm.nih.gov/42544039/">↗</a></li>
+      <li><b>Takotsubo · NLR trajectory</b> — Persistent/delayed neutrophil-to-lymphocyte-ratio elevation identified a high-risk phenotype with 62.8% 1-year MACE versus 6.9% for stable-low patients. <a href="https://pubmed.ncbi.nlm.nih.gov/42562217/">↗</a></li>
+      <li><b>Sepsis + NSTEMI · PCI timing</b> — In 217 patients with concomitant sepsis and NSTEMI, early PCI (<72 h) carried higher in-hospital mortality than delayed PCI (16% vs 3.5%), favouring treating sepsis first in selected patients. <a href="https://pubmed.ncbi.nlm.nih.gov/42567766/">↗</a></li>
+      <li><b>Occlusion MI hiding in NSTEMI</b> — Angiographic occlusion was found in 15% of patients treated as NSTEMI; peak hs-cTnT (threshold 678 ng/L) discriminated poorly (AUC 0.58), so troponin alone should not classify OMI. <a href="https://pubmed.ncbi.nlm.nih.gov/42552740/">↗</a></li>
+      <li><b>Perfusion-channel DCB · CTO perforation (first-in-human)</b> — A novel perfusion-channel drug-coated balloon sealed an Ellis type II LAD perforation during CTO PCI while preserving TIMI 2 flow to the diagonal branch. <a href="https://pubmed.ncbi.nlm.nih.gov/42552936/">↗</a></li>
+      <li><b>AI TAVR planner validated</b> — An AI-driven CT planner matched semi-automated software for annular sizing (annulus-area ICC 0.976) while cutting analysis time from 9.55 to 1.03 min per case. <a href="https://pubmed.ncbi.nlm.nih.gov/42554293/">↗</a></li>
+      
+      <li><b>DESC-HBR · antiplatelet de-escalation (design)</b> — A new randomized trial will compare clopidogrel, low-dose prasugrel, reduced-dose ticagrelor, and full-dose therapy in 200 high-bleeding-risk patients one month after ACS-PCI. <a href="https://pubmed.ncbi.nlm.nih.gov/42567765/">↗</a></li>
+      <li><b>Risk-factor "weakness" after CHD</b> — A 10-year primary-prevention risk model performed well for first coronary events (AUC 0.84) but poorly for subsequent events (AUC ~0.55), reflecting index-event bias — don't deprioritise proven therapies. <a href="https://pubmed.ncbi.nlm.nih.gov/42556799/">↗</a></li>
+      <li><b>CAVIAR · PCSK9 inhibition after heart transplant</b> — Alirocumab attenuated cardiac allograft vasculopathy progression only in recipients with concomitantly elevated LDL-C and lipoprotein(a), suggesting lipid-phenotype-guided use. <a href="https://pubmed.ncbi.nlm.nih.gov/42563607/">↗</a></li>
+      <li><b>Anemia · TAVR in the very old</b> — Among patients over 80, baseline anemia was associated with worse long-term outcomes after TAVR, including higher mortality and heart-failure rehospitalization. <a href="https://pubmed.ncbi.nlm.nih.gov/42569273/">↗</a></li>
+      <li><b>Asundexian · noncardioembolic stroke/TIA</b> — In noncardioembolic ischaemic stroke or high-risk TIA, asundexian reduced ischaemic stroke without increasing major bleeding. <a href="https://pubmed.ncbi.nlm.nih.gov/42546306/">↗</a></li>
+    </ul>
+  </section>
+
+  <!-- 11 · EDUCATIONAL PICKS -->
+  <section id="educational">
+    <div class="sec-h"><span class="chip cond">Edu</span><h2>Educational picks</h2><span class="rule"></span></div>
+
+    <div class="item"><div class="ttl">Iatrogenic RCA Dissection: Retrograde CTO Bailout Strategy <span class="fmt">Case</span></div><div class="body"><p>A worked PCRonline case walking through an iatrogenic right-coronary dissection salvaged with IVUS guidance and a retrograde approach via septal collaterals after antegrade wiring failed — the kind of step-by-step complication reasoning that pays off when it happens to you at the table. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/iatrogenic-rca-dissection-retrograde-bailout">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">TAVR in Bicuspid Aortic Valve: Plan A or Only Plan B? <span class="fmt">Case</span></div><div class="body"><p>A case-based PCRonline decision exercise on whether transcatheter therapy is the primary strategy or a fallback in bicuspid anatomy — sizing, annular geometry, and durability trade-offs framed as a real patient rather than a guideline abstraction. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/TAVR-in-bicuspid-aortic-valve-Plan-A-or-only-Plan-B">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Contemporary Strategies in Minimalist TAVR (Panel Discussion) <span class="fmt">Webinar</span></div><div class="body"><p>A CIToday expert panel on how streamlined workflows, selective sedation, and multidisciplinary pathways are making minimalist TAVR routine — practical program-level guidance for operators moving toward conscious-sedation, next-day-discharge structural practice. <a href="https://citoday.com/articles/2026-july-aug/panel-discussion-contemporary-strategies-in-minimalist-tavr">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Operationalizing Radiation Safety in Cardiovascular Programs <span class="fmt">Feature</span></div><div class="body"><p>A CIToday feature on building sustainable cath-lab radiation-safety practice — planning, shielding technology, real-time dose monitoring, and team-based habits. Occupational dose is a career-long exposure every interventionalist under-manages; this is a concrete workflow primer. <a href="https://citoday.com/articles/2026-july-aug/operationalizing-radiation-safety-in-cardiovascular-programs">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Treating Coronary Dissections Including SCAD: When Conservative Management Isn't an Option <span class="fmt">Video</span></div><div class="body"><p>A TCTMD slide presentation on when a coronary dissection — iatrogenic or spontaneous — forces the operator's hand, and how to intervene without extending the injury. A focused complement to the leave-it-alone default that governs most SCAD. <a href="https://www.tctmd.com/slide/treating-coronary-dissections-including-scad-when-conservative-management-isnt-option">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">State of the Art: Personalized Antiplatelet Therapy by Genotype and Platelet Function Testing <span class="fmt">State-of-the-Art</span></div><div class="body"><p>A state-of-the-art review of the therapeutic-window concept for P2Y12 inhibition, weighing a one-size-fits-all potent-inhibitor approach against genotype- or platelet-function-guided tailoring. Useful framing for the high-bleeding-risk de-escalation dilemma this issue's DESC-HBR trial addresses. <a href="https://pubmed.ncbi.nlm.nih.gov/42554288/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Precision Approach for Transradial Access During PCI <span class="fmt">State-of-the-Art</span></div><div class="body"><p>A state-of-the-art review of the technical levers that make radial access reliable — ultrasound-guided and single-wall puncture, radial cocktails against spasm, sheath sizing, and distal-radial and ulnar alternatives to protect against occlusion. A refresher on the access most operators use every day. <a href="https://pubmed.ncbi.nlm.nih.gov/42553599/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Functional Coronary Vascular Disease: Endotype-Based Classification, Diagnosis, and Targeted Management <span class="fmt">Review</span></div><div class="body"><p>A review that organises ANOCA/INOCA into endothelial, vasospastic, and microvascular endotypes and maps each to invasive coronary function testing and targeted therapy — a practical scaffold for the growing share of cath-lab patients with angina but no obstructive disease. <a href="https://pubmed.ncbi.nlm.nih.gov/42548607/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Drug-Coated Balloon Therapy and Plaque Morphology in Acute Coronary Syndrome <span class="fmt">Review</span></div><div class="body"><p>A systematic review of imaging studies (IVUS/OCT/NIRS) on how drug-coated balloons reshape plaque in ACS, with the honest caveat that heterogeneity precludes firm causal claims. A useful evidence map as "leave-nothing-behind" strategies push into acute coronary disease. <a href="https://pubmed.ncbi.nlm.nih.gov/42571502/">open ↗</a></p></div></div>
+
+    <div class="feed">
+      <div class="fh">From the feed · X</div>
+      <div class="small faint" style="margin-top:2px;">Pending — captured from the editor's live X session; not available in this cloud run.</div>
+    </div>
+  </section>
+
+  <!-- 12 · PODCAST PICKS -->
+  <section id="podcasts">
+    <div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
+    <div class="small faint">Pending — episode selection requires live-session enrichment; no verifiable podcast episode data was available in this cloud run.</div>
+  </section>
+
+  <!-- Landmark Revisited -->
+  <section id="landmark">
+    <div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
+    <div class="landmark">
+      <div class="ttl"><span class="acr">RENOVATE-COMPLEX-PCI</span> — Intravascular Imaging-Guided or Angiography-Guided Complex PCI</div>
+      <div class="src">Lee JM et al. · N Engl J Med 2023 · <a href="https://pubmed.ncbi.nlm.nih.gov/36876735/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <div class="body">
+        <p><b>Background:</b> Data on clinical outcomes after intravascular imaging-guided PCI for complex coronary lesions, versus angiography-guided PCI, were limited.</p>
+        <p><b>Methods:</b> Prospective, multicentre, open-label trial in South Korea. Patients with complex coronary-artery lesions were randomized 2:1 to intravascular imaging-guided PCI (IVUS or OCT at operator discretion) or angiography-guided PCI. The primary endpoint was a composite of death from cardiac causes, target-vessel-related MI, or clinically driven target-vessel revascularization.</p>
+        <p><b>Key results:</b> Of 1,639 patients randomized, 1,092 were assigned to imaging-guided and 547 to angiography-guided PCI. At a median 2.1 years, a primary-endpoint event occurred in 76 patients (cumulative incidence 7.7%) with imaging guidance versus 60 (12.3%) with angiography (HR 0.64; 95% CI 0.45–0.89; P = 0.008). Cardiac death occurred in 1.7% vs 3.8%, target-vessel MI in 3.7% vs 5.6%, and clinically driven target-vessel revascularization in 3.4% vs 5.5%. Procedure-related safety events did not differ.</p>
+        <p><b>Conclusion:</b> Among patients with complex coronary lesions, intravascular imaging-guided PCI reduced the composite of cardiac death, target-vessel MI, or target-vessel revascularization compared with angiography guidance.</p>
+      </div>
+      <div class="label">The question &amp; the verdict</div>
+      <div class="body"><p>By the early 2020s, IVUS and OCT were widely available yet inconsistently used, and older imaging trials were criticised for surrogate endpoints, modest size, or enrolment of simple lesions. RENOVATE-COMPLEX-PCI asked the practical question that mattered: in genuinely complex anatomy — long lesions, bifurcations, chronic total occlusions, heavy calcification, left main, in-stent restenosis — does routinely guiding PCI with intravascular imaging change hard clinical outcomes? The verdict was affirmative and clinically meaningful: a 36% relative reduction in target-vessel failure, driven across all three components of the composite, establishing imaging guidance as the preferred default for complex PCI and underpinning its elevation in subsequent revascularization guidance.</p></div>
+      <div class="label">Statistical appraisal</div>
+      <div class="body"><p>The 2:1 randomization maximised experience in the imaging arm while preserving a randomized control, and the composite of cardiac death, target-vessel MI, and clinically driven revascularization is appropriately vessel-specific — tying events to the treated lesion rather than diluting the estimate with unrelated events. The absolute risk difference (7.7% vs 12.3%; ~4.6 percentage points; number-needed-to-treat ~22 over 2.1 years) is clinically substantial, and the effect was directionally consistent across all components, strengthening causal confidence. Key caveats temper enthusiasm: the trial was open-label, so the decision to perform clinically driven revascularization — a soft, operator-dependent endpoint — could be influenced by knowledge of imaging findings; the choice between IVUS and OCT was left to operators, so the trial validates a strategy rather than a single modality; and the South Korean, high-volume single-health-system setting may limit generalisability to labs with less imaging expertise. Enrolment (1,639) was powered for the composite, not for cardiac death alone, so component-level differences are supportive but not definitive.</p></div>
+      <div class="label">Subsequent substudies &amp; follow-ups</div>
+      <div class="body">
+        <p>Kwon W et al., JACC Cardiovasc Interv 2024 (<a href="https://pubmed.ncbi.nlm.nih.gov/38267144/">PMID 38267144</a>): comparing imaging-guided PCI before versus after standardized optimization protocols, target-vessel failure was lower with contemporary (present) imaging practice than with historical imaging (5.1% vs 8.5%; HR 0.63; 95% CI 0.42–0.94), showing that structured optimization criteria — not merely acquiring images — drive the benefit.</p>
+        <p>Hong D et al., Rev Esp Cardiol 2025 (<a href="https://pubmed.ncbi.nlm.nih.gov/39643207/">PMID 39643207</a>): in a post hoc analysis stratified by atherothrombotic risk (TRS-2P), imaging guidance reduced target-vessel failure similarly in low-risk (5.6% vs 10.4%; HR 0.56) and high-risk (14.1% vs 18.5%; HR 0.71) patients, with no significant interaction (P = 0.496) — the relative benefit held across the risk spectrum even as absolute risk rose.</p>
+      </div>
+      <div class="bottom">Why it still matters: RENOVATE-COMPLEX-PCI is the modern anchor for imaging-guided complex PCI — the reference every new imaging dataset in this issue implicitly extends, from ILUMIEN IV's plaque-morphology prognostics to the IVUS-vs-angiography meta-analysis debating where the benefit is real. Its lasting teaching point is that intravascular imaging earns its outcome benefit only when the images are acted on through disciplined optimization, not when they are merely acquired.</div>
+    </div>
+  </section>
+
+  <!-- 13 · FOOTER -->
+  <footer>
+    <div class="disc">
+      CardioDigest is an <b>editorial digest</b>. Appraisals are the opinion of CardioDigest and do
+      <b>not replace</b> independent clinical judgement or the primary literature. Every figure is
+      verified against the primary source before publication; unverifiable items are removed.
+      Social-commentary items are opinion, not evidence.
+    </div>
+    <p class="small">Issue 2026-w32 · covering 3–9 August 2026 (widened to 27 July 2026 where thin) · 568 candidates reviewed, 41 selected · Archive: CardioDigest Issue 2026-w32</p>
+  </footer>
+
 </div>
 </body>
 </html>
+<!-- coverage-ledger
+EuroIntervention: considered 15, selected 0 []; excluded: 42405629 (AnchorMan vs Watchman 2.5 randomised LAA comparison — abstract field empty in pool, numbers unsourceable, dropped per Charter §7 source-fidelity), 42405631 (VARC-HBR consensus validation — abstract empty, unsourceable), 42473745 (prevalence of vasomotor dysfunction in residual/recurrent angina — abstract empty, unsourceable), 42544048 (wall shear stress in eruptive vs non-eruptive calcified nodules — abstract empty, unsourceable); remaining 11 EuroIntervention records were editorials, letters, replies, and case reports (42544053, 42544052, 42544051, 42544050, 42544049, 42473749, 42473748, 42473747, 42473744, 42405632, 42405630) that do not count toward the ranking. No EuroIntervention original research had usable abstract text this week, so none could be published without violating the numbers-as-read gate; nothing was silently padded or dropped.
+JACC (J Am Coll Cardiol): considered 10, selected 3 [42554527 Tier-1 deep dive; 42455105 and 42484585 in Educational]; excluded: 42524805 (HCM-in-pregnancy state-of-the-art review — non-interventional, out of scope for a practising interventionalist), 42524807 (cross-ancestry proteogenomics for ischemic heart disease — basic/translational, no near-term interventional implication), 42524808 (extreme-heat/wildfire air-pollution cardiovascular mortality — epidemiology, non-interventional), 42523015 (COVID-19 anticoagulation timing lessons — not interventional/peri-procedural), 42455102 (coronary calcium and statin eligibility via PREVENT/MESA — primary-prevention imaging, non-interventional), 42455101 (AI contrast-free MRI scar assessment — non-interventional imaging), 42455100 (PM2.5 constituents and coronary heart disease risk in China — environmental epidemiology, non-interventional).
+-->
