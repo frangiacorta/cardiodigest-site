@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CardioDigest — Issue 2026-w32</title>
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5b6166; --faint:#8a9099; --line:#e6e8eb; --bg:#ffffff; --card:#fbfbfc;
+    --accent:#8b2635;        /* desaturated cardio bordeaux */
+    --accent-soft:#f4e7e9;
+    --t1:#8b2635;            /* practice-changing */
+    --t2:#b5763a;            /* notable */
+    --t3:#5b6166;            /* worth knowing */
+    --tag:#3a6b7e;           /* educational / format tags */
+    --maxw:640px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e9eaec; --muted:#a8aeb4; --faint:#7d838a; --line:#2a2d30; --bg:#141517; --card:#1b1d20; --accent:#e0879a; --accent-soft:#2a1c20; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 18px 56px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1,h2,h3{line-height:1.25;margin:0;}
+  .small{font-size:13px;color:var(--muted);}
+  .faint{color:var(--faint);}
+
+  /* Masthead */
+  .mast{border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:18px;}
+  .mast .brand{font-size:26px;font-weight:800;letter-spacing:-.4px;}
+  .mast .brand b{color:var(--accent);}
+  .mast .tagline{font-size:13px;color:var(--muted);margin-top:2px;}
+  .mast .meta{margin-top:10px;font-size:15px;font-weight:700;color:var(--accent);}
+  .mast .subtitle{margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--fg,inherit);}
+  .stats{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);}
+  .stat b{color:var(--ink);}
+
+  /* Section headers with visual coding */
+  section{margin:26px 0 0;scroll-margin-top:12px;}
+  .sec-h{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:12px;}
+  .sec-h h2{font-size:16px;text-transform:uppercase;letter-spacing:.6px;}
+  .sec-h .rule{flex:1;}
+  .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:4px;color:#fff;}
+  .chip.t1{background:var(--t1);} .chip.t2{background:var(--t2);} .chip.t3{background:var(--t3);}
+  .chip.cond{background:var(--tag);}
+  .chip.pre{background:#6a4b8a;}
+
+  /* Index / TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+  .toc ol{margin:6px 0 0;padding-left:18px;}
+  .toc li{margin:3px 0;font-size:14px;}
+  .toc .n{color:var(--faint);font-variant-numeric:tabular-nums;}
+
+  /* TL;DR */
+  .tldr li{margin:7px 0;}
+  .tldr b{color:var(--ink);}
+
+  /* Items */
+  .item{padding:12px 0;border-bottom:1px solid var(--line);}
+  .item:last-child{border-bottom:none;}
+  .item .ttl{font-size:15px;font-weight:700;}
+  .acr{display:inline-block;font-weight:800;color:var(--accent);}
+  .item .src{font-size:12px;color:var(--muted);margin-top:2px;}
+  .item .body{margin-top:6px;font-size:14.5px;}
+  .item .body p{margin:6px 0;}
+
+  /* Deep dive */
+  .deep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;}
+  .deep .ttl{font-size:16px;}
+  .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-top:10px;}
+  .deep .bottom{margin-top:10px;padding:8px 10px;background:var(--accent-soft);border-radius:6px;font-weight:600;}
+  .deep dl{margin:4px 0 0;}
+  .deep dt{font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .deep dd{margin:1px 0 0;font-size:14px;}
+
+  /* From the feed */
+  .feed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;}
+  .feed .fh{font-size:12px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.4px;}
+  .feed li{margin:6px 0;font-size:13.5px;}
+
+  .qh li{margin:6px 0;font-size:14px;}
+  .fmt{font-size:11px;font-weight:700;color:var(--tag);border:1px solid var(--tag);border-radius:4px;padding:1px 6px;margin-left:4px;}
+
+  /* Landmark */
+  .landmark{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:14px;}
+
+  footer{margin-top:34px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted);}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast"><div class="brand">Cardio<b>Digest</b></div><div class="tagline">Weekly Interventional Cardiology Digest</div><div class="meta">Issue No. 11 · 18/08/26</div><div class="subtitle">Covering 3–9 August 2026 (widened to 27 July 2026 where thin)</div><div class="disc small" style="margin-top:8px;">Automated fallback edition — assembled mechanically from peer-reviewed PubMed abstracts (every figure copied verbatim from its source). Plainer than the editorial edition, but every number is source-verified.</div></header>
+
+<section id="tldr">
+<div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
+<ul>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/42556854/">Tirzepatide, added to standard care, lowered atherosclerotic cardiovascular event risk versus sitagliptin in a population-based cohort — this week's most cardiology-relevant read</a></li>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/42554995/">ICECAP: an adaptive-randomization trial testing cooling durations from 6 to 72 hours to find the optimal length of therapeutic hypothermia after out-of-hospital cardiac arrest</a></li>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/42561994/">PSMAddition: a phase 3 trial adding [(177)Lu]Lu-PSMA-617 to androgen-deprivation therapy in metastatic, hormone-sensitive prostate cancer</a></li>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/42560689/">IRMA: a randomized trial of iron syrup versus micronutrient powders alongside malaria chemoprevention in rural Malawian children</a></li>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/42545803/">A state-of-the-art review of classic Hodgkin lymphoma — biology, staging, and contemporary management</a></li>
+<li><a href="https://pubmed.ncbi.nlm.nih.gov/42562413/">A pragmatic RCT of a patient-centred digital adherence tool for drug-susceptible tuberculosis treatment</a></li>
+</ul>
+</section>
+
+<section id="industry">
+<div class="sec-h"><h2>Industry &amp; Regulatory Watch</h2><span class="rule"></span></div>
+<div class="item"><div class="ttl">A Study on the Impact of Bivalirudin Usage During PCI for High-risk Plaques on Post-PCI Coronary Microcirculation.</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT05984537">NCT05984537 ↗</a></div></div>
+<div class="item"><div class="ttl">Cangrelor on Top of anticoagUlation in Patients With myocaRdial Infarction-related Cardiogenic Shock/Cardiac Arrest receiVIng VA-ECMO</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT06792643">NCT06792643 ↗</a></div></div>
+<div class="item"><div class="ttl">Ciprofol&#x27;s Impact on Oxygenator Function in Extracorporeal Membrane Oxygenation (ECMO) Patients</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT06934811">NCT06934811 ↗</a></div></div>
+<div class="item"><div class="ttl">Physiology of Unloading VA ECMO Trial</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT06336655">NCT06336655 ↗</a></div></div>
+<div class="item"><div class="ttl">Ivabradine in the Acute Management of Cardiogenic Shock</div><div class="src"><a href="https://clinicaltrials.gov/study/NCT07714746">NCT07714746 ↗</a></div></div>
+</section>
+
+<section id="tier1">
+<div class="sec-h"><h2>Tier 1 — Practice-changing</h2><span class="rule"></span></div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Tirzepatide and the risk of atherosclerotic cardiovascular events: population based cohort study</div>
+  <div class="src">Krüger N et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556854/">source ↗</a></div>
+  <div class="body"><p>This population-based cohort study estimated the real-world reduction in major adverse cardiovascular events (MACE) from adding tirzepatide to standard of care. At one year, the weighted risk of MACE was 2.9% (95% confidence interval (CI) 2.5% to 3.4%) with tirzepatide versus 4.4% (3.8% to 4.9%) with sitagliptin — a risk difference of -1.4% (95% CI -2.1% to -0.7%; number needed to treat (NNT)=70) and a hazard ratio of 0.68 (95% CI 0.58 to 0.80).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Duration of Therapeutic Hypothermia After Out-of-Hospital Cardiac Arrest: The ICECAP Randomized Clinical Trial</div>
+  <div class="src">Meurer WJ et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42554995/">source ↗</a></div>
+  <div class="body"><p>Therapeutic hypothermia is widely used for neuroprotection after cardiac arrest, but trials have not consistently demonstrated improved neurological outcomes, and the optimal cooling duration remains uncertain. This trial used adaptive randomized allocation to therapeutic hypothermia at 33 °C for cooling durations of 6, 12, 18, 24, 30, 36, 42, 48, 60, or 72 hours to help settle the question.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> [(177)Lu]Lu-PSMA-617 in patients with PSMA-positive metastatic androgen pathway modulator-naive/sensitive prostate cancer (PSMAddition): a phase 3 randomised, controlled trial</div>
+  <div class="src">Tagawa ST et al. · Lancet 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42561994/">source ↗</a></div>
+  <div class="body"><p>The contemporary standard of care for metastatic androgen pathway modulator-naive/sensitive (APMN/S) prostate cancer — also known as metastatic hormone-sensitive prostate cancer — is androgen deprivation therapy (ADT) plus an androgen receptor pathway inhibitor (ARPI) until progression. Between June 15, 2021, and July 25, 2023, 1529 patients were screened and 1144 randomly assigned (n=572 per arm; 1144 [100%] male, 572 [50%] with de novo metastatic APMN/S prostate cancer, 779 [68%] with high-volume disease; median age 68·0 years [IQR 62·0-73·0]).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Iron or Multiple Micronutrient Powder Supplements With Malaria Chemoprevention in Rural Malawian Children: The IRMA Randomized Clinical Trial</div>
+  <div class="src">Phiri KS et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560689/">source ↗</a></div>
+  <div class="body"><p>The World Health Organization recommends universal preventive iron interventions for young children in anemia-prevalent areas to counter anemia's effects on child neurodevelopment and other outcomes. This trial tested six months of one of four regimens: iron syrup and malaria chemoprevention (n = 542), iron-containing micronutrient powders and malaria chemoprevention (n = 543), malaria chemoprevention alone (n = 541), or placebo alone (n = 542).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Classic Hodgkin Lymphoma: A Review</div>
+  <div class="src">Patel KK et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545803/">source ↗</a></div>
+  <div class="body"><p>Hodgkin lymphoma (HL) is a lymphoid malignancy derived from B cells; globally, it accounted for 82 409 new cases and 22 701 deaths in 2022.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Evaluation of patient centred digital adherence technology for tuberculosis treatment outcomes: pragmatic randomised controlled trial</div>
+  <div class="src">Rubinstein F et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42562413/">source ↗</a></div>
+  <div class="body"><p>This pragmatic RCT evaluated Tuberculosis Treatment Support Tools (TB-TST), a patient centred digital adherence technology, for improving treatment outcomes among individuals with drug susceptible tuberculosis in Argentina. 555 patients aged ≥16 years with newly diagnosed drug susceptible tuberculosis, recruited between November 2020 and July 2023, randomised to standard of care (n=278) or standard of care plus TB-TST (n=277).</p></div>
+</div>
+</section>
+
+<section id="tier2">
+<div class="sec-h"><h2>Tier 2 — Notable</h2><span class="rule"></span></div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Syncope</div>
+  <div class="src">Kenny RA et al. · N Engl J Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42555934/">source ↗</a></div>
+  <div class="body"><p>Syncope is a common clinical problem caused by transient cerebral hypoperfusion and encompasses reflex, orthostatic, and cardiac mechanisms.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Addition of High-Dose Vitamin D3 to Standard Treatment in Patients With Metastatic Colorectal Cancer: The SOLARIS Randomized Clinical Trial (Alliance A021703)</div>
+  <div class="src">Ng K et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545685/">source ↗</a></div>
+  <div class="body"><p>A phase 2 randomized clinical trial previously found that high-dose vitamin D3 added to standard treatment improved progression-free survival (PFS) compared with standard-dose vitamin D3 in patients with metastatic colorectal cancer (mCRC). In this trial of 455 randomized patients (median age, 59 years; 181 [40%] female) with median follow-up 20 months, the median PFS for high-dose vitamin D3 (n = 228) was 11.8 months (95% CI, 10.3-13.3) versus 10.3 months (95% CI, 9.4-12.2) for standard-dose vitamin D3 (n = 227) — a difference that did not reach significance (1-sided log-rank P = .25).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Economic Impact of the 2025 New Mexico Measles Outbreak: Highlighting the Cost of Efforts to Prevent Future Outbreaks</div>
+  <div class="src">Pike J et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546299/">source ↗</a></div>
+  <div class="body"><p>In 2025, the United States experienced its highest measles case count since 1992. In New Mexico, 100 confirmed measles cases (99 outbreak-related), including 1 death, occurred across 9 counties from February through September 2025.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Comparative effectiveness of azithromycin versus roflumilast in patients with chronic obstructive pulmonary disease: emulated target trial</div>
+  <div class="src">Portela GT et al. · BMJ 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42556860/">source ↗</a></div>
+  <div class="body"><p>This emulated target trial compared the risk of moderate or severe exacerbations of chronic obstructive pulmonary disease (COPD) among new users of azithromycin versus roflumilast in a population of patients with active COPD treated in routine clinical practice. Azithromycin was associated with a 17% reduction, versus roflumilast, in the hazard of first moderate or severe COPD exacerbation (hazard ratio 0.83, 95% confidence interval (CI) 0.79 to 0.87; number needed to treat 15, 95% CI 12 to 21).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Intracranial delivery of B7-H3-targeting CAR-T cells for recurrent glioblastoma: a phase 1 trial</div>
+  <div class="src">Zhang Y et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42562965/">source ↗</a></div>
+  <div class="body"><p>Recurrent glioblastoma (rGBM) is a leading brain malignancy with few therapeutic options. In this open-label, 3 + 3 dose-escalation trial, patients aged 18-75 years with B7-H3-positive (≥30%) rGBM received intracranial infusion of TX103 at three dose levels (DLs-2 × 107, 6 × 107 and 1.5 × 108 cells per infusion).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Divergent impacts of explainable AI for dermatological diagnosis on clinicians versus lay people</div>
+  <div class="src">Xu X&#x27; et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42552380/">source ↗</a></div>
+  <div class="body"><p>Artificial intelligence (AI) is increasingly permeating healthcare, from serving as a physician assistant to powering consumer applications. Here we present results from two large-scale experiments, involving 623 lay people and 153 primary care physicians (PCPs), respectively, in which a fairness-based AI model for dermatological diagnoses and different XAI-based explanations were combined to examine how XAI assistance, particularly multimodal large language models (LLMs), influences diagnostic performance.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Dronabinol for nightmares in post-traumatic stress disorder: a randomized controlled trial</div>
+  <div class="src">Roepke S et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42557458/">source ↗</a></div>
+  <div class="body"><p>Nightmares are a hallmark of post-traumatic stress disorder (PTSD), yet pharmacological treatments remain limited. A total of 171 patients underwent randomization (mean age, 37.9 ± 12.8 years; 79.3% female), with 87 assigned to dronabinol and 84 to placebo.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Psilocybin-assisted therapy for treatment-resistant major depressive disorder in a public healthcare setting: a randomized controlled trial</div>
+  <div class="src">Rucker JJ et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42562964/">source ↗</a></div>
+  <div class="body"><p>Psilocybin-assisted therapy may be a promising new treatment for treatment-resistant depression. The adjusted between-group difference at week 3 on the MADRS was -10.41 (95% confidence interval: -14.86 to -5.95;</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> A clinically validated framework for auditing AI chatbot behavior in mental health interactions</div>
+  <div class="src">Weilnhammer V et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42567928/">source ↗</a></div>
+  <div class="body"><p>Millions of users turn to consumer artificial intelligence chatbots to discuss emotional, behavioral and mental-health concerns, creating an urgent need for rigorous and scalable safety evaluations. Across 810 conversations, spanning 9 target chatbots and 30 simulated user profiles, concerning behavior in target chatbots was widespread, albeit reduced in newer models.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Large-scale whole-genome sequencing reveals the landscape and health implications of de novo mutations</div>
+  <div class="src">Qin N et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42567929/">source ↗</a></div>
+  <div class="body"><p>De novo mutations (DNMs) are an important source of congenital diseases. Here we performed whole-genome sequencing of 24,030 individuals from 7,851 parent-offspring families, identifying 390,924 de novo single-nucleotide variants (dnSNVs).</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> The next generation of antibody-drug conjugates</div>
+  <div class="src">Mosele F et al. · Nat Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42547622/">source ↗</a></div>
+  <div class="body"><p>Antibody-drug conjugates (ADCs)-composed of a monoclonal antibody linked to a payload-were designed to deliver high concentrations of cytotoxic agents to cancer cells.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Public Policy Approaches to Addressing Adult Obesity: A Position Paper From the American College of Physicians</div>
+  <div class="src">Crowley R et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546304/">source ↗</a></div>
+  <div class="body"><p>Forty percent of U.S. adults have obesity, a complex condition determined by genetics, behavior, environment, and other modifiable and nonmodifiable factors. Obesity is associated with certain comorbid conditions, including type 2 diabetes, high cholesterol, heart disease, and some cancer types, and may increase the severity of communicable illnesses, such as influenza.</p></div>
+</div>
+</section>
+
+<section id="tier3">
+<div class="sec-h"><h2>Tier 3 — Worth knowing</h2><span class="rule"></span></div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Blood pressure-lowering drugs reduce risk for major cardiovascular events regardless of CKD G category</div>
+  <div class="src">Mathew A et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546307/">source ↗</a></div>
+  <div class="body"><p>GIM/FP/GP: [Formula: see text] Cardiology: [Formula: see text] Endocrinology: [Formula: see text] Nephrology: [Formula: see text].</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> The Need to Avoid a Regulatory Gray Zone in Digital Wellness</div>
+  <div class="src">Whyte JJ et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545688/">source ↗</a></div>
+  <div class="body"><p>This Viewpoint discusses the potential for consumer-facing digital health technologies to influence health-related decisions; highlights the regulatory challenges posed by their increased use; and calls for regulatory standards for these technologies that are evidence-based, transparent, understandable by consumers, and proportionate to potential benefits and harms.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Food Politics, Obesity, and the &quot;Wicked Mess&quot; We Are In: A Healthy Dialogue With Marion Nestle</div>
+  <div class="src">Angus DC et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42555059/">source ↗</a></div>
+  <div class="body"><p>What led to the current obesity epidemic in the US and how it can be addressed are discussed by JAMA Senior Editor Derek C.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Sorting Results of Unknown Significance-A Framework for Clinicians Navigating Wearable Data in the AI Era</div>
+  <div class="src">Kishore SP et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545692/">source ↗</a></div>
+  <div class="body"><p>This Perspective outlines a framework for clinicians navigating physiologic data from wearable devices, referred to as “results of unknown significance,” including the need for universal evidentiary standards and shared language.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Communicating With Patients About Physical Activity</div>
+  <div class="src">Midtgaard J et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560728/">source ↗</a></div>
+  <div class="body"><p>This JAMA Insights discusses suggested methods for communicating about and promoting physical activity among patients with chronic medical conditions and how to tailor these conversations to individual patient needs.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> One-Year Outcomes After Endovascular Treatment for Large Acute Ischemic Stroke: The TESLA Randomized Clinical Trial</div>
+  <div class="src">Zaidat OO et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42545711/">source ↗</a></div>
+  <div class="body"><p>This randomized clinical trial examines 1-year safety and efficacy outcomes in patients who underwent intra-arterial thrombectomy or medical management following an acute ischemic stroke with large-core infarcts.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Will New Lyme Disease Approaches Change Patient Care?</div>
+  <div class="src">Schweitzer K et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42566225/">source ↗</a></div>
+  <div class="body"><p>This Medical News article discusses the emerging advances in Lyme disease diagnostics, prevention, and therapeutics as well as the practical challenges that continue to limit innovation.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Global Immunization Coverage Saw Gains in 2025, But Experts Warn of Trouble Ahead</div>
+  <div class="src">Anderer S et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42566211/">source ↗</a></div>
+  <div class="body"><p>This Medical News article discusses the latest global immunization coverage estimates released by the World Health Organization and the United Nation Children’s Fund.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> Therapeutic Use of Cannabis and Cannabinoids</div>
+  <div class="src">Walter KL et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560697/">source ↗</a></div>
+  <div class="body"><p>This JAMA Patient Page describes conditions and uses of cannabis and cannabinoids, cannabis use disorder, risk of harm, and harm reduction strategies.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> On Losing a Patient</div>
+  <div class="src">Johari P et al. · JAMA 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42560694/">source ↗</a></div>
+  <div class="body"><p>In this narrative medicine essay, a psychiatric resident tries to process the loss of a patient to suicide.</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> In older adults, mRNA-1010 vs. a licensed standard-dose influenza vaccine reduced influenza A- or B-related ILI at a median 181 d</div>
+  <div class="src">Chen V et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546301/">source ↗</a></div>
+  <div class="body"><p>GIM/FP/GP: [Formula: see text] Infectious Disease: [Formula: see text] Public Health: [Formula: see text].</p></div>
+</div>
+<div class="item">
+  <div class="ttl"><span class="acr">—</span> In noncardioembolic ischemic stroke or high-risk TIA, asundexian reduced ischemic stroke and did not increase major bleeding</div>
+  <div class="src">Hill MD et al. · Ann Intern Med 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42546306/">source ↗</a></div>
+  <div class="body"><p>GIM/FP/GP: [Formula: see text] Neurology: [Formula: see text] Hematology: [Formula: see text].</p></div>
+</div>
+</section>
+
+<section id="quickhits">
+<div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
+<ul class="qh">
+<li><div style="font-weight:700;">Intravascular ultrasound-guided versus angiography-guided percutaneous coronary intervention for complex coronary lesions: A systematic review and meta-analysis</div><div>However, IVUS guidance significantly reduced definite stent thrombosis (RR 0.31, 95% CI 0.12-0.77, P = 0.010), any repeat revascularization (RR 0.67, 95% CI 0.51-0.88, P = 0.007), target lesion revascularization (RR 0.73, 95% CI 0.55-0.97, P = 0.031), and target vessel revascularization (RR 0.70, 95% CI 0.52-0.95, P = 0.039). <a href="https://pubmed.ncbi.nlm.nih.gov/42557127/">↗</a></div></li><li><div style="font-weight:700;">In hospitalized adults having colonoscopy, 1 L of bowel preparation was noninferior to 2-L or 4-L regimens for adequate bowel cleansing</div><div>GIM/FP/GP: [Formula: see text] Gastroenterology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546300/">↗</a></div></li><li><div style="font-weight:700;">In large-core ischemic stroke with onset in the past 24 h, EVT vs. medical therapy improves functional outcomes and reduces mortality at 90 d</div><div>Emergency Med: [Formula: see text] Neurology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546311/">↗</a></div></li><li><div style="font-weight:700;">In alcohol use disorder and comorbid obesity, weekly semaglutide reduced heavy drinking days at 26 wk</div><div>GIM/FP/GP: [Formula: see text] Public Health: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546302/">↗</a></div></li><li><div style="font-weight:700;">In symptomatic HF, sacubitril-valsartan vs. dapagliflozin and torsemide vs. furosemide did not differ for health status at 6 mo</div><div>GIM/FP/GP: [Formula: see text] Cardiology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546309/">↗</a></div></li><li><div style="font-weight:700;">In adults with uncontrolled hypertension, a multifaceted team-based intervention vs. enhanced usual care improved BP control at 18 mo</div><div>GIM/FP/GP: [Formula: see text] Cardiology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546303/">↗</a></div></li><li><div style="font-weight:700;">In clinically stable ICH with hypertension, a triple pill of low-dose antihypertensive drugs reduced recurrence at a median 2.5 y</div><div>GIM/FP/GP: [Formula: see text] Neurology: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546305/">↗</a></div></li><li><div style="font-weight:700;">In veterans with chronic pain, a whole health team intervention reduced pain interference more than CBT or usual care at 12 mo</div><div>GIM/FP/GP: [Formula: see text]. <a href="https://pubmed.ncbi.nlm.nih.gov/42546310/">↗</a></div></li><li><div style="font-weight:700;">Does Maximum Troponin T Value Correlate With Acute Coronary Occlusion Among Patients Treated as NSTEMI?</div><div>In multivariable analysis, persistent chest pain (OR 2.6; 95% CI: 1.06-6.40; p = 0.037) and de novo wall motion abnormality (OR 3.41; 95% CI: 1.30-8.89; p = 0.012) were independently associated with coronary occlusion. <a href="https://pubmed.ncbi.nlm.nih.gov/42552740/">↗</a></div></li><li><div style="font-weight:700;">Integrating HEART Score and Early CT Coronary Angiography in a Chest Pain Hot Clinic-A Safe Alternative to Inpatient Care From UK Tertiary Center Experience</div><div>RESULTS: A total of 349 patients were reviewed in the hot clinic between July 4, 2024, and December 31, 2024. <a href="https://pubmed.ncbi.nlm.nih.gov/42549939/">↗</a></div></li><li><div style="font-weight:700;">Early versus delayed percutaneous coronary revascularization in patients with concomitant sepsis and non-ST elevation myocardial infarction</div><div>METHODS: This multicenter retrospective study included 217 hospitalized patients with sepsis and AMI who underwent PCI after sepsis treatment, from January 2016 to May 2024. <a href="https://pubmed.ncbi.nlm.nih.gov/42567766/">↗</a></div></li><li><div style="font-weight:700;">Contemporary trends, predictors, and outcomes of pulmonary artery catheter use in heart failure-related cardiogenic shock</div><div>After adjustment, PAC was associated with lower in-hospital mortality (aOR 0.67, 95% CI 0.54-0.83), but longer stay (+2.4 days), higher charges (+$65,075), higher rates of acute kidney injury (aOR 1.55) and mechanical circulatory support (aOR 1.69). <a href="https://pubmed.ncbi.nlm.nih.gov/42552158/">↗</a></div></li><li><div style="font-weight:700;">Hospital-Level Variations in Outcomes and Readmissions Among Patients With STEMI and Cardiogenic Shock Receiving Mechanical Circulatory Support: Insights From a National Cohort</div><div>Patients who received Impella at transplant centers had lower mortality (aOR 0.65, 95% CI 0.43-0.99; p = 0.045) and lower 30-day readmission rates compared with those treated at centers offering only Impella support. <a href="https://pubmed.ncbi.nlm.nih.gov/42545104/">↗</a></div></li>
+</ul>
+</section>
+
+<section id="educational">
+<div class="sec-h"><h2>Educational picks</h2><span class="rule"></span></div>
+<div class="small faint" style="margin-bottom:8px;">Pointers worth a practising interventionalist's time — sourced from the field's education platforms and the interventional journals' review/state-of-the-art output. Titles and links only; no appraisal.</div>
+<ul class="qh">
+<li><div style="font-weight:700;">Optimizing PCI Workflows: Imaging, Physiology, and Therapy Selection <span class="fmt">Webinar</span></div><div>Expert panel on wiring intravascular imaging and coronary physiology into everyday PCI decisions and matching therapy to the lesion in front of you. <a href="https://citoday.com/articles/2026-july-aug/panel-discussion-optimizing-pci-workflows-imaging-physiology-and-therapy-selection">source ↗</a></div></li>
+<li><div style="font-weight:700;">CT-Guided PCI: Toward Precision in Case Triage and Procedural Planning <span class="fmt">Workflow</span></div><div>How pre-procedural coronary CT is reshaping case triage — lesion and calcium assessment, strategy and access decisions made before the patient reaches the table. <a href="https://citoday.com/articles/2026-may-june/ct-guided-pci-toward-precision-in-case-triage-and-procedural-planning">source ↗</a></div></li>
+<li><div style="font-weight:700;">Iatrogenic RCA Dissection: Retrograde Bailout <span class="fmt">Case</span></div><div>A step-by-step complication case — recognising an iatrogenic RCA dissection and rescuing it via a retrograde approach when antegrade re-wiring fails. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/iatrogenic-rca-dissection-retrograde-bailout">source ↗</a></div></li>
+<li><div style="font-weight:700;">Precision Approach for Transradial Access During PCI <span class="fmt">State-of-the-Art</span></div><div>A practical review of refining radial access — cutting spasm and occlusion, weighing the higher-crossover trade-off of distal-radial technique, and optimising haemostasis. <a href="https://pubmed.ncbi.nlm.nih.gov/42553599/">source ↗</a></div></li>
+<li><div style="font-weight:700;">Integrating Invasive and Noninvasive Imaging for Coronary Atherosclerosis: Pragmatic Algorithms From Anatomy to Physiology <span class="fmt">Review</span></div><div>Ties CT, angiography, intravascular imaging and physiology into working algorithms for assessing coronary disease from anatomy through to function. <a href="https://pubmed.ncbi.nlm.nih.gov/42564930/">source ↗</a></div></li>
+<li><div style="font-weight:700;">Functional Coronary Vascular Disease: Endotype-Based Classification, Diagnosis, and Targeted Management <span class="fmt">Review</span></div><div>An endotype framework for ANOCA/INOCA — how to diagnose vasospastic and microvascular disease in the cath lab and target treatment to the mechanism. <a href="https://pubmed.ncbi.nlm.nih.gov/42548607/">source ↗</a></div></li>
+<li><div style="font-weight:700;">State of the Art: Personalized Antiplatelet Therapy by Genotype and Platelet Function Testing <span class="fmt">State-of-the-Art</span></div><div>Where genotype and platelet-function testing actually change post-PCI antiplatelet choice, and how to weigh a one-size strategy against personalised escalation or de-escalation. <a href="https://pubmed.ncbi.nlm.nih.gov/42554288/">source ↗</a></div></li>
+<li><div style="font-weight:700;">Contemporary Strategies in Minimalist TAVR <span class="fmt">Webinar</span></div><div>Expert panel on streamlining TAVR — conscious sedation, next-day discharge and the workflow choices that make a minimalist pathway safe and reproducible. <a href="https://citoday.com/articles/2026-july-aug/panel-discussion-contemporary-strategies-in-minimalist-tavr">source ↗</a></div></li>
+<li><div style="font-weight:700;">TAVR in Bicuspid Aortic Valve: Plan A or Only Plan B? <span class="fmt">Case</span></div><div>A worked bicuspid-anatomy case that frames annular assessment, sizing and the real decision of whether transcatheter is first choice or a fallback. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/TAVR-in-bicuspid-aortic-valve-Plan-A-or-only-Plan-B">source ↗</a></div></li>
+</ul>
+<div class="feed"><div class="fh">From the feed</div><div class="small">Pending — the platform-feed picks need a live logged-in session, which was not available for this edition.</div></div>
+</section>
+
+<section id="podcasts">
+<div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
+<div class="disc small">Pending — not available in this automated fallback edition (the editorial draft step was unavailable; this issue was assembled mechanically from source abstracts). Returns in the next live-enriched edition.</div>
+</section>
+
+<section id="landmark">
+<div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
+<div class="disc small">Pending — not available in this automated fallback edition (the editorial draft step was unavailable; this issue was assembled mechanically from source abstracts). Returns in the next live-enriched edition.</div>
+</section>
+
+<footer class="disc small">Issue 2026-w32 · covering 3–9 August 2026 (widened to 27 July 2026 where thin) · 568 candidates reviewed, 43 selected · Automated fallback edition. Educational content for clinicians — not medical advice.</footer>
+</div>
+</body>
+</html>
