@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light dark">
+<title>CardioDigest — Issue No. 18</title>
+<!-- CardioDigest issue - mobile-first, single column. Fixed 13-section order (Charter section 4). Conditional sections render only when warranted. -->
+<style>
+  :root{
+    --ink:#1a1a1a; --muted:#5b6166; --faint:#8a9099; --line:#e6e8eb; --bg:#ffffff; --card:#fbfbfc;
+    --accent:#8b2635;        /* desaturated cardio bordeaux */
+    --accent-soft:#f4e7e9;
+    --t1:#8b2635;            /* practice-changing */
+    --t2:#b5763a;            /* notable */
+    --t3:#5b6166;            /* worth knowing */
+    --tag:#3a6b7e;           /* educational / format tags */
+    --maxw:640px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --ink:#e9eaec; --muted:#a8aeb4; --faint:#7d838a; --line:#2a2d30; --bg:#141517; --card:#1b1d20; --accent:#e0879a; --accent-soft:#2a1c20; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-text-size-adjust:100%;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:20px 18px 56px;}
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  h1,h2,h3{line-height:1.25;margin:0;}
+  .small{font-size:13px;color:var(--muted);}
+  .faint{color:var(--faint);}
+
+  /* Masthead */
+  .mast{border-bottom:2px solid var(--accent);padding-bottom:14px;margin-bottom:18px;}
+  .mast .brand{font-size:26px;font-weight:800;letter-spacing:-.4px;}
+  .mast .brand b{color:var(--accent);}
+  .mast .tagline{font-size:13px;color:var(--muted);margin-top:2px;}
+  .mast .meta{margin-top:10px;font-size:15px;font-weight:700;color:var(--accent);}
+  .mast .subtitle{margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--fg,inherit);}
+  .stats{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:3px 10px;font-size:12px;color:var(--muted);}
+  .stat b{color:var(--ink);}
+
+  /* Section headers with visual coding */
+  section{margin:26px 0 0;scroll-margin-top:12px;}
+  .sec-h{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:12px;}
+  .sec-h h2{font-size:16px;text-transform:uppercase;letter-spacing:.6px;}
+  .sec-h .rule{flex:1;}
+  .chip{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:4px;color:#fff;}
+  .chip.t1{background:var(--t1);} .chip.t2{background:var(--t2);} .chip.t3{background:var(--t3);}
+  .chip.cond{background:var(--tag);}
+  .chip.pre{background:#6a4b8a;}
+
+  /* Index / TOC */
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 14px;}
+  .toc ol{margin:6px 0 0;padding-left:18px;}
+  .toc li{margin:3px 0;font-size:14px;}
+  .toc .n{color:var(--faint);font-variant-numeric:tabular-nums;}
+
+  /* TL;DR */
+  .tldr li{margin:7px 0;}
+  .tldr b{color:var(--ink);}
+
+  /* Items */
+  .item{padding:12px 0;border-bottom:1px solid var(--line);}
+  .item:last-child{border-bottom:none;}
+  .item .ttl{font-size:15px;font-weight:700;}
+  .acr{display:inline-block;font-weight:800;color:var(--accent);}
+  .item .src{font-size:12px;color:var(--muted);margin-top:2px;}
+  .item .body{margin-top:6px;font-size:14.5px;}
+  .item .body p{margin:6px 0;}
+
+  /* Deep dive */
+  .deep{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:14px;margin:12px 0;}
+  .deep .ttl{font-size:16px;}
+  .label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-top:10px;}
+  .deep .bottom{margin-top:10px;padding:8px 10px;background:var(--accent-soft);border-radius:6px;font-weight:600;}
+  .deep dl{margin:4px 0 0;}
+  .deep dt{font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .deep dd{margin:1px 0 0;font-size:14px;}
+
+  /* From the feed */
+  .feed{background:var(--card);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px;}
+  .feed .fh{font-size:12px;font-weight:700;color:var(--tag);text-transform:uppercase;letter-spacing:.4px;}
+  .feed li{margin:6px 0;font-size:13.5px;}
+
+  .qh li{margin:6px 0;font-size:14px;}
+  .fmt{font-size:11px;font-weight:700;color:var(--tag);border:1px solid var(--tag);border-radius:4px;padding:1px 6px;margin-left:4px;}
+
+  /* Landmark */
+  .landmark{background:var(--card);border:1px solid var(--accent);border-radius:10px;padding:14px;}
+
+  footer{margin-top:34px;border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--muted);}
+  .disc{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin-top:8px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- 1 · HEADER -->
+  <header class="mast">
+    <div class="brand">Cardio<b>Digest</b></div>
+    <div class="tagline">Weekly Interventional Cardiology Digest</div>
+    <div class="meta">Issue No. 18 · 29/09/26</div>
+    <div class="subtitle">Covering 21–27 September 2026 · Clopidogrel-vs-aspirin monotherapy, FFR-CT &amp; coronary physiology, FFR-guided NSTE-ACS, TAVR for pure aortic regurgitation — Landmark: HOST-EXAM</div>
+    <div class="stats">
+      <span class="stat"><b>567</b> articles</span>
+      <span class="stat"><b>9</b> educational</span>
+      <span class="stat"><b>0</b> podcasts</span>
+    </div>
+  </header>
+
+  <!-- 2 · INDEX -->
+  <section id="index">
+    <nav class="toc" aria-label="Contents">
+      <div class="small" style="font-weight:700;text-transform:uppercase;letter-spacing:.5px;">In this issue</div>
+      <ol>
+        <li><a href="#tldr">Top Highlights / TL;DR</a></li>
+        <li><a href="#industry">Industry &amp; Regulatory Watch</a></li>
+        <li><a href="#tier1">Tier 1 — Practice-changing</a></li>
+        <li><a href="#tier2">Tier 2 — Notable</a></li>
+        <li><a href="#tier3">Tier 3 — Worth knowing</a></li>
+        <li><a href="#quickhits">Quick hits</a></li>
+        <li><a href="#educational">Educational picks</a></li>
+        <li><a href="#podcasts">Podcast picks</a></li>
+        <li><a href="#landmark">Landmark Revisited</a></li>
+      </ol>
+    </nav>
+  </section>
+
+  <!-- 3 · TL;DR -->
+  <section id="tldr">
+    <div class="sec-h"><h2>Top Highlights</h2><span class="rule"></span></div>
+    <ul class="tldr">
+      <li><b>Clopidogrel monotherapy after PCI showed a directionally consistent benefit in both sexes, with no significant interaction</b> — a SMART-CHOICE 3 sex-stratified analysis found death/MI/stroke significantly reduced in women (4.3% vs 9.4%) but not significantly in men (4.4% vs 6.0%). <a href="#t1-kwon">↓</a></li>
+      <li><b>FFR-CT independently predicted hard events in a 7,836-patient national cohort</b> — lower CT-derived FFR tracked incrementally higher MI, cardiovascular and all-cause death, with 0.67 the optimal risk threshold. <a href="#t1-bell">↓</a></li>
+      <li><b>Paclitaxel-coated devices did not improve limb salvage in CLTI with tissue loss — and raised early amputation</b> — SWEDEPAD-1 saw more 3-month major amputation (10.4% vs 7.5%) despite fewer 1-year reinterventions. <a href="#t1-sellgren">↓</a></li>
+      <li><b>FFR-guided PCI performed similarly in NSTE-ACS and chronic coronary syndrome</b> — a five-trial individual-patient pooling found no interaction with syndrome type for 1-year MACE. <a href="#t1-paolucci">↓</a></li>
+      <li><b>Angiography-derived radial wall strain flagged vulnerable non-target vessels</b> — in TARGET All Comers, RWSmax ≥13% independently predicted 5-year non-target-vessel events (adjusted HR 4.82). <a href="#t1-huang">↓</a></li>
+      <li><b>A new SCAI-V scheme sharpened cardiogenic-shock phenotyping after cardiac arrest</b> — combining SCAI grade with lactate stratified survival in derivation and TTM-2 validation cohorts, with better fit than prior SCAI schemes in derivation. <a href="#t1-roy">↓</a></li>
+      <li><b>When resting Pd/Pa and FFR disagree, they carry different prognostic messages</b> — in 9,737 medically-managed lesions, FFR tracked vessel events while resting Pd/Pa tracked survival. <a href="#t1-lim">↓</a></li>
+    </ul>
+  </section>
+
+  <!-- 5 · INDUSTRY & REGULATORY WATCH -->
+  <section id="industry">
+    <div class="sec-h"><span class="chip cond">Watch</span><h2>Industry &amp; Regulatory</h2><span class="rule"></span></div>
+    <div class="item"><div class="ttl">Ticagrelor with low-dose versus regular-dose aspirin in high-ischaemic-risk ACS after PCI</div><div class="body">A newly-registered phase 4 trial pairs ticagrelor with either low-dose or standard aspirin in ACS patients at high ischaemic risk after PCI — probing whether trimming the aspirin dose within a dual regimen preserves protection while easing bleeding. It sits alongside this week's antiplatelet-monotherapy theme. <a href="https://clinicaltrials.gov/study/NCT04240834">source ↗</a></div></div>
+    <div class="item"><div class="ttl">Short versus 12-month prasugrel-plus-aspirin after ACS PCI with everolimus-eluting stents</div><div class="body">This phase 4 study tests an abbreviated versus standard 12-month prasugrel-based DAPT course in ACS patients treated with everolimus-eluting stents — a de-escalation question directly echoing the early-aspirin-discontinuation meta-analysis featured below. <a href="https://clinicaltrials.gov/study/NCT06718179">source ↗</a></div></div>
+    <div class="item"><div class="ttl">Choosing a transcatheter heart valve when annular sizing is intermediate</div><div class="body">A phase 4 trial addressing valve selection for severe aortic stenosis when CT annular dimensions fall between recommended size bands — one of the most common real-world sizing dilemmas in TAVR planning. <a href="https://clinicaltrials.gov/study/NCT07689279">source ↗</a></div></div>
+    <div class="item"><div class="ttl">Antithrombotic strategy after transcatheter edge-to-edge repair without an anticoagulation indication</div><div class="body">A phase 4 programme (STAR-TEER) evaluating antithrombotic treatment following transcatheter edge-to-edge repair in patients who have no independent indication for oral anticoagulation — a gap the structural field currently manages by extrapolation. <a href="https://clinicaltrials.gov/study/NCT07007143">source ↗</a></div></div>
+  </section>
+
+  <!-- 6 · TIER 1 — Practice-changing -->
+  <section id="tier1">
+    <div class="sec-h"><span class="chip t1">Tier 1</span><h2>Practice-changing</h2><span class="rule"></span></div>
+
+    <!-- DEEP DIVE 1 -->
+    <div class="deep" id="t1-kwon">
+      <div class="ttl"><span class="acr">SMART-CHOICE 3</span> — Clopidogrel versus aspirin monotherapy after PCI: a sex-stratified analysis</div>
+      <div class="src">Kwon W et al. · EuroIntervention 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42765401/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Clopidogrel has emerged as a promising alternative to aspirin for maintenance monotherapy after percutaneous coronary intervention (PCI), but whether the optimal antiplatelet strategy differs by sex remains controversial.</dd>
+        <dt>Methods</dt><dd>A prespecified substudy of the SMART-CHOICE 3 randomised trial. Patients at high risk of recurrent ischaemic events who had completed the standard duration of dual antiplatelet therapy after PCI were randomly assigned to clopidogrel or aspirin monotherapy. The primary endpoint was a composite of all-cause death, myocardial infarction, or stroke. A total of 5,506 patients (1,002 females, 4,504 males) were enrolled in South Korea.</dd>
+        <dt>Key results</dt><dd>Females carried a higher risk profile, yet the incidence of the primary endpoint did not differ significantly between females and males (6.7% vs 5.2%; adjusted HR 0.89, 95% CI 0.62–1.28; p=0.537). Compared with aspirin, clopidogrel significantly reduced the primary endpoint in females (4.3% vs 9.4%; adjusted HR 0.45, 95% CI 0.24–0.85; p=0.014) but not significantly in males (4.4% vs 6.0%; adjusted HR 0.77, 95% CI 0.56–1.07; p=0.116). There was no significant interaction between sex and antiplatelet therapy (p for interaction=0.288).</dd>
+        <dt>Conclusion</dt><dd>In patients with remote PCI at high ischaemic risk, clopidogrel monotherapy produced a directionally consistent reduction in the composite of death, MI, or stroke in both sexes, with no significant sex-by-treatment interaction, supporting a consistent treatment effect across sexes.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>Prespecified sex-stratified analysis nested in a randomised, controlled trial with a hard composite endpoint — a robust framework that preserves randomisation within each sex and reports a formal interaction test rather than relying on separate subgroup p-values.</dd>
+        <dt>Clinical relevance</dt><dd>The chronic maintenance phase after PCI increasingly favours a single antiplatelet agent; these data extend the case for clopidogrel over aspirin without signalling that women and men require different agents.</dd>
+        <dt>Context</dt><dd>The findings dovetail with this issue's Landmark, HOST-EXAM, which established clopidogrel's superiority over aspirin for long-term maintenance monotherapy; SMART-CHOICE 3 adds a modern, sex-balanced confirmation in a high-risk population.</dd>
+        <dt>Limitations</dt><dd>Women were a minority (1,002 of 5,506) and the analysis was not powered for a sex interaction; the striking apparent female-specific benefit rests on relatively few events with a wide confidence interval, and the non-significant interaction term means the eye-catching female result should not be read as a true sex difference. Single-country, East-Asian enrolment limits generalisability.</dd>
+      </dl>
+      <div class="bottom">Bottom line: Clopidogrel monotherapy looks a reasonable maintenance choice after PCI in both women and men, with no convincing evidence that sex should change the agent — but the dramatic female point estimate is hypothesis-generating, not a mandate.</div>
+    </div>
+
+    <!-- DEEP DIVE 2 -->
+    <div class="deep" id="t1-bell">
+      <div class="ttl"><span class="acr">—</span> — Prognostic value of coronary CT angiography-derived FFR (FFR-CT) in a large nationwide cohort</div>
+      <div class="src">Bell JS et al. · Circulation 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42770221/">primary source ↗</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>The diagnostic value of coronary CT angiography-derived fractional flow reserve (FFR-CT) in stable coronary artery disease is well established, but its prognostic value for future events is less clear, with prior studies limited by small size, variable measurement points, composite outcomes, and short follow-up.</dd>
+        <dt>Methods</dt><dd>A nationwide cohort of patients who underwent coronary CT angiography with clinically indicated FFR-CT analysis (HeartFlow) for stable coronary artery disease between 2017 and 2020 across 27 sites in England, with 3-year follow-up. Lowest per-patient stenosis-specific and distal-vessel FFR-CT values were related to individual outcomes: myocardial infarction (MI), cardiovascular death, all-cause death, and revascularisation, and were split into normal (&gt;0.8), borderline (0.71–0.8), reduced (0.51–0.7), and severely reduced (≤0.5).</dd>
+        <dt>Key results</dt><dd>Among 7,836 patients (median age 63; 37.4% women), stenosis-specific FFR-CT was associated with future MI (HR 2.08–5.73; P&lt;0.001), cardiovascular death (HR 1.51–3.40; P&lt;0.001), all-cause death (HR 1.01–1.58; P=0.01) and revascularisation (HR 4.79–24.48; P&lt;0.001), with lower values conferring incrementally greater risk. After adjustment for risk factors and CAD-RADS stenosis severity, FFR-CT ≤0.7 remained associated with MI (adjusted HR 2.94–3.39; P&lt;0.001) and ≤0.5 with cardiovascular death (adjusted HR 2.92; P=0.02). Adding FFR-CT improved discrimination for MI or cardiovascular death (C-index 0.783; ΔC-index 0.012; P&lt;0.001), and a value of 0.67 defined the optimal risk threshold. When stenosis-specific FFR-CT was normal, the 3-year rate of MI or cardiovascular death was low (1.5%).</dd>
+        <dt>Conclusion</dt><dd>FFR-CT is associated with MI, cardiovascular death, and all-cause death independent of risk factors and stenosis severity, with reduced and severely reduced values carrying the strongest association with future events.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>A large, real-world, nationwide observational cohort with individual (not composite) hard outcomes and 3-year follow-up — a substantial advance over the small single-centre datasets that have anchored FFR-CT prognosis to date.</dd>
+        <dt>Clinical relevance</dt><dd>It reframes FFR-CT from a gatekeeper to invasive angiography into a prognostic instrument: a normal value identifies a genuinely low-risk group, while severely reduced values mark patients warranting closer attention.</dd>
+        <dt>Context</dt><dd>The result sits naturally beside this week's invasive-physiology papers (FFR-guided NSTE-ACS, resting Pd/Pa vs FFR), reinforcing that a physiological signal — however acquired — carries prognostic weight beyond the anatomical picture.</dd>
+        <dt>Limitations</dt><dd>Observational design cannot establish that acting on FFR-CT changes outcomes; revascularisation is both an outcome and a treatment influenced by the test itself (confounding by indication), and the incremental discrimination gain, though significant, was small (ΔC-index 0.012). Single-vendor, single-country data.</dd>
+      </dl>
+      <div class="bottom">Bottom line: A normal FFR-CT is genuinely reassuring at 3 years, and a severely reduced value should raise vigilance — but this is prognostic association, not proof that FFR-CT-guided treatment improves outcomes.</div>
+    </div>
+
+    <!-- DEEP DIVE 3 -->
+    <div class="deep" id="t1-sellgren">
+      <div class="ttl"><span class="acr">SWEDEPAD-1</span> — Paclitaxel-coated devices in chronic limb-threatening ischaemia with tissue loss</div>
+      <div class="src">Sellgren F et al. · Circ Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42779544/">primary source ↗</a> · Trial: <a href="https://clinicaltrials.gov/study/NCT02051088">NCT02051088</a></div>
+      <div class="label">Structured abstract</div>
+      <dl>
+        <dt>Background</dt><dd>Patients with chronic limb-threatening ischaemia (CLTI) and tissue loss (Rutherford 5–6) are at high risk of major amputation. Drug-coated technologies are effective in coronary interventions, but their impact on limb outcomes in advanced ischaemia remains uncertain.</dd>
+        <dt>Methods</dt><dd>A post hoc subgroup analysis of SWEDEPAD-1, a multicentre registry-based randomised trial of endovascular treatment for infrainguinal arterial disease. Adults with CLTI were randomised 1:1 to paclitaxel-coated or uncoated devices; only patients with tissue loss (Rutherford 5–6) were included. The primary endpoint was time to ipsilateral major amputation, assessed at 3 months, 1 year, and 5 years by intention-to-treat.</dd>
+        <dt>Key results</dt><dd>Among 1,761 patients (median age 77; 60.1% male; 58.4% diabetes), ipsilateral major amputation within 3 months was more frequent with paclitaxel-coated than uncoated devices (10.4% vs 7.5%; adjusted HR 1.43, 95% CI 1.04–1.96). Amputation rates were similar at 1 year (16.3% vs 14.6%) and through 5 years. Target-vessel reintervention at 1 year was lower with paclitaxel-coated devices (13.6% vs 18.0%; adjusted HR 0.77, 95% CI 0.61–0.97), but this difference attenuated when early limb loss was included in a composite, and no significant differences remained at 5 years.</dd>
+        <dt>Conclusion</dt><dd>In CLTI with tissue loss, paclitaxel-coated devices did not improve limb salvage and were associated with a higher early risk of major amputation; the 1-year reintervention benefit was not maintained once the competing risk of limb loss was accounted for.</dd>
+      </dl>
+      <div class="label">Critical appraisal</div>
+      <dl>
+        <dt>Study design</dt><dd>A post hoc subgroup of a large, pragmatic, registry-based RCT with intention-to-treat analysis and hard limb endpoints out to 5 years — a rigorous setting for a question long clouded by the paclitaxel mortality controversy.</dd>
+        <dt>Clinical relevance</dt><dd>For the sickest limbs — those with tissue loss — the "restenosis-reduction" rationale for drug coating does not translate into limb salvage, and an early amputation signal counsels caution in exactly the group where operators may be tempted to reach for these devices.</dd>
+        <dt>Context</dt><dd>It nuances the broader paclitaxel debate: the concern here is not late mortality but early limb outcomes in advanced ischaemia, where wound healing and revascularisation durability, not late lumen loss, dominate.</dd>
+        <dt>Limitations</dt><dd>Post hoc subgroup analysis; the early amputation excess may reflect baseline imbalance or the biology of the most severe limbs rather than device harm, and mechanism is not established. Reintervention is susceptible to ascertainment and competing-risk effects.</dd>
+      </dl>
+      <div class="bottom">Bottom line: In CLTI with tissue loss, paclitaxel-coated devices offer no limb-salvage advantage and carry an early amputation signal — reserve enthusiasm for less advanced disease until randomised, tissue-loss-specific data mature.</div>
+    </div>
+
+    <!-- BRIEFS (Tier 1) -->
+    <div class="item" id="t1-paolucci">
+      <div class="ttl"><span class="acr">—</span> — FFR-guided revascularisation of non-culprit lesions in NSTE-ACS</div>
+      <div class="src">Paolucci L et al. · EuroIntervention 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42765399/">source ↗</a></div>
+      <div class="body"><p>This individual-patient-data pooling of five randomised trials (2,493 patients: 1,316 chronic coronary syndrome, 1,177 NSTE-ACS) compared FFR-guided with angiography-guided PCI stratified by coronary-syndrome subtype. The relationship between an FFR-guided strategy and 1-year MACE was similar across groups (CCS: HR 0.78, 95% CI 0.58–1.05; NSTE-ACS: HR 0.86, 95% CI 0.63–1.18; p for interaction=0.792), with concordant findings for death, MI, and repeat revascularisation and out to 5 years. The authors conclude an FFR-guided strategy can safely reduce unnecessary PCI in NSTE-ACS, though deferral of physiologically non-significant non-culprit lesions still demands clinical judgement in the acute setting.</p></div>
+    </div>
+
+    <div class="item" id="t1-huang">
+      <div class="ttl"><span class="acr">—</span> — Angiography-derived radial wall strain for residual risk after PCI</div>
+      <div class="src">Huang J et al. · EuroIntervention 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42765400/">source ↗</a></div>
+      <div class="body"><p>Using a novel AI algorithm for automated radial wall strain (RWS) from routine angiography, this blinded post hoc analysis of the TARGET All Comers randomised trial assessed 1,384 non-target vessels in 802 patients over 5 years. A prespecified maximal-RWS cutoff of ≥13% independently predicted the non-target-vessel-oriented composite endpoint (adjusted HR 4.82, 95% CI 3.14–7.40; adjusted AUC 0.73), with the strongest signal for non-target-vessel revascularisation (adjusted AUC 0.92). As a retrospective analysis of deferred vessels, it is hypothesis-generating; prospective RWS-guided trials are ongoing.</p></div>
+    </div>
+
+    <div class="item" id="t1-roy">
+      <div class="ttl"><span class="acr">SCAI-V</span> — Phenotypes of cardiogenic shock after out-of-hospital cardiac arrest</div>
+      <div class="src">Roy R et al. · EuroIntervention 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42765398/">source ↗</a></div>
+      <div class="body"><p>This study derived (international cohort, n=627) and externally validated (TTM-2 trial, n=1,781) a new SCAI-V classification of cardiogenic shock after resuscitated out-of-hospital cardiac arrest, combining SCAI grade with lactate (&lt;5 vs ≥5 mmol/L) into four phenotypes. Survival fell stepwise from non-shock (78% and 68% in derivation and validation) through haemodynamic shock (60%/51%) and systemic ischaemia (50%/42%) to haemometabolic shock (20%/27%), with SCAI-V showing better model fit, discrimination and calibration than the 2019/2022 SCAI schemes in the derivation cohort and consistent model-fit advantages (discrimination comparable to SCAI-2022) in TTM-2. By separating haemodynamic from metabolic derangement, the scheme may improve selection for early invasive therapies — though it remains a prognostic framework, not a treatment trial.</p></div>
+    </div>
+
+    <div class="item" id="t1-lim">
+      <div class="ttl"><span class="acr">IRIS-FFR</span> — Contrasting prognosis of discordance between resting Pd/Pa and FFR</div>
+      <div class="src">Lim SM et al. · Circ Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42779535/">source ↗</a> · Registry: <a href="https://clinicaltrials.gov/study/NCT01366404">NCT01366404</a></div>
+      <div class="body"><p>From the prospective IRIS-FFR registry, 9,737 medically-managed lesions in 7,376 patients were grouped by resting whole-cycle Pd/Pa (≤0.93) and FFR (≤0.80); discordance was present in 15.9%. Lesions with resting Pd/Pa &gt;0.93 but FFR ≤0.80 had a higher 5-year target-vessel-failure risk (adjusted HR 1.67, 95% CI 1.09–2.55) yet a lower all-cause-death risk (adjusted HR 0.23, 95% CI 0.11–0.52) than the reverse-discordant group. FFR appears to track vessel-specific coronary events while resting Pd/Pa tracks overall survival, arguing for complementary — not interchangeable — use of resting and hyperaemic indices.</p></div>
+    </div>
+  </section>
+
+  <!-- 7 · TIER 2 — Notable -->
+  <section id="tier2">
+    <div class="sec-h"><span class="chip t2">Tier 2</span><h2>Notable</h2><span class="rule"></span></div>
+
+    <div class="item" id="t2-brochner"><div class="ttl"><span class="acr">—</span> — Unprotected left main disease: revascularisation versus deferral</div><div class="src">Bröchner MM et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42765913/">source ↗</a></div><div class="body"><p>This Western Denmark Heart Registry study of 4,848 patients with isolated unprotected left main disease and chronic coronary syndrome compared PCI (n=2,819), CABG (n=467), and deferral above or below 50% stenosis. Five-year survival was 89.5% (PCI), 94.1% (CABG), 91.7% (defer ≤50%), and 84.0% (defer &gt;50%), with revascularisation associated with better survival once stenosis exceeded 50%. PCI carried more non-fatal ACS and repeat revascularisation than CABG but similar rates to deferral — real-world support for treating significant unprotected left main disease rather than watching it.</p></div></div>
+
+    <div class="item" id="t2-zengin"><div class="ttl"><span class="acr">—</span> — QFR versus IVUS versus angiography in intermediate left main disease</div><div class="src">Zengin İ et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42773729/">source ↗</a></div><div class="body"><p>This prospective single-centre study compared conventional angiography (CCA), quantitative flow ratio (QFR), and IVUS in 135 patients with intermediate left main lesions, using IVUS minimum lumen area &lt;6 mm² as the anatomical reference (significant in 68.1%). QFR showed 100% specificity but only 54.3% sensitivity, while CCA offered higher sensitivity (67.4%) with 86.0% specificity; both systematically underestimated vessel dimensions versus IVUS. QFR may serve as a rule-in tool and CCA for triage, but neither replaces IVUS for anatomical characterisation and left-main procedural planning.</p></div></div>
+
+    <div class="item" id="t2-todurov"><div class="ttl"><span class="acr">—</span> — Planned versus standby V-A ECMO during high-risk PCI</div><div class="src">Todurov M et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42775646/">source ↗</a></div><div class="body"><p>This single-centre retrospective cohort of 74 patients undergoing elective high-risk PCI compared a planned V-A ECMO strategy (n=43, ECMO before PCI) with a standby strategy (n=31, equipment prepared, ECMO only on deterioration). In-hospital MACCE was markedly lower with a planned strategy (14.0% vs 48.4%; adjusted OR 4.20 for standby, 95% CI 1.35–13.10), with shorter ICU and hospital stays. Given the nonrandomised design and the 61% of standby patients who ultimately needed ECMO, the authors frame this as hypothesis-generating rather than proof that pre-emptive support is causally protective.</p></div></div>
+
+    <div class="item" id="t2-kereiakes"><div class="ttl"><span class="acr">J-Valve EFS</span> — Transfemoral TAVR for symptomatic severe aortic regurgitation</div><div class="src">Kereiakes DJ et al. · J Soc Cardiovasc Angiogr Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42769951/">source ↗</a> · Trial: <a href="https://clinicaltrials.gov/study/NCT06034028">NCT06034028</a></div><div class="body"><p>This prospective single-arm early-feasibility study enrolled 25 high-surgical-risk patients (mean age 80.6; STS-PROM 5.6%) with symptomatic severe native aortic regurgitation for transfemoral J-Valve implantation. Successful implantation occurred in 92% (23/25); the primary composite of death or disabling stroke at 30 days was 8.0%, with 4.0% all-cause mortality at both 30 days and 1 year and none/trace AR in 95.5% at 1 year. In a lesion long resistant to transcatheter therapy, these early results are encouraging but rest on a tiny, non-randomised cohort.</p></div></div>
+
+    <div class="item" id="t2-runkana"><div class="ttl"><span class="acr">—</span> — Mechanical thrombectomy versus systemic thrombolysis in high-risk PE</div><div class="src">Runkana A et al. · J Soc Cardiovasc Angiogr Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42769895/">source ↗</a></div><div class="body"><p>Using the TriNetX network across 107 organisations, this propensity-matched analysis compared mechanical thrombectomy (n=1,052 after matching) with systemic thrombolysis in haemodynamically unstable, vasopressor-dependent high-risk PE. Mortality was lower with thrombectomy (RR 0.53, 95% CI 0.44–0.63; Kaplan-Meier survival 79.4% vs 61.3%), with numerically fewer haemorrhagic and ischaemic strokes. The signal is striking but hypothesis-generating given the observational design and selection effects; the authors call for the (difficult) randomised trials this question needs.</p></div></div>
+
+    <div class="item" id="t2-oliveira"><div class="ttl"><span class="acr">—</span> — Early aspirin discontinuation after PCI for ACS</div><div class="src">Oliveira VMR et al. · J Soc Cardiovasc Angiogr Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42769537/">source ↗</a></div><div class="body"><p>This reconstructed individual-patient-data meta-analysis pooled five randomised trials (12,984 ACS-PCI patients) comparing standard 12-month DAPT with early aspirin discontinuation (≤1–2 months) followed by P2Y12 monotherapy. Transitioning to monotherapy roughly halved bleeding (HR 0.44, 95% CI 0.34–0.55) including major bleeding (HR 0.40) while preserving ischaemic protection (MACE HR 1.05, 95% CI 0.83–1.32). It strengthens the case for early aspirin withdrawal in selected ACS patients, though "selected" is doing real work — very-short regimens and highest-ischaemic-risk anatomy sit outside the reassuring average.</p></div></div>
+
+    <div class="item" id="t2-lee"><div class="ttl"><span class="acr">—</span> — Biodegradable- versus durable-polymer DES at five years</div><div class="src">Lee Y et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42773589/">source ↗</a></div><div class="body"><p>This single-institution propensity-matched analysis compared contemporary biodegradable-polymer (BP) and durable-polymer (DP) drug-eluting stents in 2,197 matched pairs (4,394 patients) undergoing routine PCI. Five-year target-lesion failure was identical (7.9% vs 7.9%; HR 1.01, 95% CI 0.81–1.26), with no differences in stent thrombosis or mortality, though a hypothesis-generating late survival signal favoured BP-DES in the 1–5-year landmark period (HR 0.73, nominal p=0.047). For everyday PCI, polymer type appears not to drive medium-term outcomes.</p></div></div>
+
+    <div class="item" id="t2-rawlley"><div class="ttl"><span class="acr">—</span> — Transcatheter tricuspid interventions after US commercial approval</div><div class="src">Rawlley B et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42777588/">source ↗</a></div><div class="body"><p>This Vizient database study characterised early real-world adoption of tricuspid edge-to-edge repair (T-TEER, 2,143 procedures at 180 hospitals) and transcatheter tricuspid valve replacement (TTVR, 1,301 at 113 hospitals) from October 2024 to December 2025. Monthly volumes rose for both, with TTVR's share of all interventions climbing from 31.9% to 41.6%; in-hospital mortality was 0.5% (T-TEER) and 2.0% (TTVR), and major bleeding 6.0% versus 12.4%. Baseline comorbidities mirrored pivotal trials, suggesting early adoption has tracked the evidence rather than drifting to unstudied populations.</p></div></div>
+
+    <div class="item" id="t2-hiruma"><div class="ttl"><span class="acr">—</span> — LAA occlusion versus DOACs: network meta-analysis</div><div class="src">Hiruma Y et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42777587/">source ↗</a></div><div class="body"><p>This network meta-analysis of 11 randomised trials (67,693 patients, 5,735 undergoing LAA occlusion) compared LAAO with direct oral anticoagulants for atrial fibrillation. LAAO and DOACs showed statistically similar risks for the composite of stroke, systemic embolism, and cardiovascular death (HR 1.02, 95% CI 0.88–1.19) and for major bleeding (HR 0.98, 95% CI 0.78–1.23), with Watchman and Amulet each comparable to DOACs. The analysis relies on indirect comparisons — no head-to-head LAAO-versus-DOAC trial anchors it — so it tempers rather than settles the debate.</p></div></div>
+
+    <div class="item" id="t2-hanif"><div class="ttl"><span class="acr">—</span> — Early versus delayed PCI in NSTEMI with stable heart failure</div><div class="src">Hanif M et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42773599/">source ↗</a></div><div class="body"><p>Using TriNetX, this propensity-matched analysis (2,249 per arm) compared early (&lt;24 h) versus delayed (≥24 h) PCI in NSTEMI patients with stable heart failure, excluding decompensated HF and STEMI. Early PCI was associated with a higher risk of the composite of death, HF exacerbation, recurrent MI, and VT/VF at both 1 month (RR 1.23) and 1 year (RR 1.12), with higher recurrent MI at both time points and similar mortality. The counter-intuitive signal in this understudied subgroup is retrospective and residual-confounding-prone, but flags that reflexive early intervention may not benefit every stable-HF NSTEMI patient.</p></div></div>
+
+    <div class="item" id="t2-gad"><div class="ttl"><span class="acr">—</span> — Drug-coated balloon versus stenting for Medina 0.0.1 bifurcation lesions</div><div class="src">Gad AA et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42775654/">source ↗</a></div><div class="body"><p>This prospective observational cohort compared a drug-coated-balloon (DCB) "leave-nothing-behind" strategy (n=81) with stenting (n=80) for isolated side-branch (Medina 0.0.1) bifurcation lesions, allocated by operator judgement. At 1 year the DCB group had lower late lumen loss (0.16 vs 0.48 mm), binary restenosis (7.4% vs 21.3%; NNT 7) and MACE (7.4% vs 18.7%), driven by fewer repeat revascularisations. Because allocation hinged on predilation response, the authors are explicit that this does not establish DCB superiority over DES — but it supports DCB as a viable option after good lesion preparation.</p></div></div>
+  </section>
+
+  <!-- 8 · TIER 3 — Worth knowing -->
+  <section id="tier3">
+    <div class="sec-h"><span class="chip t3">Tier 3</span><h2>Worth knowing</h2><span class="rule"></span></div>
+
+    <div class="item" id="t3-alexiou"><div class="ttl"><span class="acr">—</span> — TAVI with large self-expanding valves in large annuli</div><div class="src">Alexiou P et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42765909/">source ↗</a></div><div class="body"><p>This single-centre study compared TAVI outcomes of large 34-mm Evolut valves with regular 23–29-mm valves in 488 patients, using 141 propensity-matched pairs. Procedural technical success (95% vs 94%), 30-day mortality (2.1% vs 1.4%), stroke and new pacemaker rates were comparable, as were 5-year mortality (HR 1.06, 95% CI 0.64–1.76) and reintervention. Large-annulus anatomy, historically a challenging TAVI subgroup, achieved outcomes on par with standard sizes out to 5 years in experienced hands.</p></div></div>
+
+    <div class="item" id="t3-patail"><div class="ttl"><span class="acr">—</span> — Percutaneous mechanical aspiration of left-sided intracardiac masses</div><div class="src">Patail H et al. · J Soc Cardiovasc Angiogr Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42769953/">source ↗</a></div><div class="body"><p>This observational single-centre series described transseptal percutaneous mechanical aspiration of mitral-valve masses in 7 prohibitive surgical candidates (mean age 77.9; median STS 19.5%). The primary efficacy endpoint (≥70% mass removal) was met in 100%, with the composite safety endpoint in 14.3% (driven by worsening mitral regurgitation) and 85.7% 30-day survival. This off-label technique is feasible for debulking left-sided masses in inoperable patients, but the tiny sample mandates larger studies to define selection and durability.</p></div></div>
+
+    <div class="item" id="t3-yamaji"><div class="ttl"><span class="acr">—</span> — Tip-detection strategy selection in CTO-PCI</div><div class="src">Yamaji K et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42771904/">source ↗</a></div><div class="body"><p>This retrospective analysis of 73 tip-detection (TD) CTO-PCI cases compared TD intraplaque tracking (n=37) with TD antegrade dissection and re-entry (n=36). TD success exceeded 97% in both arms; ADR was chosen more often for J-CTO ≥2 (83.3% vs 62.2%) and severe calcification (47.2% vs 2.7%), with shorter crossing time favouring intraplaque tracking (75 vs 93 min) and shorter stent length favouring ADR (38 vs 46 mm). The data help map which TD approach suits which lesion morphology, though single-centre numbers are small.</p></div></div>
+
+    <div class="item" id="t3-magistri"><div class="ttl"><span class="acr">ICON1</span> — Angiography-derived microcirculatory resistance in older NSTE-ACS</div><div class="src">Magistri M et al. · Int J Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42790753/">source ↗</a></div><div class="body"><p>In this ICON1 analysis, post-PCI angiography-derived index of microcirculatory resistance (IMRangio) was measured in 152 patients aged ≥75 with NSTE-ACS. High IMRangio (≥40 U, in 38 patients) independently predicted the composite of death, MI, revascularisation, readmission, or heart failure at both 1 year (HR 4.82, 95% CI 2.02–11.51) and 5 years (HR 4.18), improving model discrimination (1-year AUC 0.85 vs 0.74). Wire-free microvascular assessment may add prognostic value in elderly ACS, but the cohort is small and drawn from a single study.</p></div></div>
+
+    <div class="item" id="t3-kristensen"><div class="ttl"><span class="acr">BALI</span> — OCT predictors of stent underexpansion in calcified lesions</div><div class="src">Kristensen AT et al. · Int J Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42777787/">source ↗</a></div><div class="body"><p>This BALI-trial substudy analysed pre-stent OCT in severely calcified lesions randomised to lesion preparation with or without lithotripsy; underexpansion (stent area ≤80% of reference) occurred in 33.9% (56/165). Embedded calcium &gt;270° (OR 2.8), nodular calcium &gt;90° (OR 4.1) and pre-stent area stenosis ≥20% (OR 4.3) predicted underexpansion, while lithotripsy increased calcium fractures (OR 1.8) and improved expansion at the site of maximal calcification. The work sharpens OCT criteria for adequate calcium modification before stenting.</p></div></div>
+
+    <div class="item" id="t3-ziedses"><div class="ttl"><span class="acr">—</span> — Functional (FFR) optimisation after PCI: IPD meta-analysis</div><div class="src">Ziedses des Plantes AC et al. · Clin Res Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42776202/">source ↗</a></div><div class="body"><p>This individual-patient-data meta-analysis pooled eight studies (314 patients) with paired FFR before and after post-PCI optimisation. Median FFR rose significantly from 0.81 to 0.86 after optimisation, with LAD location and higher baseline post-PCI FFR predicting smaller gains, and additional stenting yielding larger increases than post-dilatation alone. It quantifies what optimisation can achieve, but stops short of showing that chasing a physiological target improves clinical outcomes.</p></div></div>
+
+    <div class="item" id="t3-cozzi"><div class="ttl"><span class="acr">SCOPE I</span> — Small aortic annulus and outcomes after TAVR</div><div class="src">Cozzi O et al. · Clin Res Cardiol 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42776203/">source ↗</a></div><div class="body"><p>This post hoc analysis of the SCOPE I randomised trial stratified 732 TAVR patients by CT annular size (small ≤430 mm², larger &gt;430 mm²). Despite higher gradients and more prosthesis-patient mismatch, patients with a small annulus had no difference in 3-year mortality (18.6% vs 25.4%), heart-failure hospitalisation, or patient-reported health status. An exploratory signal suggested worse integrated outcomes when a small annulus was treated with a balloon-expandable valve — a device-selection hypothesis for prospective testing.</p></div></div>
+
+    <div class="item" id="t3-li"><div class="ttl"><span class="acr">—</span> — OCT in below-the-knee endovascular intervention</div><div class="src">Li J et al. · J Soc Cardiovasc Angiogr Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42769948/">source ↗</a></div><div class="body"><p>This prospective, multicentre, core-lab-adjudicated study protocolised angiography, IVUS, and OCT in the tibial arteries of 44 CLTI patients (92.5% Rutherford V–VI). OCT correlated well with IVUS and angiography, defined calcium best, and undiluted contrast gave longer clear imaging (70.2 vs 54.7 mm); greater OCT calcium thickness trended toward more revascularisation and amputation. Tibial OCT is feasible and its calcium characterisation may reshape below-the-knee strategy, though the study is small and correlative.</p></div></div>
+
+    <div class="item" id="t3-huangz"><div class="ttl"><span class="acr">RPR</span> — Retrograde-guided antegrade puncture reentry for retrograde CTO-PCI</div><div class="src">Huang Z et al. · Catheter Cardiovasc Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42773720/">source ↗</a></div><div class="body"><p>This retrospective study of 336 retrograde CTO-PCI cases evaluated a new retrograde-guided antegrade puncture reentry (RPR) technique against non-RPR and direct-crossing strategies. Despite higher lesion complexity, RPR shortened crossing time (13 vs 25 min), achieved successful reentry in 67% of primary attempts, and did not prolong bailout when it failed, with a 2.3% perforation rate and no in-hospital deaths. Calcification and occlusion length predicted RPR failure — a promising efficiency adjunct requiring prospective validation.</p></div></div>
+
+    <div class="item" id="t3-zerillo"><div class="ttl"><span class="acr">TAVI-TEC</span> — AI-based automated TAVI procedural planning</div><div class="src">Zerillo A et al. · Cardiovasc Interv Ther 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42786272/">source ↗</a></div><div class="body"><p>This study validated TAVI-TEC, a fully automated deep-learning framework for pre-procedural CT analysis in patients receiving SAPIEN 3 Ultra valves. It produced annular and access measurements in about 2–6 minutes with strong agreement to clinicians for annular area (concordance 0.934) and perimeter (0.909), and predicted the implanted valve size with 77.1% accuracy, most errors between adjacent sizes. Automated planning could standardise and speed TAVI workup, but sizing still needs the operator's final call.</p></div></div>
+
+    <div class="item" id="t3-angeras"><div class="ttl"><span class="acr">—</span> — Textile-based enhanced radiation protection in the cath lab</div><div class="src">Angerås O et al. · J Soc Cardiovasc Angiogr Interv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42769481/">source ↗</a></div><div class="body"><p>This single-centre cluster-randomised study alternated a textile-based enhanced radiation protection device (Texray MasterPeace) against control shielding by week (6 vs 6), measuring operator and scrub-nurse exposure with a 69-point thermoluminescent dosimetry array over personal protective equipment. The trial addresses a persistent occupational hazard — scatter radiation that lead aprons and ceiling shields leave uncovered — with a comprehensive dosimetry design. It is a practical contribution to cath-lab occupational safety, an under-studied dimension of interventional practice.</p></div></div>
+
+    <div class="item" id="t3-warner"><div class="ttl"><span class="acr">—</span> — Mitral regurgitation after TAVR: sex and low-flow low-gradient AS</div><div class="src">Warner ED et al. · JACC Adv 2026 · <a href="https://pubmed.ncbi.nlm.nih.gov/42782013/">source ↗</a></div><div class="body"><p>This single-centre observational study followed 344 TAVR patients with severe aortic stenosis and moderate-or-greater mitral regurgitation (MR), stratified by classic versus low-flow low-gradient (LFLG) AS. MR improved by ≥1 grade in 62.8% and to mild-or-less in 52.9%, with similar rates in classic and LFLG AS; severe baseline MR, hypertension, and female sex were independently associated with persistent MR. The analysis helps set expectations for MR regression after TAVR, though it is retrospective and single-centre.</p></div></div>
+  </section>
+
+  <!-- 10 · QUICK HITS -->
+  <section id="quickhits">
+    <div class="sec-h"><h2>Quick hits</h2><span class="rule"></span></div>
+    <ul class="qh">
+      <li><b>Tenecteplase ICH risk in STEMI</b> — a six-trial individual-patient analysis (15,954 patients, 169 ICH) found each 1 mmHg rise in systolic pressure above 110 mmHg raised ICH risk ~2% (adjusted OR 1.02), accelerating sharply beyond 160 mmHg. <a href="https://pubmed.ncbi.nlm.nih.gov/42766418/">↗</a></li>
+      <li><b>What mediates semaglutide's cardiovascular benefit</b> — a SELECT mediation analysis estimated the largest point shares of MACE reduction for waist circumference (64%) and hs-CRP (42%), but with wide confidence intervals — the effect could not be fully ascribed to known risk factors. <a href="https://pubmed.ncbi.nlm.nih.gov/42777687/">↗</a></li>
+      <li><b>Shock in myocarditis vs takotsubo</b> — a propensity-matched Nationwide Inpatient Sample analysis (2,435 pairs) found near-identical in-hospital mortality (26.5% vs 26.7%; p=0.97) despite myocarditis patients being younger and more often male. <a href="https://pubmed.ncbi.nlm.nih.gov/42769958/">↗</a></li>
+      <li><b>When shock strikes in STEMI</b> — in a Cuban registry, 10.6% of 4,113 STEMI patients developed cardiogenic shock; the 30.8% whose shock preceded arrival were sicker with higher unadjusted mortality (50.0% vs 38.2%), though shock timing was not significantly associated with mortality after multivariable adjustment. <a href="https://pubmed.ncbi.nlm.nih.gov/42782012/">↗</a></li>
+      <li><b>Bleeding after percutaneous LVAD</b> — the Japanese J-PVAD registry (5,608 patients) showed a high 30-day bleeding incidence (~25.7% ACS, 26.2% non-ACS), most events clustering within days of implantation. <a href="https://pubmed.ncbi.nlm.nih.gov/42782010/">↗</a></li>
+      <li><b>Biomarkers to flag death after CABG</b> — across 9,856 isolated-CABG patients (30-day mortality 2.0%), combining postoperative CK-MB and hs-cTnT improved risk stratification for early death. <a href="https://pubmed.ncbi.nlm.nih.gov/42790282/">↗</a></li>
+      <li><b>Coronary anomalies and the angiographer</b> — in 9,567 angiograms, anomalies of origin/course/termination were found in 1.4% (134 patients), with obstructive CAD more frequent in anomalous vessels and longer fluoroscopy time and higher contrast use when cannulating anomalies of origin. <a href="https://pubmed.ncbi.nlm.nih.gov/42765902/">↗</a></li>
+      <li><b>Self-report to target calcium scoring</b> — the PRIO-Now study prospectively used a self-report model to select 59–60-year-olds for coronary artery calcium imaging, testing whether simple prescreening can direct CAC scanning and lipid-lowering therapy. <a href="https://pubmed.ncbi.nlm.nih.gov/42767831/">↗</a></li>
+      <li><b>Excimer laser for an intracoronary membrane</b> — a EuroIntervention research correspondence details intentional excimer-laser fenestration of an IVUS-identified membrane-like structure dividing the lumen at a ruptured plaque in a patient with in-stent restenosis. <a href="https://pubmed.ncbi.nlm.nih.gov/42765395/">↗</a></li>
+      <li><b>Retrieving a fractured, unravelled guidewire coil</b> — a Catheter Cardiovasc Interv report describes a "snare and trap" bailout, with its physical basis assessed on bench testing, for controlled retrieval of coil filament extending along the aorta after guidewire fracture during PCI. <a href="https://pubmed.ncbi.nlm.nih.gov/42773744/">↗</a></li>
+    </ul>
+  </section>
+
+  <!-- 11 · EDUCATIONAL PICKS -->
+  <section id="educational">
+    <div class="sec-h"><span class="chip cond">Edu</span><h2>Educational picks</h2><span class="rule"></span></div>
+
+    <div class="item"><div class="ttl">TAVI access when there is no easy way in <span class="fmt">Case</span></div><div class="body"><p>A worked PCRonline decision case: an elderly patient with severe aortic stenosis, recent PCI still on dual antiplatelet therapy, and heavily calcified iliofemoral arteries — where every access route carries a penalty. A realistic walk through weighing transfemoral against the alternatives when the anatomy fights back. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/No-easy-way-in-choosing-the-optimal-access-for-TAVI">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">The high-risk equation: heavy calcium meets high bleeding risk <span class="fmt">Case</span></div><div class="body"><p>A PCRonline case built around competing pressures — severe coronary calcification demanding lesion preparation, multiple factors inflating bleeding risk, and concomitant severe aortic stenosis shaping the revascularisation plan. The kind of multi-axis trade-off that rarely fits a guideline cleanly, worked through step by step. <a href="https://www.pcronline.com/Cases-resources-images/Cases/Read-share-cases/2026/high-risk-equation-calcified-lesion-bleeding-risk">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">CT-guided PCI: precision in case triage and procedural planning <span class="fmt">Workflow</span></div><div class="body"><p>A Cardiac Interventions Today feature on folding pre-procedural CT into everyday PCI — using it to triage cases and plan calcium modification, vessel course and device strategy before the patient reaches the table. A concrete look at CT as a working procedural tool, not just a diagnostic. <a href="https://citoday.com/articles/2026-may-june/ct-guided-pci-toward-precision-in-case-triage-and-procedural-planning">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Contemporary strategies in minimalist TAVR <span class="fmt">Workflow</span></div><div class="body"><p>A Cardiac Interventions Today panel on how streamlined workflows, selective conscious sedation and lean multidisciplinary pathways are making the minimalist approach the default for transcatheter aortic valve replacement — with the practical trade-offs of stripping steps out of the procedure. Useful for any programme standardising its aortic pathway. <a href="https://citoday.com/articles/2026-july-aug/panel-discussion-contemporary-strategies-in-minimalist-tavr">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Rethinking PCI: the era of ultra-low-contrast intervention <span class="fmt">State-of-the-Art</span></div><div class="body"><p>A practical review of ultra-low-contrast PCI for patients with chronic kidney disease — how intravascular imaging (IVUS/OCT), physiology (FFR/iFR) and dynamic coronary roadmapping combine to slash contrast exposure while preserving procedural quality. A concrete workflow for anyone catheterising the CKD patient. <a href="https://pubmed.ncbi.nlm.nih.gov/42779193/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Intravascular imaging in MINOCA and ANOCA/INOCA <span class="fmt">Review</span></div><div class="body"><p>A focused review of how OCT (thrombus, plaque disruption) and IVUS (plaque burden, positive remodelling, myocardial bridging) complement coronary function testing and cardiac MRI across acute and chronic non-obstructive syndromes. Essential reading for the workup of the "clean-artery" patient. <a href="https://pubmed.ncbi.nlm.nih.gov/42789181/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Approach to distal left main bifurcation lesions <span class="fmt">Review</span></div><div class="body"><p>A practical review of PCI for distal left main bifurcation disease — where the circumflex is the side branch and prognosis hinges on meticulous planning, technique choice and intravascular-imaging optimisation. A high-stakes anatomy worth revisiting deliberately before the next left main case. <a href="https://pubmed.ncbi.nlm.nih.gov/42771705/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">A common language for valve-in-valve TAVR <span class="fmt">Review</span></div><div class="body"><p>A proposal to standardise the vocabulary and planning of valve-in-valve TAVR — cleanly separating TAV-in-SAV from TAV-in-TAV and aligning how operators describe, size and plan each. A timely primer as redo-TAVR and lifetime-management questions run through this issue. <a href="https://pubmed.ncbi.nlm.nih.gov/42764792/">open ↗</a></p></div></div>
+
+    <div class="item"><div class="ttl">Early aspirin discontinuation after PCI for ACS <span class="fmt">Review</span></div><div class="body"><p>A reconstructed individual-patient-data meta-analysis weighing early aspirin withdrawal against standard dual antiplatelet therapy after PCI for acute coronary syndromes — mapping where the bleeding benefit and residual ischaemic-risk trade-off land. A direct companion to this week's antiplatelet-monotherapy and AF-PCI content. <a href="https://pubmed.ncbi.nlm.nih.gov/42769537/">open ↗</a></p></div></div>
+
+    <div class="feed">
+      <div class="fh">From the feed · X</div>
+      <ul>
+        <li>Pending — captured from the editor's live X session; not available in this cloud run.</li>
+      </ul>
+      <div class="small faint" style="margin-top:6px;">Opinion, not evidence — surfaced to point you to the debate.</div>
+    </div>
+  </section>
+
+  <!-- 12 · PODCAST PICKS -->
+  <section id="podcasts">
+    <div class="sec-h"><h2>Podcast picks</h2><span class="rule"></span></div>
+    <div class="item"><div class="body"><p>Podcast picks pending live-session enrichment — episode selection and verification require the editor's live session and are not available in this cloud run. Recommended shows to check for this week's themes (antiplatelet monotherapy, coronary physiology, TAVR for aortic regurgitation): This Week in Cardiology (Mandrola) · JACC: Cardiovascular Interventions Podcast · CardioNerds · TCTMD Talking Points.</p></div></div>
+  </section>
+
+  <!-- Landmark Revisited -->
+  <section id="landmark">
+    <div class="sec-h"><h2>Landmark Revisited</h2><span class="rule"></span></div>
+    <div class="landmark">
+      <div class="ttl"><span class="acr">HOST-EXAM</span> — Aspirin versus clopidogrel for chronic maintenance monotherapy after PCI</div>
+      <div class="src">Koo BK et al. (HOST-EXAM investigators) · Lancet 2021 · <a href="https://pubmed.ncbi.nlm.nih.gov/34010616/">primary source ↗</a> · Trial: <a href="https://clinicaltrials.gov/study/NCT02044250">NCT02044250</a></div>
+      <div class="label">Structured abstract</div>
+      <dl class="deep-dl" style="margin:4px 0 0;">
+        <dt style="font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;">Background</dt>
+        <dd style="margin:1px 0 0;font-size:14px;">Beyond the initial dual-antiplatelet period, patients who have undergone coronary stenting need indefinite antiplatelet monotherapy — but the optimal agent for the chronic maintenance phase was unknown, with aspirin used by default rather than by evidence.</dd>
+        <dt style="font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;">Methods</dt>
+        <dd style="margin:1px 0 0;font-size:14px;">An investigator-initiated, prospective, randomised, open-label, multicentre trial at 37 South Korean sites. Patients who had maintained dual antiplatelet therapy without clinical events for 6–18 months after PCI with drug-eluting stents were randomly assigned 1:1 to clopidogrel 75 mg once daily or aspirin 100 mg once daily for 24 months. The primary endpoint was a composite of all-cause death, non-fatal myocardial infarction, stroke, readmission for acute coronary syndrome, and BARC type 3-or-greater bleeding, in the intention-to-treat population.</dd>
+        <dt style="font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;">Key results</dt>
+        <dd style="margin:1px 0 0;font-size:14px;">Between March 2014 and May 2018, 5,530 patients were enrolled and 5,438 (98.3%) randomised (clopidogrel 2,710; aspirin 2,728). Over 24 months the primary endpoint occurred in 152 (5.7%) of the clopidogrel group versus 207 (7.7%) of the aspirin group (hazard ratio 0.73, 95% CI 0.59–0.90; p=0.0035).</dd>
+        <dt style="font-weight:700;font-size:12.5px;color:var(--muted);margin-top:6px;">Conclusion</dt>
+        <dd style="margin:1px 0 0;font-size:14px;">During the chronic maintenance period after PCI with drug-eluting stents, clopidogrel monotherapy was superior to aspirin monotherapy in preventing the composite of adverse clinical events, significantly reducing the composite of death, myocardial infarction, stroke, ACS readmission and major bleeding.</dd>
+      </dl>
+      <div class="label">The question &amp; the verdict</div>
+      <div class="body"><p>For decades "lifelong aspirin" was the reflexive answer for the post-PCI patient who no longer needed dual therapy — a convention resting on the drug's ubiquity and cost, not on a head-to-head contest. HOST-EXAM posed the overdue question directly: once the vulnerable early period has passed, which single agent should a stented patient take for the rest of their life? The verdict was clear and, to many, surprising — clopidogrel beat aspirin on a composite that folded together ischaemia and bleeding in this maintenance setting. It converted a habit into a testable, and then falsified, assumption.</p></div>
+      <div class="label">Statistical appraisal</div>
+      <div class="body"><p>The trial's strengths are its size, near-complete follow-up (98.2% endpoint ascertainment) and a pragmatic net-clinical composite that refuses to privilege ischaemia over bleeding. Its main caveats are equally clear: it was open-label (though the hard components limit ascertainment bias), enrolled a homogeneous East-Asian population whose bleeding and ischaemic profile may not transport to Western cohorts, and enrolled only patients who had already tolerated DAPT event-free, selecting out early failures. Extended follow-up (below) showed lower rates of both thrombotic events and bleeding, an unusual and reassuring pattern, but the absolute risk difference over two years was modest (2.0 percentage points).</p></div>
+      <div class="label" style="font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--accent);margin-top:10px;">Subsequent substudies &amp; follow-ups</div>
+      <div class="body">
+        <p>• <b>HOST-EXAM Extended</b> (Kang J et al., Circulation 2023): over a median 5.8 years, clopidogrel maintained its edge on the primary composite (12.8% vs 16.9%; HR 0.74, 95% CI 0.63–0.86), with lower thrombotic (7.9% vs 11.9%; HR 0.66) and bleeding (4.5% vs 6.1%; HR 0.74) endpoints and no difference in all-cause death (6.2% vs 6.0%). <a href="https://pubmed.ncbi.nlm.nih.gov/36342475/">↗</a></p>
+        <p>• <b>Diabetes subgroup</b> (Rhee TM et al., JAMA Cardiology 2023): clopidogrel's benefit held in the 1,860 patients (34.2%) with diabetes (6.3% vs 9.2%; HR 0.69, 95% CI 0.49–0.96; NNT 37) and without (5.3% vs 7.0%; HR 0.76; p for interaction 0.65), showing the effect was not diabetes-dependent. <a href="https://pubmed.ncbi.nlm.nih.gov/37043192/">↗</a></p>
+      </div>
+      <div class="bottom">Why it still matters: HOST-EXAM turned "lifelong aspirin" from dogma into a choice, and its message runs straight through this week's issue — the SMART-CHOICE 3 sex-stratified analysis extends the clopidogrel-monotherapy case to both women and men. The open question HOST-EXAM leaves — whether its East-Asian result generalises, and whether genotype should guide the pick — is exactly what contemporary trials are now testing.</div>
+    </div>
+  </section>
+
+  <!-- 13 · FOOTER -->
+  <footer>
+    <div class="disc">
+      CardioDigest is an <b>editorial digest</b>. Appraisals are the opinion of CardioDigest and do
+      <b>not replace</b> independent clinical judgement or the primary literature. Every figure is
+      verified against the primary source before publication; unverifiable items are removed.
+      Social-commentary items are opinion, not evidence.
+    </div>
+    <p class="small">Issue 2026-w39 · covering 21–27 September 2026 (widened to 14 September 2026 where thin) · 567 candidates reviewed, 40 selected · Archive: CardioDigest Issue 2026-w39</p>
+  </footer>
+
+</div>
+<!-- coverage-ledger
+EuroIntervention (render_priority 1): considered 16 pool items; selected 4 original-research articles [42765401 SMART-CHOICE 3 sex-stratified antiplatelet analysis - Tier 1 deep dive; 42765399 FFR-guided non-culprit PCI in NSTE-ACS pooled IPD - Tier 1 brief; 42765400 radial wall strain post-PCI TARGET substudy - Tier 1 brief; 42765398 SCAI-V cardiogenic-shock classification after OHCA - Tier 1 brief] plus 1 research correspondence [42765395 excimer-laser fenestration of an intracoronary membrane, abstract_source publisher-fulltext - Quick hit]. EuroIntervention is the #1 most-represented Tier-A journal by original-research count this week. The remaining 11 EuroIntervention items are non-research editorials/viewpoints/replies/letters (42765404 breaking-up-with-aspirin editorial, 42765403 FFR in NSTE-ACS editorial, 42765402 cardiogenic-shock-after-arrest editorial, 42765397 GLUCO-TAVI reply, 42765396 GLUCO-TAVI letter, 42703768 CT-FFR in females editorial, 42703767 DAPT after LAA closure editorial, 42610342 coronary-bioadaptor debate, 42610341 low-dose CDT in PE editorial, 42610340 LAD SCAD management, 42610338 stroke prevention in TAVI) and do not count toward the ranking; none was dropped as publishable original research.
+JACC Cardiovasc Interv: considered 25 pool items; selected 0. Every abstract-bearing original-research article (42735974 bicuspid balloon-expandable TAVR, 42735971 surgical bailout during TAVR, 42735969 ILUMIEN IV diabetes OCT substudy, 42735966 ultrashort-vs-standard DAPT meta-analysis, 42734596 5-year PORTICO self-expanding TAVR) is tagged already_published (covered in prior issues, notably 2026-w38) and is present only for context; the remaining items are letters, editorials, or case images/reports without a usable abstract. No new publishable original research this week - reported honestly, not padded.
+JACC (J Am Coll Cardiol, never_miss): considered 27 pool items; triaged every original-research article and review for interventional/structural/peri-procedural/antithrombotic relevance; selected 0. The abstract-bearing items were out of interventional scope: HCM left-atrial staging and new-onset AF (42714359), hypoplastic-left-heart-syndrome genetics NC-DEFINE (42714046), GBD myocarditis burden (42684212), cold/heat and heart-failure hospitalisation in Sweden (42683967), and the ACC/AHA tactical-athlete scientific statement (42693699, sports cardiology - not interventional). The interventionally-relevant JACC content this week (thrombectomy in STEMI, microaxial-pump costs in DanGer Shock, 20-year left-main PCI/CABG mortality, microvascular obstruction in primary PCI, lipoprotein(a) lowering) appeared only as editorials/letters without machine-readable abstracts, so none was publishable. One retraction notice (42788921) was ignored. No in-scope JACC original research or review qualified this week.
+-->
+</body>
+</html>
